@@ -8,6 +8,10 @@ let error;
 let index = require("./routes/index");
 let users = require("./routes/users");
 
+const constants = require("./config/constants");
+
+require("./config/mongoose")(constants.connectionString);
+
 let app = express();
 
 // view engine setup
