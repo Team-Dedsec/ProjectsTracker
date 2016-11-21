@@ -1,6 +1,6 @@
 'use strict';
 
-const mongoose = require('mongoose');
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 // TODO:
@@ -15,8 +15,11 @@ const TaskSchema = new mongoose.Schema({
     DueDate: {
         type: Date,
         required: true,
-        validate: function (v) {
-            return v > this.CreatedDate;
+        validate: {
+            validator: (v) => {
+                return v > TaskSchema.CreatedDate;
+            },
+            message: "Due date should be later than creation date!"
         }
     },
     ReporterID: { type: Number, required: true },

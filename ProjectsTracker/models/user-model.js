@@ -18,9 +18,9 @@ let UserSchema = new Schema({
     index: {
       unique: true
     },
-    validate: {
-      validator: function(v) {
-        return /[A-Za-z0-9]{6}/.test(v);
+      validate: {
+          validator: (v) => {
+              return /[A-Za-z0-9]{6}/.test(v);
       },
       message: '{VALUE} is not a valid username!'
     },
