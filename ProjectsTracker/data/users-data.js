@@ -27,8 +27,27 @@ module.exports = function(models) {
         findUserByUsername(Username){
           return new Promise((resolve, reject) => {
             User.find().byName(Username).exec(function(err, username) {
+              if (err) {
+                console.log(err);
+                return reject(err);
+              }
+
               console.log(username);
+              return resolve(username);
             });
+          })
+        },
+        findUserById(id){
+          return new Promise((resolve, reject)=> {
+            User.findById(id).exec(function(err, user){
+              if (err) {
+                console.log(err);
+                return reject(err);
+              }
+
+              console.log(user.FullName);
+              return resolve(user.FullName);
+            })
           })
         }
     };

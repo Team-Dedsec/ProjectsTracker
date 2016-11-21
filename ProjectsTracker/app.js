@@ -28,7 +28,11 @@ data.createProject("Pesho", 8).then(() => {
 
 data.findUserByUsername("Alexandro").then(()=> {
   console.log("User found");
-})
+});
+
+data.findUserById("58335da78909fc272432bb4a").then(()=> {
+  console.log("User command by id");
+});
 
 
 
