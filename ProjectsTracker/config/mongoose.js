@@ -1,7 +1,7 @@
-'use strict';
+/* globals */
+"use strict";
 
-const mongoose = require('mongoose');
-
-module.exports = function(connectionString) {
-  mongoose.connect(connectionString);
+module.exports = function(mongoose) {
+    mongoose.Promise = global.Promise;
+    mongoose.connect("mongodb://localhost/Projects");
 };

@@ -1,3 +1,5 @@
+/* globals require */
+const mongoose = require("mongoose");
 let express = require("express");
 let path = require("path");
 //  let favicon = require("serve-favicon");
@@ -6,11 +8,24 @@ let cookieParser = require("cookie-parser");
 let bodyParser = require("body-parser");
 let error;
 let index = require("./routes/index");
-let users = require("./routes/users");
+const users = require("./routes/users");
+//const constants = require("./config/constants");
 
-const constants = require("./config/constants");
 
-require("./config/mongoose")(constants.connectionString);
+require("./config/mongoose")(mongoose);
+
+let Project = require("./models/project-model");
+const data = require("./data")({ Project });
+
+data.createProject("Pesho")
+    .then(project => {
+        console.log(project.name);
+    });
+
+
+
+
+
 
 let app = express();
 
