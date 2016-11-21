@@ -14,15 +14,16 @@ let ProjectSchema = new Schema({
     description: {
         type: String,
         min: 200,
-        max: 100000,
-        required: false
+        max: 100000
     },
     leadUser: {
         type: Number,
         required: true
-    }
-    //TODO: Add list of user and bugs
+    },
+    userContributetTo: [{ type: Schema.Types.ObjectId, ref: "User" }],
+    Tasks: [{ type: Schema.Types.ObjectId, ref: "Task" }]
 });
+
 let Project;
 mongoose.model("Project", ProjectSchema);
 Project = mongoose.model("Project");
