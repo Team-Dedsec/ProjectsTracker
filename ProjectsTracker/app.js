@@ -17,10 +17,9 @@ require("./config/mongoose")(mongoose);
 let Project = require("./models/project-model");
 const data = require("./data")({ Project });
 
-data.createProject("Pesho")
-    .then(project => {
-        console.log(project.name);
-    });
+data.createProject("Pesho", 8).then(() => {
+    console.log("Created project");
+});
 
 
 

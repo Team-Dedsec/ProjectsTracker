@@ -1,23 +1,25 @@
 /* globals require module Promise */
-"user strict"
+"user strict";
 
 module.exports = function(models) {
     let { Project } = models;
 
     return {
-        createProject(name) {
+        createProject(title, leadUser) {
             let project = new Project({
-                name
+                title,
+                leadUser
             });
 
             return new Promise((resolve, reject) => {
                 project.save((err) => {
-                    if(err) {
+                    if (err) {
+                        console.log(err);
                         return reject(err);
                     }
 
                     return resolve(project);
-                }) ;
+                });
             });
         }
     };
