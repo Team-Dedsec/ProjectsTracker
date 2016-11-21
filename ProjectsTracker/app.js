@@ -22,10 +22,13 @@ data.createProject("Pesho", 8).then(() => {
     console.log("Created project");
 });
 
-data.registerUser("Alexander", "Nestorov", "Alexand", "qwe123456").then(()=> {
-  console.log("User is created");
-});
+// data.registerUser("Alexander", "Nestorov", "Alexand", "qwe123456").then(()=> {
+//   console.log("User is created");
+// });
 
+data.findUserByUsername("Alexandro").then(()=> {
+  console.log("User found");
+})
 
 
 

@@ -53,6 +53,10 @@ UserSchema
   return this.FirstName + ' ' + this.LastName;
 });
 
+UserSchema.query.byName = function(name) {
+  return this.find({ Username: name});
+};
+
 let User;
 mongoose.model("User", UserSchema);
 User = mongoose.model("User");

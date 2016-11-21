@@ -12,7 +12,7 @@ module.exports = function(models) {
                 Username,
                 Password
             });
-            console.log(user);
+
             return new Promise((resolve, reject) => {
                 user.save((err) => {
                     if (err) {
@@ -23,6 +23,13 @@ module.exports = function(models) {
                     return resolve(user);
                 });
             });
+        },
+        findUserByUsername(Username){
+          return new Promise((resolve, reject) => {
+            User.find().byName(Username).exec(function(err, username) {
+              console.log(username);
+            });
+          })
         }
     };
 };
