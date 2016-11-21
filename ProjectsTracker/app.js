@@ -15,13 +15,16 @@ const users = require("./routes/users");
 require("./config/mongoose")(mongoose);
 
 let Project = require("./models/project-model");
-const data = require("./data")({ Project });
+let User = require("./models/user-model");
+const data = require("./data")({ Project, User });
 
 data.createProject("Pesho", 8).then(() => {
     console.log("Created project");
 });
 
-
+data.registerUser("Alexander", "Nestorov", "Alexand", "qwe123456").then(()=> {
+  console.log("User is created");
+});
 
 
 

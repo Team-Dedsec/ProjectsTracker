@@ -1,3 +1,4 @@
+/* mongoose global */
 "use strict";
 
 const mongoose = require("mongoose");
@@ -52,4 +53,7 @@ UserSchema
   return this.FirstName + ' ' + this.LastName;
 });
 
-module.exports = mongoose.model("User", UserSchema);
+let User;
+mongoose.model("User", UserSchema);
+User = mongoose.model("User");
+module.exports = User;
