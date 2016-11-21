@@ -57,6 +57,10 @@ UserSchema.query.byName = function(name) {
   return this.find({ Username: name});
 };
 
+UserSchema.query.byId = function(id) {
+  return this.findById(id);
+};
+
 let User;
 mongoose.model("User", UserSchema);
 User = mongoose.model("User");
