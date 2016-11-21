@@ -20,6 +20,7 @@ module.exports = function(models) {
                         return reject(err);
                     }
 
+                    console.log(user);
                     return resolve(user);
                 });
             });

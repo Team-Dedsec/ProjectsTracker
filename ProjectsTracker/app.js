@@ -22,9 +22,9 @@ data.createProject("Pesho", 8).then(() => {
     console.log("Created project");
 });
 
-// data.registerUser("Alexander", "Nestorov", "Alexand", "qwe123456").then(()=> {
-//   console.log("User is created");
-// });
+data.registerUser("Georgi", "Georgiev", "Gosho2", "qwe123456").then(()=> {
+  console.log("User is registered successfully.");
+});
 
 data.findUserByUsername("Alexandro").then(()=> {
   console.log("User found");
@@ -33,8 +33,6 @@ data.findUserByUsername("Alexandro").then(()=> {
 data.findUserById("58335da78909fc272432bb4a").then(()=> {
   console.log("User command by id");
 });
-
-
 
 let app = express();
 
