@@ -1,0 +1,20 @@
+{
+  "name": "projectstracker",
+  "description": "",
+  "main": "",
+  "authors": [
+    "KaloyanIT <kaloyanit@yahoo.com>"
+  ],
+  "license": "MIT",
+  "homepage": "https://github.com/Team-Dedsec/ProjectsTracker",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "3.3.7"
+  }
+}

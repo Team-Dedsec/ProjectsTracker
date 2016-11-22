@@ -8,10 +8,10 @@ let logger = require("morgan");
 let cookieParser = require("cookie-parser");
 let bodyParser = require("body-parser");
 let error;
-//let config = require("./config");
-//let index = require("./routes/index");
-//const users = require("./routes/users");
-//const constants = require("./constants/constants");
+// let config = require("./config");
+// let index = require("./routes/index");
+// const users = require("./routes/users");
+// const constants = require("./constants/constants");
 
 
 require("./config/mongoose")(mongoose);
@@ -77,8 +77,8 @@ app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "../public")));
 
-//app.use("/", index);
-//app.use("/users", users);
+// app.use("/", index);
+// app.use("/users", users);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
