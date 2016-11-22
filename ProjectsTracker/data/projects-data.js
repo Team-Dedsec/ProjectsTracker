@@ -32,11 +32,37 @@ module.exports = function(models) {
                     return resolve(projects);
                 });
             });
+        },
+        getProjectByTitle(title) {
+            return new Promise((resolve, reject) => {
+                Project.find()
+                    .byName(title)
+                    .exec((err, project) => {
+                        if (err) {
+                            return reject(err);
+                        }
+
+                        return resolve(project);
+                    });
+            });
+        },
+        getProjectById(id) {
+            return new Promise((resolve, reject) => {
+                Project.find()
+                    .byId(id)
+                    .exec((err, project) => {
+                        if (err) {
+                            return reject(err);
+                        }
+
+                        return resolve(project);
+                    });
+            });
         }
     };
 };
 
-
+ 
 //  TODO:   createProject(title, description, leadUser, users, bugs) {
 //             let project = new Project({
 //                 title,
