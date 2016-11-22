@@ -1,7 +1,7 @@
 /* globals $ Promise */
 "use strict";
 let requester = {
-    getInstance: function() {
+    getInstance: function($) {
         return {
             get: function(url) {
                 return new Promise((resolve, reject) => {
