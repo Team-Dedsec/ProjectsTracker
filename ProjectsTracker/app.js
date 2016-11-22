@@ -1,5 +1,6 @@
 /* globals require */
 const mongoose = require("mongoose");
+const passport = require("./config/facebook-authentication");
 let express = require("express");
 let path = require("path");
 //  let favicon = require("serve-favicon");
@@ -22,9 +23,9 @@ data.createProject("Pesho", 8).then(() => {
     console.log("Created project");
 });
 
-data.registerUser("Georgi", "Georgiev", "Gosho2", "qwe123456").then(()=> {
-  console.log("User is registered successfully.");
-});
+// data.registerUser("Georgi", "Georgiev", "Gosho2", "qwe123456").then(()=> {
+//   console.log("User is registered successfully.");
+// });
 
 data.findUserByUsername("Alexandro").then(()=> {
   console.log("User found");
@@ -35,6 +36,28 @@ data.findUserById("58335da78909fc272432bb4a").then(()=> {
 });
 
 let app = express();
+
+// facebook authentication route
+passport.serializeUser(function(user, cb) {
+  cb(null, user);
+});
+
+passport.deserializeUser(function(obj, cb) {
+  cb(null, obj);
+});
+
+app.get('/login/facebook',
+  passport.authenticate('facebook'));
+
+app.get('/auth/facebook',
+  passport.authenticate('facebook'));
+
+app.get('/auth/facebook/return',
+  passport.authenticate('facebook', { failureRedirect: '/login' }),
+  function(req, res) {
+    // Successful authentication, redirect home.
+    res.redirect('/');
+  });
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
