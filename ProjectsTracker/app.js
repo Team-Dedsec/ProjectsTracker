@@ -10,7 +10,7 @@ let bodyParser = require("body-parser");
 let error;
 let index = require("./routes/index");
 const users = require("./routes/users");
-//const constants = require("./config/constants");
+// const constants = require("./config/constants");
 
 
 require("./config/mongoose")(mongoose);
@@ -19,45 +19,46 @@ let Project = require("./models/project-model");
 let User = require("./models/user-model");
 const data = require("./data")({ Project, User });
 
-data.createProject("Pesho", 8).then(() => {
-    console.log("Created project");
-});
-
-// data.registerUser("Georgi", "Georgiev", "Gosho2", "qwe123456").then(()=> {
-//   console.log("User is registered successfully.");
+// data.createProject("Pesho", 8).then(() => {
+//     console.log("Created project");
 // });
 
-data.findUserByUsername("Alexandro").then(()=> {
-  console.log("User found");
+data.registerUser("Georgi", "Georgiev", "Gosho5", "qwe123456").then((user) => {
+    console.log(user);
+    console.log("User is registered successfully.");
 });
 
-data.findUserById("58335da78909fc272432bb4a").then(()=> {
-  console.log("User command by id");
+data.findUserByUsername("Gosho5").then(() => {
+    console.log("User found");
 });
+
+// data.findUserById("58335da78909fc272432bb4a").then(()=> {
+//   console.log("User command by id");
+// });
 
 let app = express();
 
 // facebook authentication route
-passport.serializeUser(function(user, cb) {
-  cb(null, user);
+passport.serializeUser((user, cb) => {
+    cb(null, user);
 });
 
-passport.deserializeUser(function(obj, cb) {
-  cb(null, obj);
+passport.deserializeUser((obj, cb) => {
+    cb(null, obj);
 });
 
-app.get('/login/facebook',
-  passport.authenticate('facebook'));
+app.get("/login/facebook",
+    passport.authenticate("facebook"));
 
-app.get('/auth/facebook',
-  passport.authenticate('facebook'));
+app.get("/auth/facebook",
+    passport.authenticate("facebook"));
 
-app.get('/auth/facebook/return',
-  passport.authenticate('facebook', { failureRedirect: '/login' }),
-  function(req, res) {
-    // Successful authentication, redirect home.
-    res.redirect('/');
-  });
+app.get("/auth/facebook/return",
+    passport.authenticate("facebook", { failureRedirect: "/login" }),
+    (req, res) => {
+        // Successful authentication, redirect home.
+        res.redirect("/");
+    });
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
@@ -84,7 +85,7 @@ app.use((req, res, next) => {
 
 // error handler
 app.use((err, req, res) => {
-  // set locals, only providing error in development
+    // set locals, only providing error in development
     res.locals.message = err.message;
     if (req.app.get("env") === "development") {
         res.locals.error = err;

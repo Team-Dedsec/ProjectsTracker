@@ -1,16 +1,24 @@
 /* globals require module Promise */
 "use strict";
+const passHasher = require("../utils/salt-hash-password");
 
-module.exports = function(models) {
+module.exports = function (models) {
     let { User } = models;
 
     return {
-        registerUser(FirstName, LastName, Username, Password) {
+        registerUser(firstName, lastName, username, password) {
+            User.validatePassword(password);
+
+            let passInfo = passHasher.saltThenHash(password);
+            let passHash = passInfo.passwordHash;
+            let salt = passInfo.salt;
+
             let user = new User({
-                FirstName,
-                LastName,
-                Username,
-                Password
+                firstName,
+                lastName,
+                username,
+                passHash,
+                salt
             });
 
             return new Promise((resolve, reject) => {
@@ -20,36 +28,37 @@ module.exports = function(models) {
                         return reject(err);
                     }
 
-                    console.log(user);
                     return resolve(user);
                 });
             });
         },
-        findUserByUsername(Username){
-          return new Promise((resolve, reject) => {
-            User.find().byName(Username).exec(function(err, username) {
-              if (err) {
-                console.log(err);
-                return reject(err);
-              }
+        findUserByUsername(username) {
+            return new Promise((resolve, reject) => {
+                User.find()
+                    .byName(username)
+                    .exec((err, user) => {
+                        if (err) {
+                            console.log(err);
+                            return reject(err);
+                        }
 
-              console.log(username);
-              return resolve(username);
+                        console.log(user);
+                        return resolve(user);
+                    });
             });
-          })
         },
-        findUserById(id){
-          return new Promise((resolve, reject)=> {
-            User.findById(id).exec(function(err, user){
-              if (err) {
-                console.log(err);
-                return reject(err);
-              }
+        findUserById(id) {
+            return new Promise((resolve, reject) => {
+                User.findById(id).exec((err, user) => {
+                    if (err) {
+                        console.log(err);
+                        return reject(err);
+                    }
 
-              console.log(user.FullName);
-              return resolve(user.FullName);
-            })
-          })
+                    console.log(user.fullName);
+                    return resolve(user.fullName);
+                });
+            });
         }
     };
 };

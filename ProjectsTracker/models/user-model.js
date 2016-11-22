@@ -3,58 +3,63 @@
 
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
+const constants = require("../config/constants");
 
 let UserSchema = new Schema({
-  FirstName: {
-    type: String,
-    required: true
-  },
-  LastName: {
-    type: String,
-    required: true
-  },
-  Username: {
-    type: String,
-    required: true,
-    index: {
-      unique: true
+    firstName: {
+        type: String,
+        required: true
     },
-      validate: {
-          validator: (v) => {
-              return /[A-Za-z0-9]{6}/.test(v);
-      },
-      message: '{VALUE} is not a valid username!'
+    lastName: {
+        type: String,
+        required: true
     },
-  },
-  Password: {
-    type: String,
-    required: true,
-    validate: {
-      validator: function(v) {
-        return /[A-Za-z0-9]{8}/.test(v);
-      },
-      message: '{VALUE} is not a valid password!'
+    username: {
+        type: String,
+        required: true,
+        index: { unique: true },
+        validate: {
+            validator: (v) => {
+                return constants.usernameRegex.test(v) && v.length >= constants.usernameMinLength;
+            },
+            message: "{VALUE} is not a valid username!"
+        }
     },
-  },
-  Role: {
-    type: Number
-  },
-  ProjectWorkingOnId: {
-    type: Number
-  },
-  BugWorkingOnId: {
-    type: Number
-  }
+    passHash: {
+        type: String,
+        required: true
+    },
+    salt: {
+        type: String,
+        required: true,
+        validate: {
+            validator: (v) => {
+                return v.length === constants.saltLength;
+            },
+            message: "{VALUE} is not a valid salt!"
+        }
+    },
+    // TODO: Define roles & role management strategy
+    role: { type: Number },
+    projectWorkingOnId: { type: Schema.Types.ObjectId },
+    bugWorkingOnId: { type: Schema.Types.ObjectId }
 });
 
 UserSchema
-.virtual('FullName')
-.get(function () {
-  return this.FirstName + ' ' + this.LastName;
-});
+    .virtual("fullName")
+    .get(function () {
+        // noinspection Eslint - mongoose is messing with eslint
+        return `${this.firstName} ${this.lastName}`;
+    });
 
-UserSchema.query.byName = function(name) {
-  return this.find({ Username: name});
+UserSchema.query.byName = function (name) {
+    return this.find({ username: name });
+};
+// TODO: Better way/spot to validate
+UserSchema.statics.validatePassword = function (password) {
+    if (password.length < constants.passwordMinLength || !constants.passwordRegex.test(password)) {
+        throw new Error("Invalid user password!");
+    }
 };
 
 let User;
