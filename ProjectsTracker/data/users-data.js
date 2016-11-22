@@ -1,15 +1,12 @@
 /* globals require module Promise */
 "use strict";
-const passHasher = require("../utils/salt-hash-password");
-
 module.exports = function (models) {
     let { User } = models;
 
     return {
         registerUser(firstName, lastName, username, password) {
             User.validatePassword(password);
-
-            let passInfo = passHasher.saltThenHash(password);
+            let passInfo = User.generateHash(password);
             let passHash = passInfo.passwordHash;
             let salt = passInfo.salt;
 

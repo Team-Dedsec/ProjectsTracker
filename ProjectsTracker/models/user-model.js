@@ -4,6 +4,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const constants = require("../config/constants");
+const passHasher = require("../utils/salt-hash-password");
 
 let UserSchema = new Schema({
     firstName: {
@@ -55,12 +56,22 @@ UserSchema
 UserSchema.query.byName = function (name) {
     return this.find({ username: name });
 };
+
+UserSchema.methods.comparePassword = function (password) {
+    return this.passHash === passHasher.getHash(password, this.salt);
+};
+
 // TODO: Better way/spot to validate
 UserSchema.statics.validatePassword = function (password) {
     if (password.length < constants.passwordMinLength || !constants.passwordRegex.test(password)) {
         throw new Error("Invalid user password!");
     }
 };
+
+UserSchema.statics.generateHash = function (password) {
+    return passHasher.saltThenHash(password);
+};
+
 
 let User;
 mongoose.model("User", UserSchema);

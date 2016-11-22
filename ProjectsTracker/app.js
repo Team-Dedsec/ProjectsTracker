@@ -23,8 +23,9 @@ const data = require("./data")({ Project, User });
 //     console.log("Created project");
 // });
 
-data.registerUser("Georgi", "Georgiev", "Gosho5", "qwe123456").then((user) => {
+data.registerUser("Georgi", "Georgiev", "Gosho8", "qwe123456").then((user) => {
     console.log(user);
+    console.log(user.comparePassword("qwe123456"));
     console.log("User is registered successfully.");
 });
 
