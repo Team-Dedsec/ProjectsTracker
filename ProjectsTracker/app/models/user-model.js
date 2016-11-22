@@ -3,7 +3,7 @@
 
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
-const constants = require("../config/constants");
+const constants = require("../constants/constants");
 const passHasher = require("../utils/salt-hash-password");
 
 let UserSchema = new Schema({

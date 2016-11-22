@@ -1,4 +1,4 @@
-const passport = require("./config/facebook-authentication");
+const passport = require("./facebook-authentication");
 module.exports = function(app) {
     app.get("/login/facebook",
         passport.authenticate("facebook"));
@@ -12,4 +12,8 @@ module.exports = function(app) {
             // Successful authentication, redirect home.
             res.redirect("/");
         });
+
+    app.get("/", (req, res) => {
+        res.render("../views/index", { title: "Our appp" });
+    });
 };

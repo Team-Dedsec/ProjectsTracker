@@ -1,6 +1,6 @@
 "use strict";
 const crypto = require("crypto");
-const constants = require("../config/constants");
+const constants = require("../constants/constants");
 
 function genRandomString(length) {
     return crypto.randomBytes(Math.ceil(length/2))

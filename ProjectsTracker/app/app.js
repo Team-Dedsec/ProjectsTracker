@@ -8,9 +8,10 @@ let logger = require("morgan");
 let cookieParser = require("cookie-parser");
 let bodyParser = require("body-parser");
 let error;
-let index = require("./routes/index");
-const users = require("./routes/users");
-// const constants = require("./config/constants");
+//let config = require("./config");
+//let index = require("./routes/index");
+//const users = require("./routes/users");
+//const constants = require("./constants/constants");
 
 
 require("./config/mongoose")(mongoose);
@@ -39,7 +40,7 @@ data.findUserByUsername("Gosho5").then(() => {
 // });
 
 let app = express();
-require("./routes")(app);
+require("./config/routes")(app);
 
 // facebook authentication route
 passport.serializeUser((user, cb) => {
@@ -74,10 +75,10 @@ app.use(logger("dev"));
 app.use(bodyParser.json());
 app.use(bodyParser.urlencoded({ extended: false }));
 app.use(cookieParser());
-app.use(express.static(path.join(__dirname, "public")));
+app.use(express.static(path.join(__dirname, "../public")));
 
-app.use("/", index);
-app.use("/users", users);
+//app.use("/", index);
+//app.use("/users", users);
 
 // catch 404 and forward to error handler
 app.use((req, res, next) => {
