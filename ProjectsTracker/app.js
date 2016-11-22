@@ -15,6 +15,7 @@ const users = require("./routes/users");
 
 require("./config/mongoose")(mongoose);
 
+
 let Project = require("./models/project-model");
 let User = require("./models/user-model");
 const data = require("./data")({ Project, User });
@@ -38,6 +39,7 @@ data.findUserByUsername("Gosho5").then(() => {
 // });
 
 let app = express();
+require("./routes")(app);
 
 // facebook authentication route
 passport.serializeUser((user, cb) => {
@@ -48,18 +50,18 @@ passport.deserializeUser((obj, cb) => {
     cb(null, obj);
 });
 
-app.get("/login/facebook",
-    passport.authenticate("facebook"));
+// app.get("/login/facebook",
+//     passport.authenticate("facebook"));
 
-app.get("/auth/facebook",
-    passport.authenticate("facebook"));
+// app.get("/auth/facebook",
+//     passport.authenticate("facebook"));
 
-app.get("/auth/facebook/return",
-    passport.authenticate("facebook", { failureRedirect: "/login" }),
-    (req, res) => {
-        // Successful authentication, redirect home.
-        res.redirect("/");
-    });
+// app.get("/auth/facebook/return",
+//     passport.authenticate("facebook", { failureRedirect: "/login" }),
+//     (req, res) => {
+//         // Successful authentication, redirect home.
+//         res.redirect("/");
+//     });
 
 // view engine setup
 app.set("views", path.join(__dirname, "views"));
