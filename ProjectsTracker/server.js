@@ -1,13 +1,6 @@
 /* globals require */
 
-let express = require("express"),
-    bodyParser = require("body-parser"),
-    cookieParser = require("cookie-parser"),        
-    // passport = require("passport"),
-    //logger = require("morgan"),
-    error;
-
-//let express = require("express");
+let express = require("express");
 
 let env = process.env.NODE_ENV || "development";
 
@@ -16,10 +9,6 @@ let config = require("./app/config/config")[env];
 
 require("./app/config/express")(app, config);
 require("./app/config/mongoose")(config);
-//require("./app/config/routes")(app);
-
-
-
 
 app.listen(config.port);
 console.log(`Server running on ${config.port}`);

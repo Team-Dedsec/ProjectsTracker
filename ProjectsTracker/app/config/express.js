@@ -18,18 +18,10 @@ module.exports = function(app, config) {
 
 
     app.set("views", path.join(config.rootPath, "app/views/"));
-    app.set("view engine", "pug");       
-    
-       
-    //console.log(path.join(config.rootPath, "app/views"));
-
+    app.set("view engine", "pug");              
      
     app.use("/public", express.static(path.join(config.rootPath, "public"))); 
-    app.set('view options', { layout: false });
-
-    //   app.get("/", function (req, res) { 
-    //       res.render("../views/index", { title: "Our appp" });
-    //   });
+    app.set('view options', { layout: false });   
          
     require("../routers")(app);
 

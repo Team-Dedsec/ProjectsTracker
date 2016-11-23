@@ -1,7 +1,9 @@
+const Project = require("../models/project-model");
+const data = require("../data")({ Project });
+
 
 module.exports = {
-    index(req, res) {
-        console.log("it works");
-        res.render("../views/index.pug", { title: "It works" });
+    index(req, res) {                                
+        res.render("../views/index.pug", data.getAllProject);
     }
 };
