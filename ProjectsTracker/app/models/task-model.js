@@ -26,10 +26,10 @@ const TaskSchema = new mongoose.Schema({
     AssigneeID: { type: Number, required: true },
     Status: { type: String, required: true, enum: Statuses },
     ProjectID: { type: Number, required: true },
-    Comments: {
-        Title: String,
-        Content: String,
-        isDeleted: Boolean,
-        PosterID: Number
-    }
+    Comments: [{ type: Schema.Types.ObjectID, ref: "Comment" }]
 });
+
+let Task;
+mongoose.model("Task", TaskSchema);
+Task = mongoose.model("Task");
+module.exports = Task;
