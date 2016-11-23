@@ -5,6 +5,6 @@ module.exports = {
     development: {
         rootPath: rootPath,
         db: "mongodb://localhost/Projects",
-        port: process.env.PORT || 3000
+        port: process.env.PORT || 3001
     }
 };

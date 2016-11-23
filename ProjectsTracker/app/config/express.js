@@ -1,24 +1,43 @@
+/* globals require */
+
 let express = require("express"),
-    //bodyParser = require("body-parser"),
-    //cookieParser = require("cookie-parser"),        
+    bodyParser = require("body-parser"),
+    cookieParser = require("cookie-parser"),        
     // passport = require("passport"),
     //logger = require("morgan"),
-    //error;
+    error;
 
-//let path = require("path");
+let path = require("path");
 
-module.exports = function(app, config) {    
+module.exports = function(app, config) {  
+
+
+    app.use(bodyParser.json());    
+    app.use(bodyParser.urlencoded({ extended: true }));    
+    app.use(cookieParser());
+
+
+    app.set("views", path.join(config.rootPath, "app/views/"));
+    app.set("view engine", "pug");       
+    
        
     //console.log(path.join(config.rootPath, "app/views"));
-    app.set("views", path.join(config.rootPath, "app/views/"));  
-    app.set("view engine", "pug");       
-    app.use(cookieParser());     
+
+     
+    app.use("/public", express.static(path.join(config.rootPath, "public"))); 
+    app.set('view options', { layout: false });
+
+    //   app.get("/", function (req, res) { 
+    //       res.render("../views/index", { title: "Our appp" });
+    //   });
+         
+    require("../routers")(app);
+
     //app.use(logger("dev"));    
-    app.use(bodyParser.json());    
-    app.use(bodyParser.urlencoded({ extended: true }));            
+            
     //app.use(passport.initialize());
     //app.use(passport.session());
-    app.use(express.static(path.join(config.rootPath, "public")));   
+    
 
     // app.use((req, res, next) => {
     //     //console.log(res);
@@ -28,7 +47,7 @@ module.exports = function(app, config) {
     //     error.status = 404;
     //     next(error);
     // });
-    
+
     app.use(function(req, res, next) {
         if (req.session.error) {
             let msg = req.session.error;

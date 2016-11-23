@@ -1,14 +1,14 @@
 /* globals */
 "use strict";
-//let mongoose = require("mongoose");
+let mongoose = require("mongoose");
 let projectModel = require("../models/project-model");
 
 //config for server.js
 
-module.exports = function(mongoose) {
+module.exports = function(config) {
     mongoose.Promise = global.Promise;
-    mongoose.connect("mongodb://localhost/Projects");   
-    //mongoose.connect(config.db);
+    //mongoose.connect("mongodb://localhost/Projects");   
+    mongoose.connect(config.db);
 
     let db = mongoose.connection;
 
