@@ -6,11 +6,13 @@ module.exports = function (models) {
 
     return {
         createComment(title, content, poster) {
+            let deleted = false;
+
             let comment = new Comment({
-                Title = title,
-                Content = content,
-                isDeleted = false,
-                PosterID = poster
+                title,
+                content,
+                deleted,
+                poster
             });
 
             return new Promise((resolve, reject) => {

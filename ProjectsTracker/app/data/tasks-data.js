@@ -6,18 +6,23 @@ module.exports = function (models) {
 
     return {
         createTask(name, description, priority, dueDate, reporter, assignee, project) {
+            let createDate = Date.now(),
+                updateDate = Date.now(),
+                status = "Open",
+                comments = [];
+
             let task = new Task({
-                Name = name,
-                Description = description,
-                Priority = priority,
-                CreatedDate = Date.now(),
-                UpdatedDate = Date.now(),
-                DueDate = dueDate,
-                ReporterID = reporter,
-                AssigneeID = assignee,
-                Status = "Open",
-                ProjectID = project,
-                Comments =[]
+                name,
+                description,
+                priority,
+                createDate,
+                updateDate,
+                dueDate,
+                reporter,
+                assignee,
+                status,
+                project,
+                comments
             });
 
             return new Promise((resolve, reject) => {
