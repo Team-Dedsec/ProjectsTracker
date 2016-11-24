@@ -22,10 +22,10 @@ const TaskSchema = new mongoose.Schema({
             message: "Due date should be later than creation date!"
         }
     },
-    ReporterID: { type: Number, required: true },
-    AssigneeID: { type: Number, required: true },
+    ReporterID: { type: Schema.Types.ObjectID, ref: "User" },
+    AssigneeID: { type: Schema.Types.ObjectID, ref: "User" },
     Status: { type: String, required: true, enum: Statuses },
-    ProjectID: { type: Number, required: true },
+    ProjectID: { type: Schema.Types.ObjectID, ref: "Project" },
     Comments: [{ type: Schema.Types.ObjectID, ref: "Comment" }]
 });
 

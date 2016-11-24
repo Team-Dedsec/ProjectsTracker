@@ -5,9 +5,9 @@ module.exports = function(server) {
     
 
 
-
-    server.get("/", controller.index)
-           .get("/index", controller.getProjectByTitle);
+    console.log("index route");
+    server.get("/", controller.index);
+           
 
     
 };

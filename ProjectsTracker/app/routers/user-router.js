@@ -2,10 +2,10 @@
 const userController = require("../controllers/user-controller");
 
 module.exports = function(app) {
-  let router = express.Router();
+  //let router = express.Router();
 
-    app
-        .get("/user", userController.getByUsername)
-        .get("/:id", userController.getById)
-        .post("/register", userController.register);
+    // app
+    //     .get("/user", userController.getByUsername)
+    //     .get("/:id", userController.getById)
+    //     .post("/register", userController.register);
 };

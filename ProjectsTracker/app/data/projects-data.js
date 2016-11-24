@@ -48,15 +48,13 @@ module.exports = function(models) {
         },
         getProjectById(id) {
             return new Promise((resolve, reject) => {
-                Project.find()
-                    .byId(id)
-                    .exec((err, project) => {
-                        if (err) {
-                            return reject(err);
-                        }
+                Project.findOne({ _id: id }, (err, project) => {
+                    if (err) {
+                        return reject(err);
+                    }
 
-                        return resolve(project);
-                    });
+                    return resolve(project);
+                });
             });
         }
     };
