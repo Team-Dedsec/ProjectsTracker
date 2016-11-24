@@ -2,6 +2,33 @@ extends layout
 
 block content
 
-  h1= title
-  p Welcome to #{title}
-
+    nav(class="navbar navbar-default navbar-static-top")
+      div(class="container")
+        div(class="navbar-header")
+          button(type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar")
+            span(class="sr-only") Toggle navigation
+            span(class="icon-bar")
+            span(class="icon-bar")
+            span(class="icon-bar")
+          a(class="navbar-brand" href="#") Project tracker
+        div(id="navbar" class="navbar-collapse collapse")
+          ul(class="nav navbar-nav")
+            li(class="active")
+              a(href="#") Home
+            li
+              a(href="#") Projects
+            li
+              a(href="#") Issues
+            li(class="dropdown")
+              a(href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Test Dropdown
+                span(class="caret")
+              ul(class="dropdown-menu")
+                li
+                  a(href="#") Option 1
+                li
+                  a(href="#") Option 2
+                li
+                  a(href="#") Option 3
+          ul(class="nav navbar-nav navbar-right")
+            li
+              a(href="#") Login
