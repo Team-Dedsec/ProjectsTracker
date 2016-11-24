@@ -3,11 +3,11 @@ const data = require("../data")({ Project });
 
 
 module.exports = {
-    index(req, res) {       
-        // TODO: parse json - pug integration
-
-        // data.getAllProjects().then(projects => res.json(projects))
-        // .then(jsonProjects => res.render("../views/index.pug", { title: "JSONPLACE" }));
-        res.render("../views/index.pug", { title: "Bugs" });
+    index(req, res) {     
+        data.getAllProjects().then(projects => res.render("../views/test.pug", { projects }));        
+    },
+    getProjectByTitle(req, res) {
+        data.getProjectById("58334d6b40d7d934243bb133").then((projects) => { console.log(projects) }); //res.render("../views/test.pug", { projects }));
     }
+
 };

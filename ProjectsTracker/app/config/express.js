@@ -1,5 +1,6 @@
 /* globals require */
 
+
 let express = require("express"),
     bodyParser = require("body-parser"),
     cookieParser = require("cookie-parser"),        
@@ -12,6 +13,7 @@ let path = require("path");
 
 module.exports = function(app, config) {  
 
+    //require("../routers")(app);    
 
     app.use(bodyParser.json());    
     app.use(bodyParser.urlencoded({ extended: true }));    
@@ -22,10 +24,11 @@ module.exports = function(app, config) {
     app.set("view engine", "pug");              
      
     app.use("/public", express.static(path.join(config.rootPath, "public"))); 
-    app.set('view options', { layout: false });   
-         
+    app.set('view options', { layout: false }); 
+
+
     
-    require("../routers")(app);
+    
     
     //app.use(logger("dev"));    
             
@@ -56,6 +59,7 @@ module.exports = function(app, config) {
         next();
     });
 
+
     // error handler
     app.use((err, req, res) => {
         // set locals, only providing error in development
@@ -70,4 +74,7 @@ module.exports = function(app, config) {
         res.status(err.status || 500);
         res.render("error");
     });
+
+    
+    
 };
