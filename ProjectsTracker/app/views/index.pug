@@ -1,38 +1,43 @@
 extends layout
 
 block content
-
-    nav(class="navbar navbar-default navbar-static-top")
-      div(class="container")
-        div(class="navbar-header")
-          button(type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar")
-            span(class="sr-only") Toggle navigation
-            span(class="icon-bar")
-            span(class="icon-bar")
-            span(class="icon-bar")
-          a(class="navbar-brand" href="#") Project tracker
-        div(id="navbar" class="navbar-collapse collapse")
-          ul(class="nav navbar-nav")
-            li(class="active")
-              a(href="#") Home
-            li
-              a(href="#") Projects
-            li
-              a(href="#") Issues
-            li(class="dropdown")
-              a(href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false") Test Dropdown
-                span(class="caret")
-              ul(class="dropdown-menu")
-                li(class="dropdown-header") Header
-                li
-                  a(href="#") Option 1
-                li
-                  a(href="#") Option 2
-                li
-                  a(href="#") Option 3
-          ul(class="nav navbar-nav navbar-right")
-            li
-              a(href="#") Login
-            li
-              a(href="/users") Users
-     
+  nav.navbar.navbar-inverse.navbar-fixed-top
+    .container
+      .navbar-header
+        button.navbar-toggle.collapsed(type='button', data-toggle='collapse', data-target='#navbar', aria-expanded='false', aria-controls='navbar')
+          span.sr-only Toggle navigation
+          span.icon-bar
+          span.icon-bar
+          span.icon-bar
+        a.navbar-brand(href='#') Project tracker
+      #navbar.navbar-collapse.collapse
+        ul.nav.navbar-nav
+          li.active
+            a(href='#') Home
+          li
+            a(href='#') Projects
+          li
+            a(href='#') Tasks
+          li
+            a(href='#') Users
+          li.dropdown
+            a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
+              | Dropdown 
+              span.caret
+            ul.dropdown-menu
+              li.dropdown-header Nav header
+              li
+                a(href='#') Action
+              li
+                a(href='#') Another action
+              li
+                a(href='#') Something else here
+        ul.nav.navbar-nav.navbar-right
+          li
+            a(href='#')
+              span.glyphicon.glyphicon-user
+              |  Sign Up
+          li
+            a(href='#')
+              span.glyphicon.glyphicon-log-in
+              |  Login

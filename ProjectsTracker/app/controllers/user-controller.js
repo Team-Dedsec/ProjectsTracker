@@ -1,12 +1,10 @@
-
-
 module.exports = function(data) {
   return {
     register(req, res) {
       let body = req.body;
       data.registerUser(body.firstName, body.lastName, body.username, body.password)
         .then(() => {
-          res.redirect("../views/index.pug", {title: "Registration"});
+          res.redirect("/users");
         });
     },
     getByUsername(req, res) {
@@ -17,7 +15,7 @@ module.exports = function(data) {
               .redirect("/error");
           }
 
-          return res.render("user/info", {
+          return res.render("user-info", {
             result: user
           });
         });
@@ -31,7 +29,7 @@ module.exports = function(data) {
               .redirect("/error");
           }
 
-          return res.render("user/details", {
+          return res.render("user-details", {
             result: user
           });
         });
