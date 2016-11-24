@@ -9,6 +9,7 @@ let express = require("express"),
 
 let path = require("path");
 
+
 module.exports = function(app, config) {  
 
 
@@ -23,8 +24,9 @@ module.exports = function(app, config) {
     app.use("/public", express.static(path.join(config.rootPath, "public"))); 
     app.set('view options', { layout: false });   
          
+    
     require("../routers")(app);
-
+    
     //app.use(logger("dev"));    
             
     //app.use(passport.initialize());
