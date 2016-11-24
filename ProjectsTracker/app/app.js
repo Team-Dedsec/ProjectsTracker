@@ -8,7 +8,7 @@ let logger = require("morgan");
 let cookieParser = require("cookie-parser");
 let bodyParser = require("body-parser");
 let error;
-// let config = require("./config");
+let config = require("./config");
 // let index = require("./routes/index");
 // const users = require("./routes/users");
 // const constants = require("./constants/constants");

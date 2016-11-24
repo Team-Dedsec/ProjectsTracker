@@ -56,6 +56,17 @@ module.exports = function (models) {
                     return resolve(user.fullName);
                 });
             });
+        },
+        getAllUsers() {
+            return new Promise((resolve, reject) => {
+                User.find((err, users) => {
+                    if (err) {
+                        return reject(err);
+                    }
+
+                    return resolve(users);
+                });
+            });
         }
     };
 };
