@@ -1,0 +1,12 @@
+extends layout
+
+block content
+    form(action="/register" method="post")
+        input.form-control(type="text" name="model.firstName" placeholder="Enter First Name")
+        input.form-control(type="text" name="model.lastName" placeholder="Enter Last Name")
+
+        input.form-control(type="text" name="model.username" placeholder="Enter Username")
+        input.form-control(type="text" name="model.password" placeholder="Enter Password")
+
+        button.btn.btn-danger
+            | Submit
