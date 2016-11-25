@@ -25,7 +25,7 @@ module.exports = {
 
         return data.registerUser(firstName, lastName, username.toLowerCase(), password)
             .then(user => {
-                return res.redirect(`/user/${user.username}`, user);
+                return res.redirect(user, `/user/${user.username}`);
             })
             .catch(err => {
                 res.status(400)

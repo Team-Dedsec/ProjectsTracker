@@ -20,7 +20,7 @@ let ProjectSchema = new Schema({
         type: Number,
         required: true
     },
-    userContributetTo: [{ type: Schema.Types.ObjectId, ref: "User" }],
+    //userContributetTo: [{ type: Schema.Types.ObjectId, ref: "User" }],
     Tasks: [{ type: Schema.Types.ObjectId, ref: "Task" }]
 });
 

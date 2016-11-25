@@ -7,9 +7,9 @@ const constants = require("../constants/constants");
 const passHasher = require("../utils/salt-hash-password");
 
 let UserSchema = new Schema({
-  firstName: {
-    type: String,
-    required: true
+    firstName: {
+        type: String,
+        required: true
   },
   lastName: {
     type: String,
@@ -47,7 +47,7 @@ let UserSchema = new Schema({
     type: Number
   },
   projectWorkingOnId: {
-    type: Schema.Types.ObjectId
+    type: Schema.Types.ObjectId, ref: "Project" 
   },
   bugWorkingOnId: {
     type: Schema.Types.ObjectId
