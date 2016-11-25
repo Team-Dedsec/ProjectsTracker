@@ -1,4 +1,7 @@
-ul
-each project in projects
+include layout
+include index
+
+block content
+  ul
+  each project in projects
     li #{project.id}
-        
