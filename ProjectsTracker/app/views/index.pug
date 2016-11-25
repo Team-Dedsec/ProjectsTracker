@@ -12,12 +12,6 @@ block content
 
         a.navbar-brand(href='#') Project tracker
       #navbar.navbar-collapse.collapse
-        form.navbar-form.navbar-left(action="/search" method="get" role='search')
-          .form-group
-            input.form-control(type='text', placeholder='Search')
-          button.btn.btn-danger(type='submit')
-              span.glyphicon.glyphicon-search
-              | Search
         ul.nav.navbar-nav          
           li.active
             a(href='#') Home
@@ -37,6 +31,12 @@ block content
                 a(href='#') Action
               li
                 a(href='#') Another action
+        
+        form.navbar-form.navbar-left(action="/search" method="get" role='search')
+          .form-group
+            input.form-control(type='text', placeholder='Search')
+          button.btn.btn-danger(type='submit')
+              span.glyphicon.glyphicon-search
         ul.nav.navbar-nav.navbar-right
           li
             a(href='/register')
