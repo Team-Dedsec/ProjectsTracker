@@ -9,9 +9,16 @@ block content
           span.icon-bar
           span.icon-bar
           span.icon-bar
+
         a.navbar-brand(href='#') Project tracker
       #navbar.navbar-collapse.collapse
         ul.nav.navbar-nav
+          li
+            a(href='#') Search
+              form.form-inline(action="/search" method="get")
+                input.form-control(type="text" name="pattern")
+                button.btn.btn-danger
+                  span.glyphicon.glyphicon-search
           li.active
             a(href='#') Home
           li
@@ -30,8 +37,6 @@ block content
                 a(href='#') Action
               li
                 a(href='#') Another action
-              li
-                a(href='#') Something else here
         ul.nav.navbar-nav.navbar-right
           li
             a(href='/register')
