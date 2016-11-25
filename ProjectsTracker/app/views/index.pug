@@ -12,13 +12,13 @@ block content
 
         a.navbar-brand(href='#') Project tracker
       #navbar.navbar-collapse.collapse
-        ul.nav.navbar-nav
-          li
-            a(href='#') Search
-              form.form-inline(action="/search" method="get")
-                input.form-control(type="text" name="pattern")
-                button.btn.btn-danger
-                  span.glyphicon.glyphicon-search
+        form.navbar-form.navbar-left(action="/search" method="get" role='search')
+          .form-group
+            input.form-control(type='text', placeholder='Search')
+          button.btn.btn-danger(type='submit')
+              span.glyphicon.glyphicon-search
+              | Search
+        ul.nav.navbar-nav          
           li.active
             a(href='#') Home
           li
