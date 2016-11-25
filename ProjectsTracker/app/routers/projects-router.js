@@ -3,5 +3,6 @@ const controller = require("../controllers/project-controller");
 
 module.exports = function(server) {
     server.get("/projects", controller.viewAllProjects);
-    server.get("/project/create", controller.createProject);
+    server.get("/projects/create", controller.getRegister);
+    server.post("/projects/create", controller.postProject);
 };
