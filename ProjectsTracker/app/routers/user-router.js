@@ -4,6 +4,9 @@ const userController = require("../controllers/user-controller");
 module.exports = function(server) {
   let passport = require("../config/facebook-authentication.js");
 
+  server.post("/register", userController.createUser);
+
+
   server.get("/users", userController.viewAllUsers);
   server.get("/user", userController.viewUserByName);
   server.get("/register", userController.register);
