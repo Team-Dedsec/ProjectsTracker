@@ -1,12 +1,13 @@
-extends layout
+extends index
 
-block content
+block main
+  h1 Register here:
     form(action="/register" method="post")
-        input.form-control(type="text" name="model.firstName" placeholder="Enter First Name")
-        input.form-control(type="text" name="model.lastName" placeholder="Enter Last Name")
+        input.form-control(type="text" name="firstName" placeholder="Enter First Name")
+        input.form-control(type="text" name="lastName" placeholder="Enter Last Name")
 
-        input.form-control(type="text" name="model.username" placeholder="Enter Username")
-        input.form-control(type="text" name="model.password" placeholder="Enter Password")
+        input.form-control(type="text" name="username" placeholder="Enter Username")
+        input.form-control(type="password" name="password" placeholder="Enter Password")
 
         button.btn.btn-danger
-            | Submit
+            | Register

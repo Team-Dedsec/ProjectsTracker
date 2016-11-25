@@ -31,7 +31,7 @@ module.exports = function (models) {
         },
         findUserByUsername(username) {
             return new Promise((resolve, reject) => {
-                User.find()
+                User.findOne()
                     .byName(username)
                     .exec((err, user) => {
                         if (err) {
@@ -54,6 +54,17 @@ module.exports = function (models) {
 
                     console.log(user.fullName);
                     return resolve(user.fullName);
+                });
+            });
+        },
+        getAllUsers() {
+            return new Promise((resolve, reject) => {
+                User.find((err, users) => {
+                    if (err) {
+                        return reject(err);
+                    }
+
+                    return resolve(users);
                 });
             });
         }

@@ -1,0 +1,7 @@
+include layout
+include index
+
+block content
+  ul
+    each user in users
+      li #{user.username}

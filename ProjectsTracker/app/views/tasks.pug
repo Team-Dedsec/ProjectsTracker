@@ -1,0 +1,8 @@
+include layout
+include index
+
+block content
+  ul
+    each task in tasks
+    li
+      a(href='#') #{task.title}

@@ -1,0 +1,9 @@
+extends index
+
+block main
+  h1 Login here:
+  form(action="/login" method="post")
+            input.form-control(type="text" name="user[name]" placeholder="Enter Username")
+            input.form-control(type="password" name="user[password]" placeholder="Enter Password")
+
+            input.btn.btn-success(type="submit" value="Login")
