@@ -4,4 +4,7 @@ include index
 block content
   ul
   each project in projects
-    li #{project.id}
+    li Current project
+      a (href='#') #{project.title}
+      a (href='#') #{project.id}
+      a (href='#') #{project.leadUser}
