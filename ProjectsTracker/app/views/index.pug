@@ -15,8 +15,17 @@ block content
           ul.nav.navbar-nav
             li.active
               a(href='#') Home
-            li
-              a(href='/projects') Projects
+            li.dropdown
+              a.dropdown-toggle(href='/projects', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false') 
+                | Projects
+                span.caret
+              ul.dropdown-menu
+                li
+                  a(href='/projects') View All Projects
+                li
+                  a(href='#') Create Project
+                li
+                  a(href='#') Find Project
             li
               a(href='#') Tasks
             li

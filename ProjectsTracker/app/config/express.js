@@ -25,7 +25,6 @@ module.exports = function(app, config) {
       saveUninitialized: true
     }));
 
-
     app.set("views", path.join(config.rootPath, "app/views/"));
     app.set("view engine", "pug");
 
