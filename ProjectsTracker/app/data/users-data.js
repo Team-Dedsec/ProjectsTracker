@@ -31,7 +31,7 @@ module.exports = function (models) {
         },
         findUserByUsername(username) {
             return new Promise((resolve, reject) => {
-                User.find()
+                User.findOne()
                     .byName(username)
                     .exec((err, user) => {
                         if (err) {

@@ -1,6 +1,6 @@
-include layout
+extends index
 
-block content
+block main
   h1 Register here:
     form(action="/register" method="post")
         input.form-control(type="text" name="firstName" placeholder="Enter First Name")
