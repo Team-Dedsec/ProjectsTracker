@@ -5,10 +5,11 @@ module.exports = function(models) {
     let { Project } = models;
 
     return {
-        createProject(title, leadUser) {
+        createProject(title, leadUser, description) {
             let project = new Project({
                 title,
-                leadUser
+                leadUser,
+                description
             });
 
             return new Promise((resolve, reject) => {
