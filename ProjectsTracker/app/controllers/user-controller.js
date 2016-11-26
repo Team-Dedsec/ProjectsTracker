@@ -2,6 +2,7 @@
 
 const User = require("../models/user-model");
 const data = require("../data")({ User });
+const passport = require("passport");
 
 module.exports = {
     viewAllUsers(req, res) {
@@ -14,9 +15,12 @@ module.exports = {
                 res.render("../views/user-details.pug", { user });
             });
     },
-    register(req, res) {
+    registerPage(req, res) {
         res.render("../views/register.pug");
     },
+    // register(req, res) {
+    //     res.render("../views/register.pug");
+    // },    
     login(req, res) {
         res.render("../views/login.pug");
     },
@@ -34,7 +38,7 @@ module.exports = {
     },
     loginUser(req, res) {
         // TODO:
-        let user = req.body.user;
+        let user = req.body.user;        
         data.findUserByUsername(user.name.toLowerCase())
             .then((dbUsers) => {
                 if (!dbUsers || dbUsers.length !== 1) {
@@ -49,5 +53,33 @@ module.exports = {
                     res.redirect("/login");
                 }
             });
-    }
+    },
+    loginLocal(req, res, next) {   
+        console.log(req.body);         
+        const auth = passport.authenticate("local", (error, user) => {                
+            if (error) {
+                next(error);
+                return;
+            }
+            console.log("login local");
+            console.log(user);
+            if(!user) {
+                res.json({ 
+                    success: false,
+                    message: 'Invalid name or password!'
+                });
+            }
+
+            req.login(user, error => {
+                if(error) {
+                    next(error);
+                    return;
+                }
+
+                res.redirect('/profile');
+            });
+        });
+
+        auth(req, res, next);
+    },
 };

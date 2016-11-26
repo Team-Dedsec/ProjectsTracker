@@ -28,7 +28,7 @@ let UserSchema = new Schema({
       message: "{VALUE} is not a valid username!"
     }
   },
-  passHash: {
+  password: {
     type: String,
     required: true
   },
@@ -67,8 +67,8 @@ UserSchema.query.byName = function(name) {
   });
 };
 
-UserSchema.methods.comparePassword = function(password) {
-  return this.passHash === passHasher.getHash(password, this.salt);
+UserSchema.methods.comparePassword = function(password1) {
+    return this.password === passHasher.getHash(password1, this.salt);
 };
 
 // TODO: Better way/spot to validate

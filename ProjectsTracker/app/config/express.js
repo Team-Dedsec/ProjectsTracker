@@ -15,14 +15,14 @@ let path = require("path");
 module.exports = function(app, config) {
 
     //require("../routers")(app);
-
+    //app.use(bodyParser());
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(cookieParser());
     app.use(session({
-      secret: "secret",
-      resave: true,
-      saveUninitialized: true
+        secret: "secret",
+        resave: true,
+        saveUninitialized: true
     }));
 
     app.set("views", path.join(config.rootPath, "app/views/"));
@@ -33,8 +33,9 @@ module.exports = function(app, config) {
 
     app.use(logger("dev"));
 
-    app.use(passport.initialize());
-    app.use(passport.session());
+    require("../config/passport/")(app);
+    //app.use(passport.initialize());
+    //app.use(passport.session());
 
     // app.use((req, res, next) => {
     //     //console.log(res);

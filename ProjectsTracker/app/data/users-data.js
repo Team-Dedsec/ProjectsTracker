@@ -14,7 +14,7 @@ module.exports = function (models) {
                 firstName,
                 lastName,
                 username,
-                passHash,
+                password: passHash,
                 salt
             });
 
