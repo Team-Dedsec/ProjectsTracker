@@ -16,7 +16,7 @@ include index
         .col-lg-10.col-md-10   
           .panel.panel-primary
             each project in projects
-              - var url = project.title;    
+              - var url = project.id;    
               .panel-heading
                 h3.panel-title
                   a(href="projects/" + url) #{project.title}

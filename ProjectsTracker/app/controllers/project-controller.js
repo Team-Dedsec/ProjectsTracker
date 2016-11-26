@@ -4,10 +4,19 @@ const Project = require("../models/project-model");
 const data = require("../data")({ Project });
 module.exports = {
     viewAllProjects(req, res) {
-        data.getAllProjects().then(projects => res.render("../views/projects.pug", { projects }));
+        if(true) {
+            data.getAllProjects().then((projects) => {
+                if(true) {
+                    res.render("../views/projects.pug", { projects });
+                }                
+            });
+        }
     },
     getRegister(req, res) {
-        res.render("../views/create-project.pug", {});
+        if(!req.isAuthenticated()) {
+            res.redirect("/login");
+        }
+        res.render("../views/create-project.pug", { });
         // data.createProject(req.title, req.leadUser, req.descripion).then(project => res.render("../views/create-project.pug", { project }));
     },
     postProject(req, res) {
@@ -24,10 +33,18 @@ module.exports = {
         console.log(req.params.name);
         res.send("<h1>Pesho</h1>");
     },
-    getProjectById(req, res) {
+    getProjectById(req, res) {             
+        if(!req.isAuthenticated()){
+            data.getProjectById(req.params.id).then((project) => {
+                if(project.isPrivate == true) {
+                    res.redirect("/login");
+                }
+                res.render("../views/project.pug", project);
+            });
+        } 
         data.getProjectById(req.params.id).then((project) => {
             res.render("../views/project.pug", project);
-        })
-        //res.render("../views/project.pug");
+        });
+        
     }
 };
