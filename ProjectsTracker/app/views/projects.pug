@@ -1,19 +1,19 @@
-include layout
 include index
 
-block content
+
   //- ul
   //- each project in projects
   //-   li Current project
   //-     a (href='#') #{project.title}
   //-     a (href='#') #{project.id}
   //-     a (href='#') #{project.leadUser}
-
-  .panel.panel-primary
-    each project in projects    
-      .panel-heading
-        h3.panel-title #{project.title}
-        |   
-      .panel-body
-        | #{project.description}
+#banner .page-header
+    .row    
+      .panel.panel-primary
+        each project in projects    
+          .panel-heading
+            h3.panel-title #{project.title}
+            |   
+          .panel-body
+            | #{project.description}
     
