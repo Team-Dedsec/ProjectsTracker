@@ -31,6 +31,12 @@ let ProjectSchema = new Schema({
     tasks: [{ type: Schema.Types.ObjectId, ref: "Task" }]
 });
 
+ProjectSchema.query.byTitle = function(name) {
+    return this.find({
+        title: name
+    });
+};
+
 let Project;
 mongoose.model("Project", ProjectSchema);
 Project = mongoose.model("Project");

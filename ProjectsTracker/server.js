@@ -12,4 +12,4 @@ require("./app/config/mongoose")(config);
 require("./app/config/express-error")(app);
 
 app.listen(config.port);
-console.log(`Server running on ${config.port}`);
+console.log(`Server running on http://localhost:${config.port}`);

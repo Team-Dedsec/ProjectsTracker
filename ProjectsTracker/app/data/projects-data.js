@@ -1,7 +1,7 @@
 /* globals require module Promise */
 "use strict";
 
-module.exports = function(models) {
+module.exports = function (models) {
     let { Project } = models;
 
     return {
@@ -43,7 +43,7 @@ module.exports = function(models) {
         getProjectByTitle(title) {
             return new Promise((resolve, reject) => {
                 Project.find()
-                    .byName(title)
+                    .byTitle(title)
                     .exec((err, project) => {
                         if (err) {
                             return reject(err);
@@ -63,11 +63,24 @@ module.exports = function(models) {
                     return resolve(project);
                 });
             });
+        },
+        searchProjects(title) {
+            let query = { "title": new RegExp(`${title}`) };
+            return new Promise((resolve, reject) => {
+                Project.find(query)
+                    .exec((err, projects) => {
+                        if (err) {
+                            return reject(err);
+                        }
+
+                        return resolve(projects);
+                    });
+            });
         }
     };
 };
 
- 
+
 //  TODO:   createProject(title, description, leadUser, users, bugs) {
 //             let project = new Project({
 //                 title,

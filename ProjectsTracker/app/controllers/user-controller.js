@@ -36,24 +36,6 @@ module.exports = {
                     .send(err);
             });
     },
-    loginUser(req, res) {
-        // TODO:
-        let user = req.body.user;        
-        data.findUserByUsername(user.name.toLowerCase())
-            .then((dbUsers) => {
-                if (!dbUsers || dbUsers.length !== 1) {
-                    res.redirect("/login");
-                }
-                let dbUser = dbUsers[0];
-                if (dbUser.comparePassword(user.password)) {
-                    // Login successfull
-                    res.redirect("/");
-                } else {
-                    // Login failed
-                    res.redirect("/login");
-                }
-            });
-    },
     loginLocal(req, res, next) {   
         console.log(req.body);         
         const auth = passport.authenticate("local", (error, user) => {                
