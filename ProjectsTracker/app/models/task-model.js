@@ -5,28 +5,51 @@ const Schema = mongoose.Schema;
 
 // TODO:
 const Statuses = ["Open", "Closed", "Resolved", "Reopened", "Waiting For", "Duplicate"];
+const SimpleUserSchema = require("./partial/simple-user-schema");
 
-const TaskSchema = new mongoose.Schema({
-    Title: { type: String, required: true, min: 3, max: 50 },
-    Description: { type: String, max: 500 },
-    Priority: { type: Number, required: true, min: 1, max: 10 },
-    CreatedDate: { type: Date, default: Date.now },
-    UpdatedDate: { type: Date },
-    DueDate: {
+const TaskSchema = new Schema({
+    name: {
+        type: String,
+        required: true,
+        minLength: 3,
+        maxLength: 50
+    },
+    description: {
+        type: String,
+        maxLength: 500
+    },
+    priority: {
+        type: Number,
+        required: true,
+        minLength: 1,
+        maxLength: 10
+    },
+    createdDate: {
+        type: Date,
+        default: Date.now
+    },
+    updatedDate: { type: Date },
+    dueDate: {
         type: Date,
         required: true,
         validate: {
             validator: (v) => {
-                return v > TaskSchema.CreatedDate;
+                return v > Date.now();
             },
             message: "Due date should be later than creation date!"
         }
     },
-    ReporterID: { type: Schema.Types.ObjectID, ref: "User" },
-    AssigneeID: { type: Schema.Types.ObjectID, ref: "User" },
-    Status: { type: String, required: true, enum: Statuses },
-    ProjectID: { type: Schema.Types.ObjectID, ref: "Project" },
-    Comments: [{ type: Schema.Types.ObjectID, ref: "Comment" }]
+    reporterId: {
+        type: SimpleUserSchema,
+        ref: "User"
+    },
+    assigneeId: {
+        type: SimpleUserSchema,
+        ref: "User"
+    },
+    status: { type: String, required: true, enum: Statuses },
+    projectId: { type: Schema.Types.ObjectId, ref: "Project" },
+    comments: [{ type: Schema.Types.ObjectId, ref: "Comment" }]
 });
 
 let Task;

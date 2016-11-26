@@ -15,7 +15,7 @@ module.exports = function(models) {
             let project = new Project({
                 title,
                 description,
-                isPrivate               
+                isPrivate
             });
 
             return new Promise((resolve, reject) => {

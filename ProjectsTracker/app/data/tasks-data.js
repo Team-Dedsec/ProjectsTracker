@@ -5,9 +5,9 @@ module.exports = function (models) {
     let { Task } = models;
 
     return {
-        createTask(title, description, priority, dueDate, reporter, assignee, project) {
-            let createDate = Date.now(),
-                updateDate = Date.now(),
+        createTask (title, description, priority, dueDate, reporter, assignee, project) {
+            let createdDate = Date.now(),
+                updatedDate = Date.now(),
                 status = "Open",
                 comments = [];
 
@@ -15,8 +15,8 @@ module.exports = function (models) {
                 title,
                 description,
                 priority,
-                createDate,
-                updateDate,
+                createdDate,
+                updatedDate,
                 dueDate,
                 reporter,
                 assignee,

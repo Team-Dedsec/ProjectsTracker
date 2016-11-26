@@ -24,8 +24,8 @@ module.exports = {
         let { firstName, lastName, username, password } = req.body;
 
         return data.registerUser(firstName, lastName, username.toLowerCase(), password)
-            .then(user => {                
-                return res.redirect(user, `/user/${user.username}`);
+            .then(user => {
+                return res.redirect(`/user/${user.username}`);
             })
             .catch(err => {
                 res.status(400)

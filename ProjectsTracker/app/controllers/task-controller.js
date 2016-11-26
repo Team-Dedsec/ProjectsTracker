@@ -10,7 +10,7 @@ module.exports = {
 
         return data.createTask(name, description, priority, dueDate, reporter, assignee, project)
             .then(task => {
-                return res.redirect("/task-details");
+                return res.redirect(`/task/${task._id}`);
             })
             .catch(err => {
                 res.status(400).send(err);
