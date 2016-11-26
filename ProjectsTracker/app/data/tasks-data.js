@@ -37,7 +37,7 @@ module.exports = function (models) {
             });
         },
 
-        getAlltasks() {
+        getAllTasks() {
             return new Promise((resolve, reject) => {
                 Task.find((err, tasks) => {
                     if (err) {
