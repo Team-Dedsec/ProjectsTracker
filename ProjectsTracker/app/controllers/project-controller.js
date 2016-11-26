@@ -11,7 +11,11 @@ module.exports = {
         //data.createProject(req.title, req.leadUser, req.descripion).then(project => res.render("../views/create-project.pug", { project }));
     },
     postProject(req, res){
-      console.log(req.body);
+        console.log(req.body);      
+        let title = req.body.name;
+        let description = req.body.description;
+        let projectType = req.body.type;        
+        data.createProject(title, description, projectType);
     }
 };
 

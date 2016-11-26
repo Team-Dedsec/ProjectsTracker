@@ -5,11 +5,17 @@ module.exports = function(models) {
     let { Project } = models;
 
     return {
-        createProject(title, leadUser, description) {
+        createProject(title, description, type) {
+            let isPrivate = false;
+
+            if (type === "private") {
+                isPrivate = true;
+            }
+
             let project = new Project({
                 title,
-                leadUser,
-                description
+                description,
+                isPrivate
             });
 
             return new Promise((resolve, reject) => {
