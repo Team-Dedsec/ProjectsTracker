@@ -1,7 +1,18 @@
 include index
 
 #banner.page-header
-    .row
-        h1
-            | Profile #{user}
-            //TODO add a profile model
+        .row
+            .col-lg-5
+                .page-header
+                    h1
+                        | #{firstName} #{lastName}
+        .row
+            .col-lg-3
+                img(src="#")
+            .col-lg-6
+                p
+                    | Username #{username}
+                p
+                    | ID #{_id}
+        .row
+            

@@ -67,12 +67,10 @@ module.exports = {
     getProfile(req, res) {
             if (!req.isAuthenticated()) {
                 res.status(401).redirect('/unauthorized');
-            } else {
-                console.log("user");
-                console.log(req.user);                
+            } else {                                          
                 const user = req.user;
-                //res.status(200).send(`Welcome, ${user}! Go to <a href="/">Home</a>`);
-                res.render("../views/profile", {});
+                //res.status(200).send(`Welcome, ${user}! Go to <a href="/">Home</a>`);                
+                res.render("../views/profile", { user });
             }
     },
     get404(req, res) {
