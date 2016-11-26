@@ -53,7 +53,7 @@ module.exports = function (models) {
                     }
 
                     console.log(user.fullName);
-                    return resolve(user.fullName);
+                    return resolve(user);
                 });
             });
         },
