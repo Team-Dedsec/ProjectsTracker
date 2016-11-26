@@ -19,7 +19,7 @@ let ProjectSchema = new Schema({
     leadUser: {
         type: Schema.Types.ObjectId,
         ref: "User",
-        required: true
+        //required: true
     },
     isPrivate: {
         type: Boolean,
