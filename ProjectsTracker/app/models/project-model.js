@@ -17,7 +17,12 @@ let ProjectSchema = new Schema({
         max: 100000
     },
     leadUser: {
-        type: Number,
+        type: Schema.Types.ObjectId,
+        ref: "User",
+        required: true
+    },
+    isPrivate: {
+        type: Boolean,
         required: true
     },
     //userContributetTo: [{ type: Schema.Types.ObjectId, ref: "User" }],
