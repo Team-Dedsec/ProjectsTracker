@@ -7,13 +7,20 @@ include index
   //-     a (href='#') #{project.title}
   //-     a (href='#') #{project.id}
   //-     a (href='#') #{project.leadUser}
-#banner .page-header
-    .row    
-      .panel.panel-primary
-        each project in projects    
-          .panel-heading
-            h3.panel-title #{project.title}
-            |   
-          .panel-body
-            | #{project.description}
+  #banner
+      .row        
+        .col-lg-10
+          .page-header
+            h1 Projects
+      .row
+        .col-lg-10.col-md-10   
+          .panel.panel-primary
+            each project in projects
+              - var url = project.title;    
+              .panel-heading
+                h3.panel-title
+                  a(href="projects/" + url) #{project.title}
+                |   
+              .panel-body
+                | #{project.description}
     
