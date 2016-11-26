@@ -1,6 +1,6 @@
 module.exports = function (app) {
     app.use((req, res, next) => {
-        let err = new Error("Not Found");
+        let err = new Error("We can't seem to find the page you are looking for!");
         err.status = 404;
         next(err);
     });

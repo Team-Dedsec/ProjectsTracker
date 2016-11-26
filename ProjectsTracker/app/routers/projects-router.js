@@ -8,7 +8,6 @@ module.exports = function(server) {
     server.get("/projects/create", controller.getRegister);
     server.post("/projects/create", controller.postProject);
     server.get("/project/:name");
-    server.get("/search", controller.searchProjects);
     server.get("/projects/:id", controller.getProjectById);
         // server.get("/project/:name", controller.loadProject);
 };
