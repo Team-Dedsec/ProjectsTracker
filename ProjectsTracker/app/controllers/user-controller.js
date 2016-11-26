@@ -87,9 +87,13 @@ module.exports = {
                 res.status(401).redirect('/unauthorized');
             } else {
                 console.log("user");
-                console.log(req.user);
+                console.log(req.user);                
                 const user = req.user;
-                res.status(200).send(`Welcome, ${user.username}! Go to <a href="/home">Home</a>`);
+                //res.status(200).send(`Welcome, ${user}! Go to <a href="/">Home</a>`);
+                res.render("../views/profile", {});
             }
     },
+    get404(req, res) {
+        res.send("Unauthorized access");
+    }
 };
