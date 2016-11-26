@@ -1,8 +1,18 @@
-include layout
 include index
 
-block content
-  ul
-    each task in tasks
-    li
-      a(href='#') #{task.title}
+  #banner
+      .row        
+        .col-lg-10
+          .page-header
+            h1 Tasks
+      .row
+        .col-lg-10.col-md-10   
+          .panel.panel-primary
+            each task in tasks
+              - var url = task.title;    
+              .panel-heading
+                h3.panel-title
+                  a(href="tasks/" + url) #{task.title}
+                |   
+              .panel-body
+                | #{task.description}

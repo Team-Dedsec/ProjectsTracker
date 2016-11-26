@@ -2,23 +2,25 @@
 "use strict";
 
 const mongoose = require("mongoose"),
-    Schema = mongoose.Schema;
+    Schema = mongoose.Schema,
+    SimpleUserSchema = require("./partial/simple-user-schema");
 
 let ProjectSchema = new Schema({
     title: {
         type: String,
-        min: 10,
-        max: 120,
+        minLength: 10,
+        maxLength: 120,
         required: true
     },
     description: {
         type: String,
-        min: 200,
-        max: 100000
+        //TODO: Change
+        minLength: 10,
+        maxLength: 100000
     },
     leadUser: {
-        type: Schema.Types.ObjectId,
-        ref: "User",
+        type: SimpleUserSchema,
+        ref: "User"
         //required: true
     },
     isPrivate: {
@@ -26,7 +28,7 @@ let ProjectSchema = new Schema({
         required: true
     },
     //userContributetTo: [{ type: Schema.Types.ObjectId, ref: "User" }],
-    Tasks: [{ type: Schema.Types.ObjectId, ref: "Task" }]
+    tasks: [{ type: Schema.Types.ObjectId, ref: "Task" }]
 });
 
 let Project;

@@ -5,18 +5,18 @@ module.exports = function (models) {
     let { Task } = models;
 
     return {
-        createTask(name, description, priority, dueDate, reporter, assignee, project) {
-            let createDate = Date.now(),
-                updateDate = Date.now(),
+        createTask (title, description, priority, dueDate, reporter, assignee, project) {
+            let createdDate = Date.now(),
+                updatedDate = Date.now(),
                 status = "Open",
                 comments = [];
 
             let task = new Task({
-                name,
+                title,
                 description,
                 priority,
-                createDate,
-                updateDate,
+                createdDate,
+                updatedDate,
                 dueDate,
                 reporter,
                 assignee,
@@ -37,7 +37,7 @@ module.exports = function (models) {
             });
         },
 
-        getAlltasks() {
+        getAllTasks() {
             return new Promise((resolve, reject) => {
                 Task.find((err, tasks) => {
                     if (err) {
