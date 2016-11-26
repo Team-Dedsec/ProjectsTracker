@@ -1,13 +1,20 @@
 extends index
 
 block main
-  h1 Register here:
-    form(action="/register" method="post")
+  #banner.page-header
+    .row
+      .col-lg-5                                 
+        h1 Register here:
+  form(action="/register" method="post")        
         input.form-control(type="text" name="firstName" placeholder="Enter First Name")
+        br
         input.form-control(type="text" name="lastName" placeholder="Enter Last Name")
+        br
 
         input.form-control(type="text" name="username" placeholder="Enter Username")
+        br
         input.form-control(type="password" name="password" placeholder="Enter Password")
+        br
 
         button.btn.btn-danger
             | Register
