@@ -10,6 +10,7 @@ module.exports = function(server) {
   server.get("/user/:name", userController.viewUserByName);
   server.get("/register", userController.registerPage);
   server.post("/register", userController.createUser);
+  server.get("/profile", userController.getProfile);
 
   server.post("/login", userController.loginLocal);
 
