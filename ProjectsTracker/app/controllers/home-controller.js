@@ -5,12 +5,7 @@ const data = require("../data")({
 
 
 module.exports = {
-  homePage(req, res) {
-    res.render("../views/index.pug");
-  },  
- 
-  // getProjectByTitle(req, res) {
-  //     data.getProjectById("58334d6b40d7d934243bb133").then((projects) => { console.log(projects) }); //res.render("../views/test.pug", { projects }));
-  // }
-
+    homePage(req, res) {        
+        res.render("../views/home-page.pug");        
+    }
 };
