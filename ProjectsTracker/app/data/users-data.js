@@ -67,6 +67,19 @@ module.exports = function (models) {
                     return resolve(users);
                 });
             });
+        },
+        searchUsers(username) {
+            return new Promise((resolve, reject) => {
+                let query = { "username": new RegExp(username, "i") };
+                User.find(query)
+                    .exec((err, user) => {
+                        if (err) {
+                            return reject(err);
+                        }
+
+                        return resolve(user);
+                    });
+            });
         }
     };
 };

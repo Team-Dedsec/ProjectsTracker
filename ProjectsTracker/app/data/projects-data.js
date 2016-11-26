@@ -65,7 +65,7 @@ module.exports = function (models) {
             });
         },
         searchProjects(title) {
-            let query = { "title": new RegExp(`${title}`) };
+            let query = { "title": new RegExp(`${title}`, "i") };
             return new Promise((resolve, reject) => {
                 Project.find(query)
                     .exec((err, projects) => {

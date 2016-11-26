@@ -10,15 +10,20 @@ const data = require("../data")({
 
 module.exports = {
     homePage(req, res) {
-        res.render("../views/home-page.pug");
+        res.render("home-page");
     },
     search(req, res, next) {
         let typeOfSearch = req.query.searchType;
+        let searchTerm = req.query.s;
         switch (typeOfSearch) {
             case "Users":
-                data.findUserByUsername(req.query.q)
-                    .then(user => {
-                        res.render("user-details", { user });
+                data.searchUsers(searchTerm)
+                    .then(users => {
+                        res.render("user-list", { users });
+                    })
+                    .catch(err => {
+                        res.status(500);
+                        next(err, req, res);
                     });
                 break;
             case "Tasks":
@@ -26,9 +31,9 @@ module.exports = {
                 throw new Error("Not implemented!");
                 break;
             case "Projects":
-                data.searchProjects(req.query.s)
+                data.searchProjects(searchTerm)
                     .then(projects => {
-                        res.render("../views/projects.pug", { projects });
+                        res.render("projects", { projects });
                     })
                     .catch((err) => {
                         res.status(500);
