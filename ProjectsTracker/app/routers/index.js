@@ -12,6 +12,10 @@ module.exports = function (server) {
           router(server);
       });
 
+    // server.get('*',function (req, res) {
+    //     res.redirect('/');
+    // });
+
 
     //can be implemented error pages
     //const errorsRouter = require(path.join(__dirname, './errors'));

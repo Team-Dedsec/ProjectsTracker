@@ -18,7 +18,17 @@ module.exports = {
         let projectType = req.body.type;
         // let leadUser = req.user._id;
         data.createProject(title, description, projectType).then((project) => {
-            res.redirect(`/project/${project._id}`);
+            res.redirect(`/projects/${project._id}`);
         });
+    },
+    loadProject(req, res) {
+        console.log(req.params.name);
+        res.send("<h1>Pesho</h1>");
+    },
+    getProjectById(req, res) { 
+        data.getProjectById(req.params.id).then((project) => {
+            res.render("../views/project.pug", project);
+        })       
+        //res.render("../views/project.pug");
     }
 };
