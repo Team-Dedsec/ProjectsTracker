@@ -21,6 +21,7 @@ module.exports = function(app, config) {
     app.use(cookieParser());
     app.use(session({
       secret: "fb login",
+      secret: "secret",
       resave: true,
       saveUninitialized: true
     }));
