@@ -1,12 +1,10 @@
 extends index
 
 block main
-  #banner.page-header
-        .row
-            .col-lg-5                
-              h1 Login
-  form(action="/login" method="post")
-            input.form-control(type="text" name="username" placeholder="Enter Username")
-            input.form-control(type="password" name="password" placeholder="Enter Password")
+    .page-header
+        h1 Login here:
+          form(action="/login" method="post")
+                    input.form-control(type="text" name="username" placeholder="Enter Username")
+                    input.form-control(type="password" name="password" placeholder="Enter Password")
 
-            input.btn.btn-success(type="submit" value="Login")
+                    input.btn.btn-success(type="submit" value="Login")

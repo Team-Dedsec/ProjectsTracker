@@ -2,7 +2,6 @@
 "use strict";
 const Project = require("../models/project-model");
 const data = require("../data")({ Project });
-
 module.exports = {
     viewAllProjects(req, res) {
         if(true) {
@@ -30,6 +29,11 @@ module.exports = {
         // let leadUser = req.user._id;
         data.createProject(title, description, projectType).then((project) => {
             res.redirect(`/projects/${project._id}`);
+        });
+    },
+    searchProjects(req, res) {
+        data.searchProjects(req.query.s).then(projects => {
+            res.render("../views/projects.pug", { projects });
         });
     },
     loadProject(req, res) {

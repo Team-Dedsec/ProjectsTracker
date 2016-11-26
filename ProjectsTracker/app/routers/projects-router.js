@@ -2,13 +2,13 @@
 const controller = require("../controllers/project-controller");
 
 module.exports = function(server) {
-    //let router = server.Router();
+    // let router = server.Router();
 
     server.get("/projects", controller.viewAllProjects);
     server.get("/projects/create", controller.getRegister);
     server.post("/projects/create", controller.postProject);
+    server.get("/project/:name");
+    server.get("/search", controller.searchProjects);
     server.get("/projects/:id", controller.getProjectById);
-        //server.get("/project/:name", controller.loadProject);
-
-
+        // server.get("/project/:name", controller.loadProject);
 };

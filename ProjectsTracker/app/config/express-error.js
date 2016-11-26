@@ -1,28 +1,20 @@
 module.exports = function (app) {
     app.use((req, res, next) => {
-        if (req.session.error) {
-            let msg = req.session.error;
-            req.session.error = undefined;
-            app.locals.errorMessage = msg;
-            console.log(msg);
-        } else {
-            app.locals.errorMessage = undefined;
-        }
-
-        next();
+        let err = new Error("Not Found");
+        err.status = 404;
+        next(err);
     });
 
-
     // error handler
-    app.use((err, req, res) => {
+    app.use((err, req, res, next) => {
         // set locals, only providing error in development
         res.locals.message = err.message;
         if (req.app.get("env") === "development") {
             res.locals.error = err;
-        } else {
+        }
+        else {
             res.locals.error = {};
         }
-
         // render the error page
         res.status(err.status || 500);
         res.render("error");
