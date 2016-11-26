@@ -26,8 +26,17 @@ block content
                   a(href='/projects/create') Create Project
                 li
                   a(href='#') Find Project
-            li
-              a(href='#') Tasks
+            li.dropdown
+              a.dropdown-toggle(href='/tasks', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
+                | Tasks
+                span.caret
+              ul.dropdown-menu
+                li
+                  a(href='/tasks') View All Tasks
+                li
+                  a(href='/tasks/create') Create Task
+                li
+                  a(href='#') Find Task
             li
               a(href='/users') Users
 
