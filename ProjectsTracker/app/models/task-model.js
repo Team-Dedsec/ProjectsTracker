@@ -7,7 +7,7 @@ const Schema = mongoose.Schema;
 const Statuses = ["Open", "Closed", "Resolved", "Reopened", "Waiting For", "Duplicate"];
 
 const TaskSchema = new mongoose.Schema({
-    Name: { type: String, required: true, min: 3, max: 50 },
+    Title: { type: String, required: true, min: 3, max: 50 },
     Description: { type: String, max: 500 },
     Priority: { type: Number, required: true, min: 1, max: 10 },
     CreatedDate: { type: Date, default: Date.now },

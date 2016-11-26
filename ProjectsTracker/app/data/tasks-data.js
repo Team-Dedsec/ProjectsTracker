@@ -5,14 +5,14 @@ module.exports = function (models) {
     let { Task } = models;
 
     return {
-        createTask(name, description, priority, dueDate, reporter, assignee, project) {
+        createTask(title, description, priority, dueDate, reporter, assignee, project) {
             let createDate = Date.now(),
                 updateDate = Date.now(),
                 status = "Open",
                 comments = [];
 
             let task = new Task({
-                name,
+                title,
                 description,
                 priority,
                 createDate,
