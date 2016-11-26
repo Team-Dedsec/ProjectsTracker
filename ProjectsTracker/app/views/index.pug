@@ -16,7 +16,7 @@ block content
             li.active
               a(href='/') Home
             li.dropdown
-              a.dropdown-toggle(href='/projects', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false') 
+              a.dropdown-toggle(href='/projects', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
                 | Projects
                 span.caret
               ul.dropdown-menu
@@ -30,16 +30,7 @@ block content
               a(href='#') Tasks
             li
               a(href='/users') Users
-            li.dropdown
-              a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
-                | Dropdown
-                span.caret
-              ul.dropdown-menu
-                li.dropdown-header Nav header
-                li
-                  a(href='#') Action
-                li
-                  a(href='#') Another action
+
 
           form.navbar-form.navbar-left(action="/search" method="get" role='search')
             .form-group
@@ -55,9 +46,18 @@ block content
               a(href='/login')
                 span.glyphicon.glyphicon-log-in
                 |  Login
-            li
-              a(href='/login/facebook' method='post')
-                span.glyphicon.glyphicon-log-in
-                |  Facebook Login
+            li.dropdown
+              a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
+                | Login from account
+                span.caret
+              ul.dropdown-menu
+                li
+                  a(href='/login/facebook' method='post')
+                    span.glyphicon.glyphicon-log-in
+                    |  Facebook Login
+                li
+                  a(href='/login/github' method='post')
+                    span.glyphicon.glyphicon-log-in
+                    |  GitHub Login
 .container
     block main

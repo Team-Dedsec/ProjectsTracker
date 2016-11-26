@@ -1,26 +1,35 @@
 /* globals module require */
 const userController = require("../controllers/user-controller");
 
-module.exports = function (server) {
-    let passport = require("../config/facebook-authentication.js");
+module.exports = function(server) {
+  let passportFacebook = require("../config/facebook-authentication.js");
+  let passportGitHub = require("../config/github-authentication.js");
 
-    server.get("/users", userController.viewAllUsers);
-    server.get("/user/:name", userController.viewUserByName);
-    server.get("/register", userController.register);
-    server.post("/register", userController.createUser);
+  server.get("/users", userController.viewAllUsers);
+  server.get("/user/:name", userController.viewUserByName);
+  server.get("/register", userController.register);
+  server.post("/register", userController.createUser);
 
-    server.post("/login", userController.loginUser);
-    server.get("/login", userController.login);
+  server.post("/login", userController.loginUser);
+  server.get("/login", userController.login);
 
-    server.get("/login/facebook",
-        passport.authenticate("facebook"));
+  server.get("/login/facebook", passportFacebook.authenticate("facebook"));
 
-    server.get("/auth/facebook/return",
-        passport.authenticate("facebook", {
-            failureRedirect: "/login"
-        }),
-        (req, res) => {
-            // Successful authentication, redirect home.
-            res.redirect("/");
-        });
+  server.get("/auth/facebook/return", passportFacebook.authenticate("facebook", {
+      failureRedirect: "/login"
+    }),
+    (req, res) => {
+      // Successful authentication, redirect home.
+      res.redirect("/");
+    });
+
+  server.get('/login/github', passportGitHub.authenticate('github'));
+
+  server.get('/auth/github/callback', passportGitHub.authenticate('github', {
+      failureRedirect: '/login'
+    }),
+    function(req, res) {
+      // Successful authentication, redirect home.
+      res.redirect('/');
+    });
 };
