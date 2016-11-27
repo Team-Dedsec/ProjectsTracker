@@ -23,17 +23,19 @@ module.exports = function(passport, data) {
         if (user)
           return done(null, user);
         else {
+          console.log(profile);
           User.validatePassword(profile.id);
           let passInfo = User.generateHash(profile.id);
           let passHash = passInfo.passwordHash;
           let salt = passInfo.salt;
           let newUser = new User({
             githubId: profile.id,
-            username: profile.displayName,
+            username: profile.username,
             firstName: profile.displayName,
             lastName: profile.displayName,
             password: passHash,
             salt: salt,
+            email: profile.profileUrl,
             role: "user"
           });
           newUser.save(function(err) {

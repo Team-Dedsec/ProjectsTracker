@@ -15,7 +15,7 @@ module.exports = function (server, userController) {
 
     server.get("/login", userController.login);
 
-    server.get('/auth/facebook', passport.authenticate('facebook'));
+    server.get('/auth/facebook', passport.authenticate('facebook',{scope: ['email']}));
 
     server.get("/auth/facebook/return", passport.authenticate("facebook", {
             failureRedirect: '/login'

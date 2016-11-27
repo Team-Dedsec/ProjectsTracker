@@ -10,7 +10,8 @@ module.exports = function(passport, data) {
   passport.use(new FacebookStrategy({
       clientID: FACEBOOK_APP_ID,
       clientSecret: FACEBOOK_APP_SECRET,
-      callbackURL: "http://localhost:3001/auth/facebook/return"
+      callbackURL: "http://localhost:3001/auth/facebook/return",
+      profileFields: ['id', 'email', 'gender', 'link', 'locale', 'name', 'displayName','timezone', 'updated_time', 'verified']
     },
     function(accessToken, refreshToken, profile, done) {
       User.findOne({
@@ -28,9 +29,10 @@ module.exports = function(passport, data) {
           let newUser = new User({
             facebookId: profile.id,
             username: profile.displayName,
-            firstName: profile.displayName,
-            lastName: profile.displayName,
+            firstName: profile.name.givenName,
+            lastName: profile.name.familyName,
             password: passHash,
+            email: profile.emails[0].value,
             salt: salt,
             role: "user"
           });
