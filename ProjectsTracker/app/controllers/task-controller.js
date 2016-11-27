@@ -14,17 +14,22 @@ module.exports = function (data) {
         //         res.status(400).send(err);
         //     });
         getCreate(req, res) {
+            if (!req.isAuthenticated()) {
+                res.redirect("/login");
+            }
             res.render("../views/create-task.pug", ({}));
         },
         postTask(req, res){
+            console.log(req.user)
             let title = req.body.title;
             let description = req.body.description;
             let priority = req.body.priority;
-            let dueDate = req.body.dueDate;
-            //let reporter = req.user._id;
+            let reporter = req.user._id;
             let assignee = req.body.assignee;
             let project = req.body.project;
-            data.createTask(title, description, priority, dueDate, project);
+            let status = "Open";
+            let comments = [];
+            data.createTask(title, description, priority, status, reporter, assignee, project, comments);
         }
     }
 };
