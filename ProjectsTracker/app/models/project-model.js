@@ -26,10 +26,14 @@ let ProjectSchema = new Schema({
     isPrivate: {
         type: Boolean,
         required: true
-    },
-    //userContributetTo: [{ type: Schema.Types.ObjectId, ref: "User" }],
+    },   
+    userContributetTo: [{ type: Schema.Types.ObjectId, ref: "User" }],
     tasks: [{ type: Schema.Types.ObjectId, ref: "Task" }]
-});
+},
+    {
+        timestamps: true
+    }
+);
 
 ProjectSchema.query.byTitle = function(name) {
     return this.find({
