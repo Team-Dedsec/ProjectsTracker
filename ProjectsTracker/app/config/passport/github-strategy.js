@@ -13,11 +13,37 @@ module.exports = function(passport, data) {
       clientSecret: GITHUB_APP_SECRET,
       callbackURL: "http://localhost:3001/auth/github/callback"
     },
-    function(accessToken, refreshToken, profile, cb) {
-      User.findOrCreate({
-        githubId: profile.id
+    function(accessToken, refreshToken, profile, done) {
+      console.log(typeof profile.id);
+      User.findOne({
+        'githubId': profile.id
       }, function(err, user) {
-        return cb(err, user);
+        if (err)
+          return done(err);
+        if (user)
+          return done(null, user);
+        else {
+          User.validatePassword(profile.id);
+          let passInfo = User.generateHash(profile.id);
+          let passHash = passInfo.passwordHash;
+          let salt = passInfo.salt;
+          let newUser = new User({
+            githubId: profile.id,
+            username: profile.displayName,
+            firstName: profile.displayName,
+            lastName: profile.displayName,
+            password: passHash,
+            salt: salt,
+            role: "user"
+          });
+          newUser.save(function(err) {
+            if (err){
+              console.log(err.message);
+            }
+            console.log(newUser);
+            return done(null, newUser);
+          });
+        };
       });
     }
   ));

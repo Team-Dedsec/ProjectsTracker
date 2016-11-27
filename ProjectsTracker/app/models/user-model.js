@@ -8,6 +8,12 @@ const passHasher = require("../utils/salt-hash-password");
 const roles = ["admin", "user"];
 
 let UserSchema = new Schema({
+    facebookId:{
+      type: String
+    },
+    githubId:{
+      type: String
+    },
     firstName: {
         type: String,
         required: true
