@@ -14,6 +14,7 @@ module.exports = function (server, userController) {
     server.post("/login", userController.loginLocal);
 
     server.get("/login", userController.login);
+    server.get("/logout", userController.logout);
 
     server.get('/auth/facebook', passport.authenticate('facebook',{scope: ['email']}));
 

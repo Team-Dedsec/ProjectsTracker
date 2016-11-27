@@ -53,27 +53,45 @@ block content
                     button.btn.btn-danger.btn-sm(type='submit')
                         span.glyphicon.glyphicon-search
                 ul.nav.navbar-nav.navbar-right
-                    li
-                        a(href='/register')
-                            span.glyphicon.glyphicon-user
-                            |  Sign Up
-                    li
-                        a(href='/login')
-                            span.glyphicon.glyphicon-log-in
-                            |  Login
-                    li.dropdown
-                        a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
-                            | Login from account
-                            span.caret
-                        ul.dropdown-menu
-                            li
-                                a(href='/auth/facebook' method='get')
-                                    span.glyphicon.glyphicon-log-in
-                                    |  Facebook Login
-                            li
-                                a(href='/auth/github' method='get')
-                                    span.glyphicon.glyphicon-log-in
-                                    |  GitHub Login
+                    if(isAuthenticated() == false)
+                        li
+                            a(href='/register')
+                                span.glyphicon.glyphicon-user
+                                |  Sign Up
+                    
+                        li
+                            a(href='/login')
+                                span.glyphicon.glyphicon-log-in
+                                |  Login
+                        li.dropdown
+                            a.dropdown-toggle(href='#', data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
+                                | Login from account
+                                span.caret
+                            ul.dropdown-menu
+                                li
+                                    a(href='/auth/facebook' method='get')
+                                        span.glyphicon.glyphicon-log-in
+                                        |  Facebook Login
+                                li
+                                    a(href='/auth/github' method='get')
+                                        span.glyphicon.glyphicon-log-in
+                                        |  GitHub Login
+                    else
+                        li
+                            a(href="/profile")
+                                span.glyphicon.glyphicon-user
+                                | #{user.username}
+                        li
+                            a(href="/logout")
+                                span.glyphicon.glyphicon-log-out
+                                | Log Out
+                    
     .container
         block main
+
+block footer
+    footer.footer
+        .container
+            p.text-muted Made by Team Dedsec for Telerik Academy's Node.js Apps Course.
+                            a(href="https://github.com/Team-Dedsec/ProjectsTracker") View source
 

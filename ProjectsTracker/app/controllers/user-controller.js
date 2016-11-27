@@ -71,6 +71,10 @@ module.exports = function (data) {
 
             auth(req, res, next);
         },
+        logout(req, res) {
+            req.logout();
+            res.redirect("/");
+        },
         getProfile(req, res) {
             if (!req.isAuthenticated()) {
                 res.status(401).redirect("/unauthorized");

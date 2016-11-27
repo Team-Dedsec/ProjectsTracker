@@ -3,7 +3,7 @@
 module.exports = function (data) {
     return {
         homePage(req, res) {
-            res.render("home-page");
+            res.render("home-page", { req });
         },
         search(req, res, next) {
             let typeOfSearch = req.query.searchType;

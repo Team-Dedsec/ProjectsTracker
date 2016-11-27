@@ -14,7 +14,9 @@ module.exports = function (data) {
         //         res.status(400).send(err);
         //     });
         getCreate(req, res) {
-            res.render("../views/create-task.pug", ({}));
+            data.getAllProjects().then(projects => {
+                res.render("../views/create-task.pug", projects);                
+            });
         },
         postTask(req, res){
             let title = req.body.title;
