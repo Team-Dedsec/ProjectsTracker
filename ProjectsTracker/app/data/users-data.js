@@ -70,8 +70,8 @@ module.exports = function (models) {
         },
         searchUsers(username) {
             return new Promise((resolve, reject) => {
-                let query = { "username": new RegExp(username, "i") };
-                User.find(query)
+                User.find()
+                    .byName(username)
                     .exec((err, user) => {
                         if (err) {
                             return reject(err);

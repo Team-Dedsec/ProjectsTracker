@@ -1,7 +1,5 @@
 /* globals require module */
-const controller = require("../controllers/project-controller");
-
-module.exports = function(server) {
+module.exports = function(server, controller) {
     // let router = server.Router();
 
     server.get("/projects", controller.viewAllProjects);

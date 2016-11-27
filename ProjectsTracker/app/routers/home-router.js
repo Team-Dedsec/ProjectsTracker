@@ -1,6 +1,4 @@
-const controller = require("../controllers/home-controller");
-
-module.exports = function(server) {
+module.exports = function(server, controller) {
 
     //console.log("index route");
     server.get("/", controller.homePage);
