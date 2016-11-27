@@ -4,8 +4,8 @@ block main
     .col-lg-4.col-md-4.col-sm-2
         h1 Login here:
         form(action="/login" method="post")
-                    input.form-control(type="text" name="username" placeholder="Enter Username")
-                    input.form-control(type="password" name="password" placeholder="Enter Password")
+                    input.form-control(type="text" name="username" placeholder="Enter Username" required)
+                    input.form-control(type="password" name="password" placeholder="Enter Password" required)
 
                     input.btn.btn-success(type="submit" value="Login")
         a(href="/forgot") Forgot your password?
