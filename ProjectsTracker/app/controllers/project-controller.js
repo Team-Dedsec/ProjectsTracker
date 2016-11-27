@@ -24,7 +24,7 @@ module.exports = function (data) {
             let description = req.body.description;
             let projectType = req.body.type;
             // let leadUser = req.user._id;
-            data.createProject(title, description, projectType).then((project) => {
+            data.createProject(title, description, projectType).then((project) => {                 
                 res.redirect(`/projects/${project._id}`);
             });
         },
@@ -35,6 +35,7 @@ module.exports = function (data) {
         getProjectById(req, res) {
             if (!req.isAuthenticated()) {
                 data.getProjectById(req.params.id).then((project) => {
+                   
                     if (project.isPrivate == true) {
                         res.redirect("/login");
                     }
