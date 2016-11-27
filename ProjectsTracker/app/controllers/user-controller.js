@@ -1,21 +1,18 @@
 "use strict";
 
 const passport = require("passport");
+const nodemailer = require("nodemailer");
 
 module.exports = function (data) {
     return {
         viewAllUsers(req, res) {
-            data.getAllUsers().then(users => res.render("../views/users.pug", {
-                users
-            }));
+            data.getAllUsers().then(users => res.render("../views/users.pug", { users }));
         },
         viewUserByName(req, res) {
             data.findUserByUsername(req.params.name)
                 .then(foundUsers => {
                     let user = foundUsers[0];
-                    res.render("../views/user-details.pug", {
-                        user
-                    });
+                    res.render("../views/user-details.pug", { user });
                 });
         },
         registerPage(req, res) {
@@ -32,10 +29,11 @@ module.exports = function (data) {
                 firstName,
                 lastName,
                 username,
-                password
+                password,
+                email
             } = req.body;
 
-            return data.registerUser(firstName, lastName, username, password)
+            return data.registerUser(firstName, lastName, username, password, email)
                 .then(user => {
                     return res.redirect(`/user/${user.username}`);
                 })
@@ -56,7 +54,7 @@ module.exports = function (data) {
                 if (!user) {
                     res.json({
                         success: false,
-                        message: 'Invalid name or password!'
+                        message: "Invalid name or password!"
                     });
                 }
 
@@ -66,7 +64,7 @@ module.exports = function (data) {
                         return;
                     }
 
-                    res.redirect('/profile');
+                    res.redirect("/profile");
 
                 });
             });
@@ -78,11 +76,11 @@ module.exports = function (data) {
                 res.status(401).redirect("/unauthorized");
             } else {
                 const user = req.user;
-                //res.status(200).send(`Welcome, ${user}! Go to <a href="/">Home</a>`);
-                req.flash('success_msg', "You have logged in successfully!");
+                // res.status(200).send(`Welcome, ${user}! Go to <a href="/">Home</a>`);
+                req.flash("success_msg", "You have logged in successfully!");
                 res.render("../views/profile", {
                     user,
-                    success_msg: req.flash('success_msg')
+                    success_msg: req.flash("success_msg")
                 });
             }
         },
@@ -91,6 +89,48 @@ module.exports = function (data) {
         },
         admin(req, res) {
             res.render("admin");
+        },
+        forgot(req, res) {
+            res.render("forgotten-password");
+        },
+        handleForgottenPassword(req, res) {
+            let token = data.generateRandomCryptoString(30);
+
+            data.updateUserToken(req.body.email, token)
+                .then((user) => {
+                    let smtpTransport = nodemailer.createTransport("SMTP", {
+                        service: "SendGrid",
+                        auth: {
+                            user: "TeamDedSec",
+                            pass: "Itsareallysecurepasswordwhichshouldcomefromconfig1"
+                        }
+                    });
+                    let mailOptions = {
+                        to: user.email,
+                        from: "webmaster@projecttracker.com",
+                        subject: "Project Tracker Password Reset",
+                        text: `${"You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n" +
+                        "Please click on the following link, or paste this into your browser to complete the process:\n\n" +
+                        "http://"}${req.headers.host}/reset/${token}\n\n` +
+                        `If you did not request this, please ignore this email and your password will remain unchanged.\n`
+                    };
+
+                    smtpTransport.sendMail(mailOptions, (err) => {
+                        if (err) {
+                            res.render("error");
+                        }
+                        req.flash("info", `An e-mail has been sent to ${user.email} with further instructions.`);
+                        // done(err, "done");
+                        res.redirect("/");
+                    });
+
+                })
+                .catch((err) => {
+                    res.render("error", err);
+                });
+        },
+        resetPassword(req, res) {
+            res.send("reset")
         }
     };
 };

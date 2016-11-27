@@ -4,15 +4,13 @@ let express = require("express"),
     session = require("express-session"),
     bodyParser = require("body-parser"),
     cookieParser = require("cookie-parser"),
-    passport = require("passport"),
     logger = require("morgan"),
     flash = require("connect-flash-plus"),
-    error,
     roles = require("./roles");
 
 let path = require("path");
 
-module.exports = function(app, config) {
+module.exports = function (app, config) {
 
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
@@ -25,7 +23,6 @@ module.exports = function(app, config) {
 
     app.set("views", path.join(config.rootPath, "app/views/"));
     app.set("view engine", "pug");
-    let p = path.join(config.rootPath, "public");
     app.use("/public", express.static(path.join(config.rootPath, "public")));
     app.set("view options", { layout: false });
 
@@ -39,10 +36,10 @@ module.exports = function(app, config) {
 
     // Global Vars
     app.use(function (req, res, next) {
-      res.locals.success_msg = req.flash("success_msg");
-      res.locals.error_msg = req.flash("error_msg");
-      res.locals.error = req.flash("error");
-      next();
+        res.locals.success_msg = req.flash("success_msg");
+        res.locals.error_msg = req.flash("error_msg");
+        res.locals.error = req.flash("error");
+        next();
     });
 
     const User = require("../models/user-model");

@@ -27,3 +27,4 @@ function saltThenHash(password) {
 
 module.exports.saltThenHash = saltThenHash;
 module.exports.getHash = getHash;
+module.exports.randomCryptoString = genRandomString;

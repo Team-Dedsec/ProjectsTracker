@@ -4,7 +4,7 @@ module.exports = function (models) {
     let { User } = models;
 
     return {
-        registerUser(firstName, lastName, username, password) {
+        registerUser(firstName, lastName, username, password, email) {
             User.validatePassword(password);
             let passInfo = User.generateHash(password);
             let passHash = passInfo.passwordHash;
@@ -16,6 +16,7 @@ module.exports = function (models) {
                 username,
                 password: passHash,
                 salt,
+                email,
                 role: "user"
             });
 
@@ -80,6 +81,30 @@ module.exports = function (models) {
 
                         return resolve(user);
                     });
+            });
+        },
+        generateRandomCryptoString(length) {
+            let randomString = User.generateCryptoString(length);
+            return randomString;
+        },
+        updateUserToken(email, token) {
+            return new Promise((resolve, reject) => {
+                User.findOne({ email: email }, (err, user) => {
+                    if (err) {
+                        reject(err);
+                    }
+                    user.resetPasswordToken = token;
+                    // 1h
+                    user.resetPasswordExpires = Date.now() + 3600000;
+                    // user.visits.$inc();
+                    user.save((error) => {
+                        if (error) {
+                            reject(error);
+                        }
+
+                        resolve(user, token);
+                    });
+                });
             });
         }
     };

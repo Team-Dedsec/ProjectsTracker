@@ -19,9 +19,7 @@ let UserSchema = new Schema({
     username: {
         type: String,
         required: true,
-        index: {
-            unique: true
-        },
+        index: { unique: true },
         validate: {
             validator: (v) => {
                 return constants.usernameRegex.test(v) && v.length >= constants.usernameMinLength;
@@ -32,6 +30,11 @@ let UserSchema = new Schema({
     password: {
         type: String,
         required: true
+    },
+    email: {
+        type: String,
+        required: true,
+        index: { unique: true }
     },
     salt: {
         type: String,
@@ -53,7 +56,9 @@ let UserSchema = new Schema({
     },
     bugWorkingOnId: {
         type: Schema.Types.ObjectId
-    }
+    },
+    resetPasswordToken: String,
+    resetPasswordExpires: Date
 });
 
 UserSchema
@@ -75,12 +80,16 @@ UserSchema.methods.comparePassword = function (password1) {
 // TODO: Better way/spot to validate
 UserSchema.statics.validatePassword = function (password) {
     if (password.length < constants.passwordMinLength || !constants.passwordRegex.test(password)) {
-        throw new Error("Invalid user password!");
+        throw new Error("Password must be at least 6 characters long and can contain only the symbols A-Z, a-z, 0-9 and _.!@#$%^&*(){}:\"<>?~|");
     }
 };
 
 UserSchema.statics.generateHash = function (password) {
     return passHasher.saltThenHash(password);
+};
+
+UserSchema.statics.generateCryptoString = function (length) {
+    return passHasher.randomCryptoString(length);
 };
 
 UserSchema.statics.findOrCreate = function findOrCreate(profile, cb) {

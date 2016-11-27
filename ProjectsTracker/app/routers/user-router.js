@@ -32,7 +32,10 @@ module.exports = function (server, userController) {
         });
 
     server.get("/admin", user.can("access admin page"), userController.admin);
-
+    server.get("/forgot", userController.forgot);
+    server.post("/forgot", userController.handleForgottenPassword);
+    
+    server.post("/reset/:token", userController.resetPassword);
 
     //server.get('/auth/github/callback', userController.loginFromGitHub);
 
