@@ -5,11 +5,21 @@ module.exports = function (models) {
     let { Task } = models;
 
     return {
-        createTask (title, description, priority, dueDate, reporter, assignee, project) {
+        createTask(title, description, priority, status, reporter, assignee, project, comments) {
             let createdDate = Date.now(),
                 updatedDate = Date.now(),
-                status = "Open",
-                comments = [];
+                dueDate = addDays(Date.now(), 14);
+
+            console.log(createdDate);
+            console.log(updatedDate);
+            console.log(dueDate);
+            console.log(status);
+            
+            function addDays(date, days) {
+                var result = new Date(date);
+                result.setDate(result.getDate() + days);
+                return result;
+            }
 
             let task = new Task({
                 title,
