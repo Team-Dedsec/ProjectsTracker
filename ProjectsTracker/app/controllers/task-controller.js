@@ -1,3 +1,5 @@
+
+
 module.exports = function (data) {
     return {
         viewAllTasks(req, res) {
@@ -17,16 +19,16 @@ module.exports = function (data) {
             if (!req.isAuthenticated()) {
                 res.redirect("/login");
             }
-            res.render("../views/create-task.pug", ({}));
+            res.render("../views/create-task.pug");
         },
-        postTask(req, res){
+        postTask(req, res) {
             console.log(req.user)
             let title = req.body.title;
             let description = req.body.description;
             let priority = req.body.priority;
             let reporter = req.user._id;
             let assignee = req.body.assignee;
-            let project = req.body.project;
+            let project = req.user.projectWorkingOnId;
             let status = "Open";
             let comments = [];
             data.createTask(title, description, priority, status, reporter, assignee, project, comments);
