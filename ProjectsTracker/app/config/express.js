@@ -25,7 +25,7 @@ module.exports = function(app, config) {
 
     app.set("views", path.join(config.rootPath, "app/views/"));
     app.set("view engine", "pug");
-
+    let p = path.join(config.rootPath, "public");
     app.use("/public", express.static(path.join(config.rootPath, "public")));
     app.set("view options", { layout: false });
 

@@ -7,9 +7,12 @@ const user = new ConnectRoles({
         const accept = req.headers.accept || "";
         res.status(403);
         if (~accept.indexOf("html")) {
-            res.render("unauthorized", { action });
+            let message = `You don't have permission to ${action}!`;
+            let error = new Error(message);
+            error.status = 403;
+            res.render("error", { message, error });
         } else {
-            res.send(`Access Denied - You don't have permission to: ${action}`);
+            res.send(`Access Denied - You don't have permission to ${action}!`);
         }
     }
 });

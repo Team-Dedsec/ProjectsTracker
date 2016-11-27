@@ -1,11 +1,23 @@
 extends index
-
 block main
-  .page-header
-    h1= message
-    h2
-    | Error code: #{error.status}
-    p
-      a(href="/")
-        | Return to the homepage.
-    pre #{error.stack}
+  .container
+    .row
+      .span12
+        .hero-unit.center
+          h1
+            | #{message}
+          small
+              font(face='Tahoma', color='red') Error code: #{error.status}
+          br
+          p
+            | Use your browsers
+            b  Back
+            |  button to navigate to the page you have prevously come from
+          p
+            b Or you could just press this neat little button:
+          a.btn.btn-large.btn-info(href='/')
+            i.icon-home.icon-white
+            |  Take Me Home
+          p
+            pre #{error.stack}
+
