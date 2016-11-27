@@ -88,6 +88,9 @@ module.exports = function (data) {
         },
         get404(req, res) {
             res.send("Unauthorized access");
+        },
+        admin(req, res) {
+            res.render("admin");
         }
-    }
+    };
 };

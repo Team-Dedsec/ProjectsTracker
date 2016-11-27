@@ -1,4 +1,7 @@
 /* globals module require */
+"use strict";
+const user = require("../config/roles");
+
 module.exports = function (server, userController) {
     let passport = require("passport");
 
@@ -27,6 +30,9 @@ module.exports = function (server, userController) {
             // Successful authentication, redirect home.
             res.redirect("/profile");
         });
+
+    server.get("/admin", user.can("access admin page"), userController.admin);
+
 
     //server.get('/auth/github/callback', userController.loginFromGitHub);
 

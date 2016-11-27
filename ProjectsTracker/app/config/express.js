@@ -8,7 +8,8 @@ let express = require("express"),
     passport = require("passport"),
     logger = require("morgan"),
     flash = require("connect-flash-plus"),
-    error;
+    error,
+    roles = require("./roles");
 
 let path = require("path");
 
@@ -36,6 +37,7 @@ module.exports = function(app, config) {
 
     require("../config/passport/")(app);
 
+    app.use(roles.middleware());
     // Connect Flash
     app.use(flash());
 

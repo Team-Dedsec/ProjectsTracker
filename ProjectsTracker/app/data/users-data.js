@@ -15,7 +15,8 @@ module.exports = function (models) {
                 lastName,
                 username,
                 password: passHash,
-                salt
+                salt,
+                role: "user"
             });
 
             return new Promise((resolve, reject) => {

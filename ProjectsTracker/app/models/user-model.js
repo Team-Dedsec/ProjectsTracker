@@ -5,6 +5,7 @@ const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 const constants = require("../constants/constants");
 const passHasher = require("../utils/salt-hash-password");
+const roles = ["admin", "user"];
 
 let UserSchema = new Schema({
     firstName: {
@@ -42,9 +43,9 @@ let UserSchema = new Schema({
             message: "{VALUE} is not a valid salt!"
         }
     },
-    // TODO: Define roles & role management strategy
     role: {
-        type: Number
+        type: String,
+        enum: roles
     },
     projectWorkingOnId: {
         type: Schema.Types.ObjectId, ref: "Project"
