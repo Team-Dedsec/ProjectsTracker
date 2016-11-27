@@ -12,11 +12,36 @@ module.exports = function(passport, data) {
       clientSecret: FACEBOOK_APP_SECRET,
       callbackURL: "http://localhost:3001/auth/facebook/return"
     },
-    function(accessToken, refreshToken, profile, cb) {
-      User.findOrCreate({
-        facebookId: profile.id
+    function(accessToken, refreshToken, profile, done) {
+      User.findOne({
+        'facebookId': profile.id
       }, function(err, user) {
-        return cb(err, user);
+        if (err)
+          return done(err);
+        if (user)
+          return done(null, user);
+        else {
+          User.validatePassword(profile.id);
+          let passInfo = User.generateHash(profile.id);
+          let passHash = passInfo.passwordHash;
+          let salt = passInfo.salt;
+          let newUser = new User({
+            facebookId: profile.id,
+            username: profile.displayName,
+            firstName: profile.displayName,
+            lastName: profile.displayName,
+            password: passHash,
+            salt: salt,
+            role: "user"
+          });
+          newUser.save(function(err) {
+            if (err){
+              console.log(err.message);
+            }
+            console.log(newUser);
+            return done(null, newUser);
+          });
+        };
       });
     }
   ));

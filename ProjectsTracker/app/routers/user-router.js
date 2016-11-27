@@ -15,6 +15,8 @@ module.exports = function (server, userController) {
 
     server.get("/login", userController.login);
 
+    server.get('/auth/facebook', passport.authenticate('facebook'));
+
     server.get("/auth/facebook/return", passport.authenticate("facebook", {
             failureRedirect: '/login'
         }),
@@ -23,18 +25,20 @@ module.exports = function (server, userController) {
             res.redirect("/profile");
         });
 
+    server.get("/auth/github", passport.authenticate("github"));
+
     server.get("/auth/github/callback", passport.authenticate("github", {
             failureRedirect: "/login"
         }),
         function (req, res) {
             // Successful authentication, redirect home.
+            console.log(req.user.username);
             res.redirect("/profile");
         });
-
     server.get("/admin", user.can("access admin page"), userController.admin);
     server.get("/forgot", userController.forgot);
     server.post("/forgot", userController.handleForgottenPassword);
-    
+
     server.post("/reset/:token", userController.resetPassword);
 
     //server.get('/auth/github/callback', userController.loginFromGitHub);
