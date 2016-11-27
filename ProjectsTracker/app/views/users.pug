@@ -1,10 +1,19 @@
-include layout
 include index
 
-block content
-  ul
-    each user in users
-      li #{user.username}
-
+#banner.container
+      .row
+        .col-lg-10
+          .page-header
+            h1 Users
+      .row
+        each user in users
+          .col-lg-12
+            .panel.panel-primary
+              - var url = user.username;
+                    .panel-heading
+                      h3.panel-title
+                        a(href="users/" + url) #{user.username}
+                    .panel-body
+                      p #{user.fullName}
 
 include footer
