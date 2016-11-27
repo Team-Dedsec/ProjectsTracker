@@ -69,6 +69,20 @@ module.exports = function (models) {
                     return resolve(task);
                 });
             });
+        },
+
+        searchTasks(title) {
+            let query = { "title": new RegExp(`${title}`, "i") };
+            return new Promise((resolve, reject) => {
+                Task.find(query)
+                    .exec((err, tasks) => {
+                        if (err) {
+                            return reject(err);
+                        }
+
+                        return resolve(tasks);
+                    });
+            });
         }
     };
 };

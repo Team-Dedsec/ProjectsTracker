@@ -20,8 +20,14 @@ module.exports = function (data) {
                         });
                     break;
                 case "Tasks":
-                    res.status(502);
-                    throw new Error("Not implemented!");
+                    data.searchTasks(searchTerm)
+                        .then(tasks => {
+                            res.render("tasks", { tasks });
+                        })
+                        .catch((err) => {
+                            res.status(500);
+                            next(err, req, res);
+                        });
                     break;
                 case "Projects":
                     data.searchProjects(searchTerm)
