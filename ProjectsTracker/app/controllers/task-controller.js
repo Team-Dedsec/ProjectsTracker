@@ -32,6 +32,11 @@ module.exports = function (data) {
             let status = "Open";
             let comments = [];
             data.createTask(title, description, priority, status, reporter, assignee, project, comments);
+        },
+        getTaskById(req, res) {
+            data.getTaskById(req.params.id).then((task) => {
+                res.render("../views/task.pug", task);
+            });
         }
     }
 };

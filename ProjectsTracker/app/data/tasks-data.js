@@ -61,15 +61,14 @@ module.exports = function (models) {
 
         getTaskById(id) {
             return new Promise((resolve, reject) => {
-                Task.find()
-                    .byId(id)
-                    .exec((err, task) => {
-                        if (err) {
-                            return reject(err);
-                        }
+                Task.findById(id).exec((err, user) => {
+                    if (err) {
+                        console.log(err);
+                        return reject(err);
+                    }
 
-                        return resolve(task);
-                    });
+                    return resolve(task);
+                });
             });
         }
     };
