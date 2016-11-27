@@ -129,8 +129,28 @@ module.exports = function (data) {
                     res.render("error", err);
                 });
         },
+        showResetPassword(req, res) {
+            let token = req.params.token;
+            // console.log(token);
+            res.render("reset-password", { token });
+        },
         resetPassword(req, res) {
-            res.send("reset")
+            let password = req.body.password;
+            let token = req.body.token;
+
+            data.changeUserPassword(password, token)
+                .then(user => {
+                    res.render("../views/profile", {
+                        user,
+                        success_msg: req.flash("success_msg", "Your password has been successfully changed!")
+                    });
+                })
+                .catch(err => {
+                    res.render("../views/profile", {
+                        user,
+                        error_msg: req.flash("error_msg", err)
+                    });
+                });
         }
     };
 };

@@ -1,5 +1,8 @@
 /* globals require module Promise */
 "use strict";
+
+const constants = require("../constants/constants");
+
 module.exports = function (models) {
     let { User } = models;
 
@@ -91,18 +94,51 @@ module.exports = function (models) {
             return new Promise((resolve, reject) => {
                 User.findOne({ email: email }, (err, user) => {
                     if (err) {
+                        console.log(err);
                         reject(err);
                     }
                     user.resetPasswordToken = token;
                     // 1h
-                    user.resetPasswordExpires = Date.now() + 3600000;
-                    // user.visits.$inc();
+                    let futureTime = constants.passwordResetExpirationInHours * 1000 * 60 * 60;
+                    user.resetPasswordExpires = Date.now() + futureTime;
+                    user.save((error) => {
+                        if (error) {
+                            console.log(error);
+                            reject(error);
+                        }
+
+                        resolve(user, token);
+                    });
+                });
+            });
+        },
+        changeUserPassword(password, token) {
+            User.validatePassword(password);
+            return new Promise((resolve, reject) => {
+                User.findOne({ resetPasswordToken: token }, (err, user) => {
+                    if (err) {
+                        reject(err);
+                    }
+
+                    if (!user.resetPasswordExpires || user.resetPasswordExpires < Date.now()) {
+                        reject(new Error("Your token has expired, please request another one!"));
+                    }
+
+                    let passInfo = User.generateHash(password);
+                    let passHash = passInfo.passwordHash;
+                    let salt = passInfo.salt;
+
+                    user.resetPasswordToken = "";
+                    user.resetPasswordExpires = Date.now();
+                    user.password = passHash;
+                    user.salt = salt;
+
                     user.save((error) => {
                         if (error) {
                             reject(error);
                         }
 
-                        resolve(user, token);
+                        resolve(user);
                     });
                 });
             });
