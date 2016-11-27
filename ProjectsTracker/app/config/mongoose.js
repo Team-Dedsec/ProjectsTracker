@@ -6,7 +6,7 @@ let mongoose = require("mongoose");
 module.exports = function(config) {
     mongoose.Promise = global.Promise;
     // mongoose.connect("mongodb://localhost/Projects");
-    mongoose.connect(config.db);
+    mongoose.connect(config.db.cloud);
 
     let db = mongoose.connection;
 

@@ -19,15 +19,15 @@ module.exports = function(server) {
     }),
     function(req, res) {
       // Successful authentication, redirect home.
-      res.redirect('/profile');
+      res.redirect("/profile");
     });
 
-  server.get('/auth/github/callback', passport.authenticate("github", {
-      failureRedirect: '/login'
+  server.get("/auth/github/callback", passport.authenticate("github", {
+      failureRedirect: "/login"
     }),
     function(req, res) {
       // Successful authentication, redirect home.
-      res.redirect('/profile');
+      res.redirect("/profile");
     });
 
   //server.get('/auth/github/callback', userController.loginFromGitHub);

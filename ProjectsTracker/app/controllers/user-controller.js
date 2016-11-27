@@ -70,6 +70,7 @@ module.exports = {
         }
 
         res.redirect('/profile');
+
       });
     });
 
@@ -81,8 +82,10 @@ module.exports = {
     } else {
       const user = req.user;
       //res.status(200).send(`Welcome, ${user}! Go to <a href="/">Home</a>`);
+      req.flash('success_msg', "You have logged in successfully!");
       res.render("../views/profile", {
-        user
+        user,
+        success_msg: req.flash('success_msg')
       });
     }
   },
