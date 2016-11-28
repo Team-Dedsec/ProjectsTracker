@@ -86,11 +86,8 @@ module.exports = function (models) {
                     });
             });
         },
-        generateRandomCryptoString(length) {
-            let randomString = User.generateCryptoString(length);
-            return randomString;
-        },
-        updateUserToken(email, token) {
+        updateUserToken(email) {
+            let token = User.generateCryptoString(constants.passwordResetTokenLength);
             return new Promise((resolve, reject) => {
                 User.findOne({ email: email }, (err, user) => {
                     if (err) {
@@ -98,7 +95,6 @@ module.exports = function (models) {
                         reject(err);
                     }
                     user.resetPasswordToken = token;
-                    // 1h
                     let futureTime = constants.passwordResetExpirationInHours * 1000 * 60 * 60;
                     user.resetPasswordExpires = Date.now() + futureTime;
                     user.save((error) => {
@@ -107,7 +103,7 @@ module.exports = function (models) {
                             reject(error);
                         }
 
-                        resolve(user, token);
+                        resolve(user);
                     });
                 });
             });
