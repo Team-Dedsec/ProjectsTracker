@@ -77,14 +77,25 @@ block content
                                         span.glyphicon.glyphicon-log-in
                                         |  GitHub Login
                     else
-                        li
-                            a(href="/profile")
+                        li.dropdown                            
+                            a.dropdown-toggle(href="/profile", data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
                                 span.glyphicon.glyphicon-user
                                 | #{user.username}
-                        li
-                            a(href="/logout")
-                                span.glyphicon.glyphicon-log-out
-                                | Log Out
+                                span.caret
+                            ul.dropdown-menu
+                                li
+                                    a(href="/profile")
+                                        | My Profile
+                                li
+                                    a(href="/users/projects")
+                                        | My Projects
+                                li
+                                    a(href="/#")
+                                        | My Tasks                             
+                                li
+                                     a(href="/logout")
+                                        span.glyphicon.glyphicon-log-out
+                                        | Log Out
                     
     .container
         if (success_msg.length > 0)
