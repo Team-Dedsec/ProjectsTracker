@@ -58,7 +58,7 @@ block content
                             a(href='/register')
                                 span.glyphicon.glyphicon-user
                                 |  Sign Up
-                    
+
                         li
                             a(href='/login')
                                 span.glyphicon.glyphicon-log-in
@@ -77,7 +77,7 @@ block content
                                         span.glyphicon.glyphicon-log-in
                                         |  GitHub Login
                     else
-                        li.dropdown                            
+                        li.dropdown
                             a.dropdown-toggle(href="/profile", data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
                                 span.glyphicon.glyphicon-user
                                 | #{user.username}
@@ -91,12 +91,26 @@ block content
                                         | My Projects
                                 li
                                     a(href="/#")
-                                        | My Tasks                             
+                                        | My Tasks
                                 li
-                                     a(href="/logout")
+                                    a(href="/logout")
                                         span.glyphicon.glyphicon-log-out
                                         | Log Out
-                    
+                    li.dropdown
+                        a.dropdown-toggle(href="/settings", data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
+                            span.glyphicon.glyphicon-cog
+                            | Settings
+                            span.caret
+                        ul.dropdown-menu
+                            li
+                                  a(href="settings/projects")
+                                      | All Projects
+                            li
+                                  a(href="settings/users")
+                                      | All Users
+                            li
+                                  a(href="settings/tasks")
+                                      | All Tasks
     .container
         if (success_msg.length > 0)
             .row
@@ -110,5 +124,4 @@ block footer
     footer.footer
         .container
             p.text-muted Made by Team Dedsec for Telerik Academy's Node.js Apps Course.
-                            a(href="https://github.com/Team-Dedsec/ProjectsTracker") View source
-
+                a(href="https://github.com/Team-Dedsec/ProjectsTracker") View source
