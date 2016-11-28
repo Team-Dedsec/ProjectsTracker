@@ -81,12 +81,21 @@ block content
                             a.dropdown-toggle(href="/profile", data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
                                 span.glyphicon.glyphicon-user
                                 | #{user.username}
+                                span.caret
                             ul.dropdown-menu
                                 li
-                        li
-                            a(href="/logout")
-                                span.glyphicon.glyphicon-log-out
-                                | Log Out
+                                    a(href="/profile")
+                                        | My Profile
+                                li
+                                    a(href="/users/projects")
+                                        | My Projects
+                                li
+                                    a(href="/#")
+                                        | My Tasks                             
+                                li
+                                     a(href="/logout")
+                                        span.glyphicon.glyphicon-log-out
+                                        | Log Out
                     
     .container
         if (success_msg.length > 0)

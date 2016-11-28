@@ -3,12 +3,21 @@ extends index
 block main
     #banner.page-header
         .row
-            .col-lg-5                
-                    h1 Project #{title}
-        .row
-            .col-lg-10
-                p #{description}
-        .row
-            .col-lg-3
-                h3 LeadUser: #{leadUser.username}
+            .col-lg-12 
+                .panel.panel-info
+                    .panel-heading                   
+                        h1.panel-title Project #{title}                                               
+                    .panel-body
+                        | Description:                         
+                        .well
+                            |  #{description}
+                        | LeadUser: 
+                        .well.well-lg                                        
+                            | #{leadUser.username}  
+                a.btn.btn-default(href='/project/:id/addUser') AddUser                        
+                a.btn.btn-default(href='project/:id/addTask') Add Task          
+                    
+        
+  
+          
 
