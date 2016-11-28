@@ -3,6 +3,35 @@ extends index
 block main
     #banner.page-header
         .row
+            .col-sm-4
+                a.btn.btn-default(href='#') Edit
+            if (status == "Open")
+                .col-sm-4
+                    .btn-group
+                        a.btn.btn-default(href="/tasks/resolveTask/" + _id) Resolve
+                        a.btn.btn-default.dropdown-toggle(href='#', data-toggle='dropdown', aria-expanded='false')
+                            span.caret
+                        ul.dropdown-menu
+                            li
+                                a(href='#') Resolve
+                            li
+                                a(href='#') Waiting for
+                            li
+                                a(href='#') Duplicate
+                            li
+                                a(href='#') Need more info
+            if (status == "Resolved")
+                .col-sm-4
+                    .btn-group
+                        a.btn.btn-default(href='#') Close
+                        a.btn.btn-default.dropdown-toggle(href='#', data-toggle='dropdown')
+                            span.caret
+                        ul.dropdown-menu
+                            li
+                                a(href='#') Close
+                            li
+                                a(href='#') Reopen
+        .row
             .col-lg-5                
                     h1 #{title}
         .row

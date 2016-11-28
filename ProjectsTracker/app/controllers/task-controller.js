@@ -1,5 +1,3 @@
-
-
 module.exports = function (data) {
     return {
         viewAllTasks(req, res) {
@@ -36,6 +34,11 @@ module.exports = function (data) {
         },
         getTaskById(req, res) {
             data.getTaskById(req.params.id).then((task) => {
+                res.render("../views/task-details.pug", task);
+            });
+        },
+        resolveTask(req, res) {
+            data.resolveTask(req.params.id).then((task) => {
                 res.render("../views/task-details.pug", task);
             });
         }

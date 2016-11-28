@@ -4,4 +4,5 @@ module.exports = function(server, controller) {
     server.get("/tasks/create", controller.getCreate);
     server.post("/tasks/create", controller.postTask);
     server.get("/tasks/:id", controller.getTaskById);
+    server.get("/tasks/resolveTask/:id", controller.resolveTask);
 };

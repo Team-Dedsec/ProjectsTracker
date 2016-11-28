@@ -9,11 +9,6 @@ module.exports = function (models) {
             let createdDate = Date.now(),
                 updatedDate = Date.now(),
                 dueDate = addDays(Date.now(), 14);
-
-            console.log(createdDate);
-            console.log(updatedDate);
-            console.log(dueDate);
-            console.log(status);
             
             function addDays(date, days) {
                 let result = new Date(date);
@@ -75,6 +70,19 @@ module.exports = function (models) {
             let query = { "title": new RegExp(`${title}`, "i") };
             return new Promise((resolve, reject) => {
                 Task.find(query)
+                    .exec((err, tasks) => {
+                        if (err) {
+                            return reject(err);
+                        }
+
+                        return resolve(tasks);
+                    });
+            });
+        },
+
+        resolveTask(id) {
+            return new Promise((resolve, reject) => {
+                Task.update({ _id: id }, { $set: { status: "Resolved" } })
                     .exec((err, tasks) => {
                         if (err) {
                             return reject(err);
