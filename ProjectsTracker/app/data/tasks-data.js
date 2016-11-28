@@ -1,4 +1,4 @@
-/* globals require module Promise */
+/* globals require module Promise*/
 "use strict";
 
 module.exports = function (models) {
@@ -16,7 +16,7 @@ module.exports = function (models) {
             console.log(status);
             
             function addDays(date, days) {
-                var result = new Date(date);
+                let result = new Date(date);
                 result.setDate(result.getDate() + days);
                 return result;
             }
@@ -66,7 +66,7 @@ module.exports = function (models) {
                         return reject(err);
                     }
 
-                    return resolve(Task);
+                    return resolve(task);
                 });
             });
         },

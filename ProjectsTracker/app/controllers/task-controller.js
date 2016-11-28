@@ -22,7 +22,6 @@ module.exports = function (data) {
             res.render("../views/create-task.pug");
         },
         postTask(req, res) {
-            console.log(req.user)
             let title = req.body.title;
             let description = req.body.description;
             let priority = req.body.priority;
@@ -36,11 +35,9 @@ module.exports = function (data) {
             });
         },
         getTaskById(req, res) {
-            console.log("req.params");
-            console.log(req.params);
             data.getTaskById(req.params.id).then((task) => {
                 res.render("../views/task-details.pug", task);
             });
         }
-    }
+    };
 };
