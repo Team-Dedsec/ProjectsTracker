@@ -65,7 +65,10 @@ let UserSchema = new Schema({
     },
     resetPasswordToken: String,
     resetPasswordExpires: Date,
-    imagePath: String
+    imagePath: {
+      type: String,
+      default: "../../public/uploads/default.png"
+    }
 });
 
 UserSchema
