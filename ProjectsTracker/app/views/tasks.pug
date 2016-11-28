@@ -17,9 +17,27 @@ include index
           tbody
             each task in tasks
               tr
-                td #{task.title}
-                td #{task.priority}
+                td
+                  a(href="tasks/" + task.id) #{task.title}
+                td 
+                  if (task.priority <=3)
+                    span.label.label-danger #{task.priority}
+                  else if (task.priority <= 7)
+                    span.label.label-warning #{task.priority}
+                  else
+                    span.label.label-primary #{task.priority}
                 td #{task.assignee}
                 td #{task.reporter}
-                td #{task.status}
-              tr
+                td 
+                  if (task.status === "Open")
+                    span.label.label-default #{task.status}
+                  else if (task.status === "Closed")
+                    span.label.label-danger #{task.status}                    
+                  else if (task.status === "Resolved")
+                    span.label.label-success #{task.status}
+                  else if (task.status === "Reopened")
+                    span.label.label-default #{task.status}
+                  else if (task.status === "Waiting For")
+                    span.label.label-warning #{task.status}
+                  else if (task.status === "Duplicate")
+                    span.label.label-danger #{task.status}

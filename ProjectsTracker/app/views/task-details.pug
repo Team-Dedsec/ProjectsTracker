@@ -4,7 +4,39 @@ block main
     #banner.page-header
         .row
             .col-lg-5                
-                    h1 Task #{title}
+                    h1 #{title}
+        .row
+            .col-lg-4
+                p Status:
+                    if (status === "Open")
+                        span.label.label-default #{status}
+                    else if (status === "Closed")
+                        span.label.label-danger #{status}                    
+                    else if (status === "Resolved")
+                        span.label.label-success #{status}
+                    else if (status === "Reopened")
+                        span.label.label-default #{status}
+                    else if (status === "Waiting For")
+                        span.label.label-warning #{status}
+                    else if (status === "Duplicate")
+                        span.label.label-danger #{status}
+            .col-lg-2
+                p Priority:
+                    if (priority <=3)
+                        span.label.label-danger #{priority}
+                    else if (priority <= 7)
+                        span.label.label-warning #{priority}
+                    else
+                        span.label.label-primary #{priority}
         .row
             .col-lg-10
+                | Description:
                 p #{description}
+        .row
+            .col-lg-10
+                | Reporter:
+                p #{reporter}
+        .row
+            .col-lg-10
+                | Assignee:
+                p #{assignee}
