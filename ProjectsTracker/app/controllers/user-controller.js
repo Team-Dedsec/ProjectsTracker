@@ -1,7 +1,7 @@
 "use strict";
 
 const passport = require("passport");
-const smtpTransport = require("../config/smtpTransport");
+const smtpTransport = require("../utils/smtpTransport");
 
 module.exports = function (data) {
     return {
@@ -129,13 +129,9 @@ module.exports = function (data) {
             let token = req.body.token;
 
             data.changeUserPassword(password, token)
-                .then(user => {
+                .then(() => {
                     req.flash("success_msg", "Your password has been successfully changed!");
                     res.redirect("/login");
-                    // res.render("profile", {
-                    //     user,
-                    //     success_msg: req.flash("success_msg")
-                    // });
                 })
                 .catch(err => {
                     req.flash("error_msg", err.message);
