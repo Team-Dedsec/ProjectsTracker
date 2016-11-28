@@ -64,7 +64,8 @@ let UserSchema = new Schema({
         type: Schema.Types.ObjectId
     },
     resetPasswordToken: String,
-    resetPasswordExpires: Date
+    resetPasswordExpires: Date,
+    imagePath: String
 });
 
 UserSchema

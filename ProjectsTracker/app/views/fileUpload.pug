@@ -1,10 +1,9 @@
-include index
+include profile
 
+block main
+      .col-lg-4.col-md-4.col-sm-2
+        h1 Upload file here:
+          form(action="/profile/uploadfile" enctype="multipart/form-data" method="post")
+            input.form-control.btn.btn-success(type="file" name="photo" placeholder="Choose from file" required)
 
-    block main
-        .col-lg-4.col-md-4.col-sm-2
-            h1 Upload file here:
-            form(action="/profile/uploadfile" enctype="multipart/form-data" method="post")
-                input.form-control(type="file" name="photo" placeholder="Choose from file" required)
-
-                input.btn.btn-success(type="submit" value="Save")
+            input.btn.btn-success(type="submit" value="Save")
