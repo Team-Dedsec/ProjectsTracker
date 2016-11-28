@@ -42,33 +42,6 @@ module.exports = function (data) {
                         .send(err);
                 });
         },
-        loginLocal(req, res, next) {
-            console.log(req.body);
-            const auth = passport.authenticate("local", (error, user) => {
-                if (error) {
-                    next(error);
-                    return;
-                }
-                console.log("login local");
-                console.log(user);
-                if (!user) {
-                    req.flash("error_msg", "Invalid username or password!");
-                    res.redirect("/login");
-                }
-
-                req.login(user, error => {
-                    if (error) {
-                        next(error);
-                        return;
-                    }
-
-                    res.redirect("/profile");
-
-                });
-            });
-
-            auth(req, res, next);
-        },
         logout(req, res) {
             req.logout();
             res.redirect("/");
