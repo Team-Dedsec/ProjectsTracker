@@ -52,10 +52,8 @@ module.exports = function (data) {
                 console.log("login local");
                 console.log(user);
                 if (!user) {
-                    res.json({
-                        success: false,
-                        message: "Invalid name or password!"
-                    });
+                    req.flash("error_msg", "Invalid username or password!");
+                    res.redirect("/login");
                 }
 
                 req.login(user, error => {
