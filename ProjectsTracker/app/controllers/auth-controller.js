@@ -1,5 +1,7 @@
 "use strict";
 
+let passport = require("passport");
+
 module.exports = function(data) {
   return {
     loginLocal(req, res, next) {
