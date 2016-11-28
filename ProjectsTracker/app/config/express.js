@@ -4,6 +4,7 @@ let express = require("express"),
     session = require("express-session"),
     bodyParser = require("body-parser"),
     cookieParser = require("cookie-parser"),
+    //multer = require("multer"),
     logger = require("morgan"),
     flash = require("connect-flash-plus"),
     roles = require("./roles");
@@ -20,6 +21,14 @@ module.exports = function (app, config) {
         resave: true,
         saveUninitialized: true
     }));
+
+    // let upload = multer({
+    //     dest: './public/uploads/',
+    //     rename: function (fieldname, filename) {
+    //       return filename.replace(/\W+/g, '-').toLowerCase() + Date.now()
+    //     }
+    // }).single("photo");
+    // app.use(upload);
 
     app.set("views", path.join(config.rootPath, "app/views/"));
     app.set("view engine", "pug");

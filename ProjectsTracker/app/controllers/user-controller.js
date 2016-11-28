@@ -1,7 +1,7 @@
 "use strict";
 
 const passport = require("passport");
-const nodemailer = require("nodemailer");
+const smtpTransport = require("../utils/smtpTransport");
 
 module.exports = function (data) {
     return {
@@ -98,36 +98,23 @@ module.exports = function (data) {
             res.render("forgotten-password");
         },
         handleForgottenPassword(req, res) {
-            let token = data.generateRandomCryptoString(30);
-
-            data.updateUserToken(req.body.email, token)
+            data.updateUserToken(req.body.email)
                 .then((user) => {
-                    let smtpTransport = nodemailer.createTransport("SMTP", {
-                        service: "SendGrid",
-                        auth: {
-                            user: "TeamDedSec",
-                            pass: "Itsareallysecurepasswordwhichshouldcomefromconfig1"
-                        }
-                    });
                     let mailOptions = {
                         to: user.email,
                         from: "webmaster@projecttracker.com",
                         subject: "Project Tracker Password Reset",
                         text: `${"You are receiving this because you (or someone else) have requested the reset of the password for your account.\n\n" +
                         "Please click on the following link, or paste this into your browser to complete the process:\n\n" +
-                        "http://"}${req.headers.host}/reset/${token}\n\n` +
+                        "http://"}${req.headers.host}/reset/${user.resetPasswordToken}\n\n` +
                         `If you did not request this, please ignore this email and your password will remain unchanged.\n`
                     };
 
-                    smtpTransport.sendMail(mailOptions, (err) => {
-                        if (err) {
-                            res.render("error");
-                        }
-                        req.flash("info", `An e-mail has been sent to ${user.email} with further instructions.`);
-                        // done(err, "done");
-                        res.redirect("/");
-                    });
-
+                    return smtpTransport.sendMail(mailOptions);
+                })
+                .then((options) => {
+                    req.flash("success_msg", `An e-mail has been sent to ${options.to} with further instructions.`);
+                    res.redirect("/");
                 })
                 .catch((err) => {
                     res.render("error", err);
@@ -135,7 +122,6 @@ module.exports = function (data) {
         },
         showResetPassword(req, res) {
             let token = req.params.token;
-            // console.log(token);
             res.render("reset-password", { token });
         },
         resetPassword(req, res) {
@@ -143,17 +129,13 @@ module.exports = function (data) {
             let token = req.body.token;
 
             data.changeUserPassword(password, token)
-                .then(user => {
-                    res.render("../views/profile", {
-                        user,
-                        success_msg: req.flash("success_msg", "Your password has been successfully changed!")
-                    });
+                .then(() => {
+                    req.flash("success_msg", "Your password has been successfully changed!");
+                    res.redirect("/login");
                 })
                 .catch(err => {
-                    res.render("../views/profile", {
-                        user,
-                        error_msg: req.flash("error_msg", err)
-                    });
+                    req.flash("error_msg", err.message);
+                    res.redirect("/");
                 });
         }
     };

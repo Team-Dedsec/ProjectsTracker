@@ -89,6 +89,12 @@ block content
                                 | Log Out
                     
     .container
+        if (success_msg.length > 0)
+            .row
+                div.alert.alert-success #{success_msg}
+        else if (error_msg.length > 0)
+            .row
+                div.alert.alert-danger #{error_msg}
         block main
 
 block footer

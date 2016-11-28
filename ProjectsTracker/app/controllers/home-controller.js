@@ -3,10 +3,8 @@
 module.exports = function (data) {
     return {
         homePage(req, res) {
-            console.log("HOme");
-            console.log(req.body);
-            console.log(req.projects);
-            res.render("home-page", { req });
+            let options = { success_msg: req.flash("success_msg"), error_msg: req.flash("error_msg") };
+            res.render("home-page", { options });
         },
         search(req, res, next) {
             let typeOfSearch = req.query.searchType;
@@ -23,8 +21,14 @@ module.exports = function (data) {
                         });
                     break;
                 case "Tasks":
-                    res.status(502);
-                    throw new Error("Not implemented!");
+                    data.searchTasks(searchTerm)
+                        .then(tasks => {
+                            res.render("tasks", { tasks });
+                        })
+                        .catch((err) => {
+                            res.status(500);
+                            next(err, req, res);
+                        });
                     break;
                 case "Projects":
                     data.searchProjects(searchTerm)

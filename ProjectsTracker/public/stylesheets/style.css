@@ -27,3 +27,8 @@ a {
 .text-muted {
   margin: 0;
 }
+
+img{
+  width: 75px;
+  height:75px;
+}

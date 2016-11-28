@@ -86,11 +86,8 @@ module.exports = function (models) {
                     });
             });
         },
-        generateRandomCryptoString(length) {
-            let randomString = User.generateCryptoString(length);
-            return randomString;
-        },
-        updateUserToken(email, token) {
+        updateUserToken(email) {
+            let token = User.generateCryptoString(constants.passwordResetTokenLength);
             return new Promise((resolve, reject) => {
                 User.findOne({ email: email }, (err, user) => {
                     if (err) {
@@ -98,7 +95,6 @@ module.exports = function (models) {
                         reject(err);
                     }
                     user.resetPasswordToken = token;
-                    // 1h
                     let futureTime = constants.passwordResetExpirationInHours * 1000 * 60 * 60;
                     user.resetPasswordExpires = Date.now() + futureTime;
                     user.save((error) => {
@@ -107,7 +103,7 @@ module.exports = function (models) {
                             reject(error);
                         }
 
-                        resolve(user, token);
+                        resolve(user);
                     });
                 });
             });
@@ -120,15 +116,14 @@ module.exports = function (models) {
                         reject(err);
                     }
 
-                    if (!user.resetPasswordExpires || user.resetPasswordExpires < Date.now()) {
-                        reject(new Error("Your token has expired, please request another one!"));
+                    if (!user || !user.resetPasswordExpires || user.resetPasswordExpires < Date.now()) {
+                        reject(new Error("Your token has expired or is invalid, please request another one!"));
                     }
 
                     let passInfo = User.generateHash(password);
                     let passHash = passInfo.passwordHash;
                     let salt = passInfo.salt;
 
-                    user.resetPasswordToken = "";
                     user.resetPasswordExpires = Date.now();
                     user.password = passHash;
                     user.salt = salt;

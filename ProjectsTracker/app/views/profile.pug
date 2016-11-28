@@ -2,29 +2,24 @@ include index
 
 block main
     #banner
-            .row
-            if (success_msg)
-              div.alert.alert-success #{success_msg}
-            else if (error_msg)
-              div.alert.alert-danger #{error_msg}
-            .col-lg-5
-                .page-header
-                    h1
-                        | #{user.fullName}
-            .row
-                .col-lg-3
-                    img(src="#")
-                .col-lg-6
-                    p
-                        | USERNAME: #{user.username}
-                    p
-                        | FIRST NAME: #{user.firstName}
-                    p
-                        | LAST NAME: #{user.lastName}
-                    p
-                        | PERMISSION TYPE: #{user.role}
-                    p
-                        | E-MAIL:
-                        a(href="#{user.email}")
-                          |#{user.email}
-            .row
+        .col-lg-5
+            .page-header
+                h1
+                    | #{user.fullName}
+        .row
+            .col-lg-3
+                img(src=user.imagePath)
+            .col-lg-6
+                p
+                    | USERNAME: #{user.username}
+                p
+                    | FIRST NAME: #{user.firstName}
+                p
+                    | LAST NAME: #{user.lastName}
+                p
+                    | PERMISSION TYPE: #{user.role}
+                p
+                    | E-MAIL:
+                    a(href="#{user.email}")
+                        |#{user.email}
+        .row
