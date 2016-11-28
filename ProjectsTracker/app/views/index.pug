@@ -77,10 +77,12 @@ block content
                                         span.glyphicon.glyphicon-log-in
                                         |  GitHub Login
                     else
-                        li
-                            a(href="/profile")
+                        li.dropdown                            
+                            a.dropdown-toggle(href="/profile", data-toggle='dropdown', role='button', aria-haspopup='true', aria-expanded='false')
                                 span.glyphicon.glyphicon-user
                                 | #{user.username}
+                            ul.dropdown-menu
+                                li
                         li
                             a(href="/logout")
                                 span.glyphicon.glyphicon-log-out

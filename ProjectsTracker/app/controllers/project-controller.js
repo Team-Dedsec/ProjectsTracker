@@ -2,15 +2,11 @@
 "use strict";
 module.exports = function (data) {
     return {
-        viewAllProjects(req, res) {
-            if (true) {
-                data.getAllProjects().then((projects) => {
-                    if (true) {
-                        res.render("../views/projects.pug", { projects });
-                    }
+        viewAllProjects(req, res) {            
+                data.getAllProjects().then((projects) => {                    
+                        res.render("../views/projects.pug", { projects });                    
                 });
-            }
-        },
+        },       
         getRegister(req, res) {
             if (!req.isAuthenticated()) {
                 res.redirect("/login");
@@ -23,8 +19,8 @@ module.exports = function (data) {
             let title = req.body.name;
             let description = req.body.description;
             let projectType = req.body.type;
-            // let leadUser = req.user._id;
-            data.createProject(title, description, projectType).then((project) => {                 
+            let leadUser = req.user;                       
+            data.createProject(title, description, leadUser, projectType).then((project) => {                 
                 res.redirect(`/projects/${project._id}`);
             });
         },

@@ -9,9 +9,9 @@ include index
         each task in tasks
           .col-lg-12
             .panel.panel-primary
-              - var url = task.title;
+              - var url = task.id;
                     .panel-heading
                       h3.panel-title
-                        a(href="tasks/" + url) #{task.title}
+                        a(href="/tasks/" + url) #{task.title}
                     .panel-body
                       p #{task.description}

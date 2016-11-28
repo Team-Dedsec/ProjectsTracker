@@ -3,6 +3,9 @@
 module.exports = function (data) {
     return {
         homePage(req, res) {
+            console.log("HOme");
+            console.log(req.body);
+            console.log(req.projects);
             res.render("home-page", { req });
         },
         search(req, res, next) {
