@@ -2,16 +2,35 @@ include index
 
 #banner.container
       .row
-        .col-lg-10
+        .col-sm-12
           .page-header
             h1 Tasks
       .row
-        each task in tasks
-          .col-lg-12
-            .panel.panel-primary
-              - var url = task.id;
-                    .panel-heading
-                      h3.panel-title
-                        a(href="tasks/" + url) #{task.title}
-                    .panel-body
-                      p #{task.description}
+        .panel.panel-default
+          .panel-header
+            .col-sm-7
+              .panel-body
+                span Title
+            .col-sm-1
+              .panel-body
+                span Priority
+            .col-sm-2
+              .panel-body
+                span Assignee
+            .col-sm-2
+              .panel-body
+                span Reporter
+          each task in tasks
+            .row
+              .col-sm-7
+                .panel-body
+                  a(href="tasks/" + task.id) #{task.title}
+              .col-sm-1
+                .panel-body
+                  span #{task.priority}
+              .col-sm-2
+                .panel-body
+                  span #{task.reporter}
+              .col-sm-2
+                .panel-body
+                  span #{task.assignee}
