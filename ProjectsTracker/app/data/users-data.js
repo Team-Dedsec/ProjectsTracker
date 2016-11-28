@@ -116,15 +116,14 @@ module.exports = function (models) {
                         reject(err);
                     }
 
-                    if (!user.resetPasswordExpires || user.resetPasswordExpires < Date.now()) {
-                        reject(new Error("Your token has expired, please request another one!"));
+                    if (!user || !user.resetPasswordExpires || user.resetPasswordExpires < Date.now()) {
+                        reject(new Error("Your token has expired or is invalid, please request another one!"));
                     }
 
                     let passInfo = User.generateHash(password);
                     let passHash = passInfo.passwordHash;
                     let salt = passInfo.salt;
 
-                    user.resetPasswordToken = "";
                     user.resetPasswordExpires = Date.now();
                     user.password = passHash;
                     user.salt = salt;

@@ -122,7 +122,6 @@ module.exports = function (data) {
         },
         showResetPassword(req, res) {
             let token = req.params.token;
-            // console.log(token);
             res.render("reset-password", { token });
         },
         resetPassword(req, res) {
@@ -131,16 +130,16 @@ module.exports = function (data) {
 
             data.changeUserPassword(password, token)
                 .then(user => {
-                    res.render("../views/profile", {
-                        user,
-                        success_msg: req.flash("success_msg", "Your password has been successfully changed!")
-                    });
+                    req.flash("success_msg", "Your password has been successfully changed!");
+                    res.redirect("/login");
+                    // res.render("profile", {
+                    //     user,
+                    //     success_msg: req.flash("success_msg")
+                    // });
                 })
                 .catch(err => {
-                    res.render("../views/profile", {
-                        user,
-                        error_msg: req.flash("error_msg", err)
-                    });
+                    req.flash("error_msg", err.message);
+                    res.redirect("/");
                 });
         }
     };
