@@ -1,4 +1,4 @@
-/* globals require */
+/* globals require module*/
 "use strict";
 module.exports = function (data) {
     return {
@@ -39,8 +39,16 @@ module.exports = function (data) {
                 });
             }
             data.getProjectById(req.params.id).then((project) => {
-                res.render("../views/project.pug", project);
+                console.log(project);
+                res.render("../views/project.pug", { project, req });
             });
-        }
+        },
+        addUserToProject(req, res) {
+            console.log("Params");
+            console.log(req.params);
+            console.log("Body");
+            console.log(req.body);
+            res.render("../views/home-page.pug");
+        }       
     }
 };

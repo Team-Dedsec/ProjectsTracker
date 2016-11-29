@@ -3,7 +3,8 @@
 module.exports = function (data) {
     return {
         homePage(req, res) {
-            let options = { success_msg: req.flash("success_msg"), error_msg: req.flash("error_msg") };
+            let options = { success_msg: req.flash("success_msg"), error_msg: req.flash("error_msg") }; 
+                          
             res.render("home-page", { options });
         },
         search(req, res, next) {

@@ -7,7 +7,7 @@ module.exports = function (models) {
     return {
         createProject(title, description, leadUser, type) {
             let isPrivate = false;
-
+            let users = [];
             if (type === "private") {
                 isPrivate = true;
             }
@@ -16,7 +16,8 @@ module.exports = function (models) {
                 title,
                 description,
                 leadUser,
-                isPrivate
+                isPrivate,
+                users
             });
 
             return new Promise((resolve, reject) => {
@@ -76,6 +77,11 @@ module.exports = function (models) {
 
                         return resolve(projects);
                     });
+            });
+        },
+        addUserToProject(projectId, userId) {
+            this.getProjectById(projectId).then(project => {
+                project.users.push(userId);
             });
         }
     };
