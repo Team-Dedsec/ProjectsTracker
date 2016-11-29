@@ -85,5 +85,5 @@ block main
                         input#add-comment-btn.btn.btn-success(type="submit" value="Add comment")
                         input(type='hidden', name='_csrf', value=_csrf)
             else
-               You can not add comments on a #{status} task.
+               h6 You can not add comments on a #{status} task.
 
