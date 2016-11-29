@@ -1,7 +1,7 @@
 extends index
 
 block main
-    #banner.page-header
+    #banner
         .row
             .col-lg-5                
                     h1 #{title}
@@ -89,3 +89,22 @@ block main
             .col-lg-10
                 | Description:
                 p #{description}
+                | Assignee:
+                p #{assignee}
+        hr
+        .col-lg-6
+            h3 Comments
+            p
+                h6 By:
+                    a(href="/users/Pesho")  Pesho
+                div Dont do that!
+            if(status === "Open" || status === "Reopened")
+                form(action="/tasks/" + _id + "/add-comment" method="post")
+                    legend Add a comment
+                    .form-group
+                        label.col-lg-2.control-label(for='tb-content') Content
+                        input#tb-content.form-control(placeholder='Enter your comment', type='text', name="content")
+                        input#add-comment-btn.btn.btn-success(type="submit" value="Add comment")
+                        input(type='hidden', name='_csrf', value=_csrf)
+            else
+               h6 You can not add comments on a #{status} task.
