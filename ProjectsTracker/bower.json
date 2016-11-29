@@ -16,6 +16,7 @@
     "uploads"
   ],
   "dependencies": {
-    "bootstrap": "3.3.7"
+    "bootstrap": "3.3.7",
+    "cookieconsent": "cookieconsent2#^3.0.3"
   }
 }
