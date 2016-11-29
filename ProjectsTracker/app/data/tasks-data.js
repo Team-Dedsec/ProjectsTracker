@@ -9,7 +9,7 @@ module.exports = function (models) {
             let createdDate = Date.now(),
                 updatedDate = Date.now(),
                 dueDate = addDays(Date.now(), 14);
-            
+
             function addDays(date, days) {
                 let result = new Date(date);
                 result.setDate(result.getDate() + days);
@@ -82,13 +82,78 @@ module.exports = function (models) {
 
         resolveTask(id) {
             return new Promise((resolve, reject) => {
-                Task.update({ _id: id }, { $set: { status: "Resolved" } })
-                    .exec((err, tasks) => {
+                Task.update({ _id: id }, { status: "Resolved", updatedDate: Date.now() })
+                    .exec((err) => {
                         if (err) {
                             return reject(err);
                         }
 
-                        return resolve(tasks);
+                        return resolve();
+                    });
+            });
+        },
+
+        closeTask(id) {
+            return new Promise((resolve, reject) => {
+                Task.update({ _id: id }, { status: "Closed", updatedDate: Date.now() })
+                    .exec((err) => {
+                        if (err) {
+                            return reject(err);
+                        }
+
+                        return resolve();
+                    });
+            });
+        },
+
+        reopenTask(id) {
+            return new Promise((resolve, reject) => {
+                Task.update({ _id: id }, { status: "Reopened", updatedDate: Date.now() })
+                    .exec((err) => {
+                        if (err) {
+                            return reject(err);
+                        }
+
+                        return resolve();
+                    });
+            });
+        },
+
+        waitingForTask(id) {
+            return new Promise((resolve, reject) => {
+                Task.update({ _id: id }, { status: "Waiting For", updatedDate: Date.now() })
+                    .exec((err) => {
+                        if (err) {
+                            return reject(err);
+                        }
+
+                        return resolve();
+                    });
+            });
+        },
+
+        duplicateTask(id) {
+            return new Promise((resolve, reject) => {
+                Task.update({ _id: id }, { status: "Duplicate", updatedDate: Date.now() })
+                    .exec((err) => {
+                        if (err) {
+                            return reject(err);
+                        }
+
+                        return resolve();
+                    });
+            });
+        },
+
+        needMoreInfoTask(id) {
+            return new Promise((resolve, reject) => {
+                Task.update({ _id: id }, { status: "Need More Info", updatedDate: Date.now() })
+                    .exec((err) => {
+                        if (err) {
+                            return reject(err);
+                        }
+
+                        return resolve();
                     });
             });
         }

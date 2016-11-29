@@ -3,6 +3,7 @@ module.exports = function (data) {
         viewAllTasks(req, res) {
             data.getAllTasks().then(tasks => res.render("../views/tasks.pug", { tasks }));
         },
+
         // createTask(req, res) {
         //     let { name, description, priority, dueDate, reporter, assignee, project } = req.body;
 
@@ -19,6 +20,7 @@ module.exports = function (data) {
             }
             res.render("../views/create-task.pug");
         },
+
         postTask(req, res) {
             let title = req.body.title;
             let description = req.body.description;
@@ -28,18 +30,62 @@ module.exports = function (data) {
             let project = req.user.projectWorkingOnId;
             let status = "Open";
             let comments = [];
-            data.createTask(title, description, priority, status, reporter, assignee, project, comments).then((task) => {                 
+            data.createTask(title, description, priority, status, reporter, assignee, project, comments).then((task) => {
                 res.redirect(`/tasks/${task._id}`);
             });
         },
+
         getTaskById(req, res) {
             data.getTaskById(req.params.id).then((task) => {
                 res.render("../views/task-details.pug", task);
             });
         },
+
         resolveTask(req, res) {
-            data.resolveTask(req.params.id).then((task) => {
-                res.render("../views/task-details.pug", task);
+            data.resolveTask(req.params.id).then(() => {
+                data.getTaskById(req.params.id).then((task) => {
+                    res.render("../views/task-details.pug", task);
+                });
+            });
+        },
+
+        closeTask(req, res) {
+            data.closeTask(req.params.id).then(() => {
+                data.getTaskById(req.params.id).then((task) => {
+                    res.render("../views/task-details.pug", task);
+                });
+            });
+        },
+
+        reopenTask(req, res) {
+            data.reopenTask(req.params.id).then(() => {
+                data.getTaskById(req.params.id).then((task) => {
+                    res.render("../views/task-details.pug", task);
+                });
+            });
+        },
+
+        waitingForTask(req, res) {
+            data.waitingForTask(req.params.id).then(() => {
+                data.getTaskById(req.params.id).then((task) => {
+                    res.render("../views/task-details.pug", task);
+                });
+            });
+        },
+
+        duplicateTask(req, res) {
+            data.duplicateTask(req.params.id).then(() => {
+                data.getTaskById(req.params.id).then((task) => {
+                    res.render("../views/task-details.pug", task);
+                });
+            });
+        },
+
+        needMoreInfoTask(req, res) {
+            data.needMoreInfoTask(req.params.id).then(() => {
+                data.getTaskById(req.params.id).then((task) => {
+                    res.render("../views/task-details.pug", task);
+                });
             });
         }
     };

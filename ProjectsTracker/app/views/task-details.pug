@@ -3,9 +3,23 @@ extends index
 block main
     #banner.page-header
         .row
-            .col-sm-4
-                a.btn.btn-default(href='#') Edit
-            if (status == "Open")
+            .col-lg-5                
+                    h1 #{title}
+        .row
+            .col-sm-1
+                a.btn.btn-default(href='#')
+                    span.glyphicon.glyphicon-edit
+                    |  Edit
+            .col-sm-1
+                a.btn.btn-default(href='#')
+                    span.glyphicon.glyphicon-comment
+                    |  Comment
+            .col-sm-1
+            .col-sm-1
+                a.btn.btn-default(href='#')
+                    |  Reassign
+            .col-sm-1                    
+            if (status == "Open" || status == "Reopened" || status == "Waiting For")
                 .col-sm-4
                     .btn-group
                         a.btn.btn-default(href="/tasks/resolveTask/" + _id) Resolve
@@ -13,30 +27,28 @@ block main
                             span.caret
                         ul.dropdown-menu
                             li
-                                a(href='#') Resolve
+                                a(href="/tasks/resolveTask/" + _id) Resolve
                             li
-                                a(href='#') Waiting for
+                                a(href="/tasks/waitingForTask/" + _id) Waiting for
                             li
-                                a(href='#') Duplicate
+                                a(href="/tasks/duplicateTask/" + _id) Duplicate
                             li
-                                a(href='#') Need more info
-            if (status == "Resolved")
+                                a(href="/tasks/needMoreInfoTask/" + _id) Need more info
+            if (status == "Resolved" || status == "Duplicate")
                 .col-sm-4
                     .btn-group
-                        a.btn.btn-default(href='#') Close
+                        a.btn.btn-default(href="/tasks/closeTask/" + _id) Close
                         a.btn.btn-default.dropdown-toggle(href='#', data-toggle='dropdown')
                             span.caret
                         ul.dropdown-menu
                             li
-                                a(href='#') Close
+                                a(href="/tasks/closeTask/" + _id) Close
                             li
-                                a(href='#') Reopen
+                                a(href="/tasks/reopenTask/" + _id) Reopen
         .row
-            .col-lg-5                
-                    h1 #{title}
-        .row
+            br
             .col-lg-4
-                p Status:
+                p Status: 
                     if (status === "Open")
                         span.label.label-default #{status}
                     else if (status === "Closed")
@@ -49,8 +61,10 @@ block main
                         span.label.label-warning #{status}
                     else if (status === "Duplicate")
                         span.label.label-danger #{status}
+                    else if (task.status === "Need More Info")
+                        span.label.label-danger #{task.status}
             .col-lg-2
-                p Priority:
+                p Priority: 
                     if (priority <=3)
                         span.label.label-danger #{priority}
                     else if (priority <= 7)
@@ -58,14 +72,20 @@ block main
                     else
                         span.label.label-primary #{priority}
         .row
+            .col-lg-5
+                | Reporter: 
+                p #{reporter}
+            .col-lg-5
+                | Created: 
+                p #{createdDate.getDate()}-#{createdDate.getMonth() + 1 < 10? "0" + (createdDate.getMonth() + 1): createdDate.getMonth() + 1}-#{createdDate.getFullYear()} #{createdDate.getHours()}:#{createdDate.getMinutes() < 10? "0" + createdDate.getMinutes() : createdDate.getMinutes()}
+        .row
+            .col-lg-5
+                | Assignee: 
+                p #{assignee}    
+            .col-lg-5
+                | Last updated:
+                p #{updatedDate.getDate()}-#{updatedDate.getMonth() + 1 < 10? "0" + (updatedDate.getMonth() + 1) : updatedDate.getMonth() + 1}-#{updatedDate.getFullYear()} #{updatedDate.getHours()}:#{updatedDate.getMinutes() < 10? "0" + updatedDate.getMinutes() : updatedDate.getMinutes()}
+                .row
             .col-lg-10
                 | Description:
                 p #{description}
-        .row
-            .col-lg-10
-                | Reporter:
-                p #{reporter}
-        .row
-            .col-lg-10
-                | Assignee:
-                p #{assignee}

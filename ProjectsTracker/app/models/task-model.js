@@ -3,7 +3,7 @@
 const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
-const Statuses = ["Open", "Closed", "Resolved", "Reopened", "Waiting For", "Duplicate"];
+const Statuses = ["Open", "Closed", "Resolved", "Reopened", "Waiting For", "Duplicate", "Need More Info"];
 const SimpleUserSchema = require("./partial/simple-user-schema");
 
 const TaskSchema = new Schema({

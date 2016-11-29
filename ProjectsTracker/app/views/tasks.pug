@@ -41,3 +41,5 @@ include index
                     span.label.label-warning #{task.status}
                   else if (task.status === "Duplicate")
                     span.label.label-danger #{task.status}
+                  else if (task.status === "Need More Info")
+                    span.label.label-warning #{task.status}
