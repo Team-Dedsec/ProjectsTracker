@@ -4,6 +4,8 @@ let express = require("express"),
     session = require("express-session"),
     bodyParser = require("body-parser"),
     cookieParser = require("cookie-parser"),
+    csrf = require("csurf"),
+    helmet = require("helmet"),
     //multer = require("multer"),
     logger = require("morgan"),
     flash = require("connect-flash-plus"),
@@ -22,14 +24,6 @@ module.exports = function (app, config) {
         saveUninitialized: true
     }));
 
-    // let upload = multer({
-    //     dest: './public/uploads/',
-    //     rename: function (fieldname, filename) {
-    //       return filename.replace(/\W+/g, '-').toLowerCase() + Date.now()
-    //     }
-    // }).single("photo");
-    // app.use(upload);
-
     app.set("views", path.join(config.rootPath, "app/views/"));
     app.set("view engine", "pug");
     app.use("/public", express.static(path.join(config.rootPath, "public")));
@@ -39,15 +33,25 @@ module.exports = function (app, config) {
 
     require("../config/passport/")(app);
 
+    app.use(helmet());
     app.use(roles.middleware());
     // Connect Flash
     app.use(flash());
 
     // Global Vars
-    app.use(function (req, res, next) {
+    app.use((req, res, next) => {
         res.locals.success_msg = req.flash("success_msg");
         res.locals.error_msg = req.flash("error_msg");
         res.locals.error = req.flash("error");
+        next();
+    });
+
+    app.use(csrf());
+    app.use((req, res, next) => {
+        let token = req.csrfToken();
+        res.cookie("XSRF-TOKEN", token);
+        res.locals._csrf = token;
+        // res.locals._csrf = req.csrfToken();
         next();
     });
 
@@ -64,6 +68,17 @@ module.exports = function (app, config) {
         let err = new Error("We can't seem to find the page you are looking for!");
         err.status = 404;
         next(err);
+    });
+
+    // CSRF token errors here
+    app.use((err, req, res, next) => {
+        if (err.code !== "EBADCSRFTOKEN") {
+            return next(err);
+        }
+        let message = "Your session has expired or form has been tampered with!";
+        let error = new Error(message);
+        res.status(403)
+            .render("error", { error, message });
     });
 
     // error handler

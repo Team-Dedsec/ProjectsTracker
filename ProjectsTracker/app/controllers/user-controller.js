@@ -48,7 +48,8 @@ module.exports = function (data) {
         },
         getProfile(req, res) {
             if (!req.isAuthenticated()) {
-                res.status(401).redirect("/unauthorized");
+                req.flash("error_msg", "You must be logged in to do that!");
+                res.status(401).redirect("/login");
             } else {
                 const user = req.user;
                 // res.status(200).send(`Welcome, ${user}! Go to <a href="/">Home</a>`);

@@ -28,6 +28,10 @@ a {
   margin: 0;
 }
 
+div.alert {
+    font-size: inherit;
+}
+
 img{
   width: 75px;
   height:75px;

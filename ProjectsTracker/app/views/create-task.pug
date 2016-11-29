@@ -8,6 +8,7 @@ include index
         .row
             .col-lg-10
                 form.form-horizontal(method="post")
+                    input(type='hidden', name='_csrf', value=_csrf)
                     fieldset
                         legend Task Form
                         |     
