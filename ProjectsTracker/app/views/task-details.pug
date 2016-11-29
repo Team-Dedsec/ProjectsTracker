@@ -1,7 +1,7 @@
 extends index
 
 block main
-    #banner
+    #banner.page-header
         .row
             .col-lg-5                
                     h1 #{title}
@@ -86,11 +86,10 @@ block main
                 | Last updated:
                 p #{updatedDate.getDate()}-#{updatedDate.getMonth() + 1 < 10? "0" + (updatedDate.getMonth() + 1) : updatedDate.getMonth() + 1}-#{updatedDate.getFullYear()} #{updatedDate.getHours()}:#{updatedDate.getMinutes() < 10? "0" + updatedDate.getMinutes() : updatedDate.getMinutes()}
                 .row
+        .row
             .col-lg-10
                 | Description:
                 p #{description}
-                | Assignee:
-                p #{assignee}
         hr
         .col-lg-6
             h3 Comments
