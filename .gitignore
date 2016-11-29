@@ -223,3 +223,4 @@ bower_components/
 uploads/
 .bin/
 .vscode/
+ProjectsTracker/app/views/index.pug
