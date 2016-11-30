@@ -4,16 +4,6 @@ module.exports = function (data) {
             data.getAllTasks().then(tasks => res.render("../views/tasks.pug", { tasks }));
         },
 
-        // createTask(req, res) {
-        //     let { name, description, priority, dueDate, reporter, assignee, project } = req.body;
-
-        // return data.createTask(name, description, priority, dueDate, reporter, assignee, project)
-        //     .then(task => {
-        //         return res.redirect(`/task/${task._id}`);
-        //     })
-        //     .catch(err => {
-        //         res.status(400).send(err);
-        //     });
         getCreate(req, res) {
             if (!req.isAuthenticated()) {
                 res.redirect("/login");
@@ -44,7 +34,7 @@ module.exports = function (data) {
         resolveTask(req, res) {
             data.resolveTask(req.params.id).then(() => {
                 data.getTaskById(req.params.id).then((task) => {
-                    res.render("../views/task-details.pug", task);
+                    res.redirect(`/tasks/${task._id}`);
                 });
             });
         },
@@ -52,7 +42,7 @@ module.exports = function (data) {
         closeTask(req, res) {
             data.closeTask(req.params.id).then(() => {
                 data.getTaskById(req.params.id).then((task) => {
-                    res.render("../views/task-details.pug", task);
+                    res.redirect(`/tasks/${task._id}`);
                 });
             });
         },
@@ -60,7 +50,7 @@ module.exports = function (data) {
         reopenTask(req, res) {
             data.reopenTask(req.params.id).then(() => {
                 data.getTaskById(req.params.id).then((task) => {
-                    res.render("../views/task-details.pug", task);
+                    res.redirect(`/tasks/${task._id}`);
                 });
             });
         },
@@ -68,7 +58,7 @@ module.exports = function (data) {
         waitingForTask(req, res) {
             data.waitingForTask(req.params.id).then(() => {
                 data.getTaskById(req.params.id).then((task) => {
-                    res.render("../views/task-details.pug", task);
+                    res.redirect(`/tasks/${task._id}`);
                 });
             });
         },
@@ -76,7 +66,7 @@ module.exports = function (data) {
         duplicateTask(req, res) {
             data.duplicateTask(req.params.id).then(() => {
                 data.getTaskById(req.params.id).then((task) => {
-                    res.render("../views/task-details.pug", task);
+                    res.redirect(`/tasks/${task._id}`);
                 });
             });
         },
@@ -84,7 +74,7 @@ module.exports = function (data) {
         needMoreInfoTask(req, res) {
             data.needMoreInfoTask(req.params.id).then(() => {
                 data.getTaskById(req.params.id).then((task) => {
-                    res.render("../views/task-details.pug", task);
+                    res.redirect(`/tasks/${task._id}`);
                 });
             });
         }

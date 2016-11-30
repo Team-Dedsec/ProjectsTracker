@@ -19,7 +19,7 @@ block main
                 a.btn.btn-default(href='#')
                     |  Reassign
             .col-sm-1                    
-            if (status == "Open" || status == "Reopened" || status == "Waiting For")
+            if (status == "Open" || status == "Reopened" || status == "Waiting For" || status == "Need More Info")
                 .col-sm-4
                     .btn-group
                         a.btn.btn-default(href="/tasks/resolveTask/" + _id) Resolve
@@ -52,7 +52,7 @@ block main
                     if (status === "Open")
                         span.label.label-default #{status}
                     else if (status === "Closed")
-                        span.label.label-danger #{status}                    
+                        span.label.label-danger #{status}
                     else if (status === "Resolved")
                         span.label.label-success #{status}
                     else if (status === "Reopened")
@@ -61,8 +61,8 @@ block main
                         span.label.label-warning #{status}
                     else if (status === "Duplicate")
                         span.label.label-danger #{status}
-                    else if (task.status === "Need More Info")
-                        span.label.label-danger #{task.status}
+                    else if (status === "Need More Info")
+                        span.label.label-danger #{status}
             .col-lg-2
                 p Priority: 
                     if (priority <=3)
@@ -97,7 +97,7 @@ block main
                 h6 By:
                     a(href="/users/Pesho")  Pesho
                 div Dont do that!
-            if(status === "Open" || status === "Reopened")
+            if(status !== "Closed" && status !== "Duplicate" && status !== "Resolved")
                 form(action="/tasks/" + _id + "/add-comment" method="post")
                     legend Add a comment
                     .form-group
