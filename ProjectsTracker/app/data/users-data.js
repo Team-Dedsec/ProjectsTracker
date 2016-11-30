@@ -25,8 +25,16 @@ module.exports = function (models) {
             return new Promise((resolve, reject) => {
                 user.save((err) => {
                     if (err) {
-                        console.log(err);
-                        return reject(err);
+                        let error;
+                        if (err.code === 11000 && err.message.indexOf("email") > 0) {
+                            error = new Error("This email is already in use!");
+                        } else if (err.code === 11000 && err.message.indexOf("username") > 0) {
+                            error = new Error("This username is already in use!");
+                        } else {
+                            error = err;
+                        }
+
+                        return reject(error);
                     }
 
                     return resolve(user);
@@ -88,7 +96,7 @@ module.exports = function (models) {
         updateUserToken(email) {
             let token = User.generateCryptoString(constants.passwordResetTokenLength);
             return new Promise((resolve, reject) => {
-                User.findOne({ email: email }, (err, user) => {
+                User.findOne({ email }, (err, user) => {
                     if (err) {
                         console.log(err);
                         reject(err);

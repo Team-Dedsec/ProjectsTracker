@@ -1,6 +1,4 @@
 "use strict";
-
-const passport = require("passport");
 const smtpTransport = require("../utils/smtpTransport");
 
 module.exports = function (data) {
@@ -35,8 +33,8 @@ module.exports = function (data) {
                     return res.redirect(`/user/${user.username}`);
                 })
                 .catch(err => {
-                    res.status(400)
-                        .send(err);
+                    req.flash("error_msg", err.message);
+                    res.redirect("/register");
                 });
         },
         logout(req, res) {
