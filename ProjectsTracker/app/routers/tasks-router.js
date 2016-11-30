@@ -1,9 +1,11 @@
 /* globals require */
-module.exports = function(server, controller) {
+module.exports = (server, controller) => {
     server.get("/tasks", controller.viewAllTasks);
     server.get("/tasks/create", controller.getCreate);
     server.post("/tasks/create", controller.postTask);
     server.get("/tasks/:id", controller.getTaskById);
+    server.post("/tasks/:id/add-comment", controller.addCommentToTask);
+
     server.get("/tasks/resolveTask/:id", controller.resolveTask);
     server.get("/tasks/closeTask/:id", controller.closeTask);
     server.get("/tasks/reopenTask/:id", controller.reopenTask);

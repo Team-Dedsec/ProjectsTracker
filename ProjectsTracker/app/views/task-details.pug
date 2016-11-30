@@ -1,7 +1,7 @@
 extends index
 
 block main
-    #banner.page-header
+    #banner
         .row
             .col-lg-5                
                     h1 #{title}
@@ -90,20 +90,24 @@ block main
             .col-lg-10
                 | Description:
                 p #{description}
-        hr
-        .col-lg-6
-            h3 Comments
-            p
-                h6 By:
-                    a(href="/users/Pesho")  Pesho
-                div Dont do that!
+        h3 Comments
+        aside.col-lg-6.well
+            if(comments.length > 0)
+                each comment in comments
+                    div
+                        h6 By:
+                            a(href="/user/" + comment.username)  #{comment.username}
+                        p #{comment.content}
+                        h6 Posted on: #{comment.date.getDate()}-#{comment.date.getMonth() + 1 < 10? "0" + (comment.date.getMonth() + 1): comment.date.getMonth() + 1}-#{comment.date.getFullYear()} #{comment.date.getHours()}:#{comment.date.getMinutes() < 10? "0" + comment.date.getMinutes() : comment.date.getMinutes()}
+                    hr
+            else
+                p No comments yet!
             if(status !== "Closed" && status !== "Duplicate" && status !== "Resolved")
                 form(action="/tasks/" + _id + "/add-comment" method="post")
                     legend Add a comment
                     .form-group
-                        label.col-lg-2.control-label(for='tb-content') Content
-                        input#tb-content.form-control(placeholder='Enter your comment', type='text', name="content")
-                        input#add-comment-btn.btn.btn-success(type="submit" value="Add comment")
+                        textarea#tb-content.form-control(placeholder='Enter your comment', type='text', name="content" rows="3")
                         input(type='hidden', name='_csrf', value=_csrf)
+                    input#add-comment-btn.btn.btn-success(type="submit" value="Add comment")
             else
                h6 You can not add comments on a #{status} task.

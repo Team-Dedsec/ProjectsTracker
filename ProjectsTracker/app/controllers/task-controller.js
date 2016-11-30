@@ -1,3 +1,4 @@
+"use strict";
 module.exports = function (data) {
     return {
         viewAllTasks(req, res) {
@@ -65,6 +66,24 @@ module.exports = function (data) {
             data.needMoreInfoTask(req.params.id).then(() => {
                 res.redirect(`/tasks/${req.params.id}`);
             });
+        },
+
+        addCommentToTask(req, res) {
+            if (req.isAuthenticated()) {
+                let content = req.body.content;
+                let user = req.user.username;
+                data.addCommentToTask(req.params.id, content, user)
+                    .then(() => {
+                        res.redirect(`/tasks/${req.params.id}`);
+                    })
+                    .catch(err => {
+                        req.flash("error_msg", err.message);
+                        res.redirect("/");
+                    });
+            } else {
+                req.flash("error_msg", "You must be logged in to do that!");
+                res.redirect("/login");
+            }
         }
     };
 };

@@ -156,6 +156,23 @@ module.exports = function (models) {
                         return resolve();
                     });
             });
+        },
+
+        addCommentToTask(id, content, username) {
+            return new Promise((resolve, reject) => {
+                Task.findByIdAndUpdate(
+                    id,
+                    { $push: { "comments": { content, username } } },
+                    { safe: true, upsert: true },
+                    (err, model) => {
+                        if (err) {
+                            reject(err);
+                        }
+
+                        resolve(model);
+                    }
+                );
+            });
         }
     };
 };

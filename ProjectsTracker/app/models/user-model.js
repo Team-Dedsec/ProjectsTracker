@@ -55,7 +55,7 @@ let UserSchema = new Schema({
     role: {
         type: String,
         enum: roles,
-        required: true
+        default: "user"
     },
     projectWorkingOnId: {
         type: Schema.Types.ObjectId, ref: "Project"
