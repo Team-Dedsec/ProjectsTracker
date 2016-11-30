@@ -173,6 +173,22 @@ module.exports = function (models) {
                     }
                 );
             });
+        },
+        deleteComment(commentId, taskId) {
+            return new Promise((resolve, reject) => {
+                Task.update(
+                    { _id: taskId, "comments._id": commentId },
+                    { $set: { "comments.$.isDeleted": true } },
+                    { safe: true, upsert: true },
+                    (err, model) => {
+                        if (err) {
+                            reject(err);
+                        }
+
+                        resolve(model);
+                    }
+                );
+            });
         }
     };
 };

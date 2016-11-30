@@ -7,7 +7,7 @@ block main
                 h1
                     | #{user.fullName}
                 a(href='/profile/uploadfile')
-                    img(src=user.imagePath)
+                    img.profile-pic(src=user.imagePath)
         .row
             .col-lg-6
                 .panel-heading

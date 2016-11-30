@@ -5,6 +5,7 @@ module.exports = (server, controller) => {
     server.post("/tasks/create", controller.postTask);
     server.get("/tasks/:id", controller.getTaskById);
     server.post("/tasks/:id/add-comment", controller.addCommentToTask);
+    server.post("/tasks/:id/delete-comment", controller.deleteCommentFromTask);
 
     server.get("/tasks/resolveTask/:id", controller.resolveTask);
     server.get("/tasks/closeTask/:id", controller.closeTask);

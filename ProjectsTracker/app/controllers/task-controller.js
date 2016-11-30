@@ -27,9 +27,19 @@ module.exports = function (data) {
         },
 
         getTaskById(req, res) {
-            data.getTaskById(req.params.id).then((task) => {
-                res.render("../views/task-details.pug", task);
-            });
+            if (req.isAuthenticated()) {
+                data.getTaskById(req.params.id)
+                    .then((task) => {
+                        res.render("../views/task-details.pug", task);
+                    })
+                    .catch(err => {
+                        req.flash("error_msg", err.message);
+                        res.redirect("/");
+                    });
+            } else {
+                req.flash("error_msg", "You must be logged in to do that!");
+                res.redirect("/login");
+            }
         },
 
         resolveTask(req, res) {
@@ -81,6 +91,26 @@ module.exports = function (data) {
                         req.flash("error_msg", err.message);
                         res.redirect("/");
                     });
+            } else {
+                req.flash("error_msg", "You must be logged in to do that!");
+                res.redirect("/login");
+            }
+        },
+
+        deleteCommentFromTask(req, res) {
+            if (req.isAuthenticated()) {
+                let commentId = req.body.commentId;
+                let taskId = req.params.id;
+                data.deleteComment(commentId, taskId)
+                    .then(() => {
+                        req.flash("success_msg", "Comment removed successfully!");
+                        res.redirect(`/tasks/${taskId}`);
+                    })
+                    .catch(err => {
+                        req.flash("error_msg", err.message);
+                        res.redirect("/");
+                    });
+
             } else {
                 req.flash("error_msg", "You must be logged in to do that!");
                 res.redirect("/login");

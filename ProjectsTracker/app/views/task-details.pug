@@ -88,19 +88,24 @@ block main
                 | Description:
                 p #{description}
             aside.col-lg-6
-                //.glyphicon.glyphicon-comment.btn.btn-default(data-toggle="collapse" data-target="#view-comments") Toggle Comments
                 a.btn.btn-default(data-toggle="collapse" data-target="#view-comments")
                     span.glyphicon.glyphicon-comment
                     |  Toggle Comments
                 .div#view-comments.collapse.well
                     if(comments.length > 0)
                             each comment in comments
-                                div
-                                    h6 By:
-                                        a(href="/user/" + comment.username)  #{comment.username}
-                                    p #{comment.content}
-                                    h6 Posted on: #{comment.date.getDate()}-#{comment.date.getMonth() + 1 < 10? "0" + (comment.date.getMonth() + 1): comment.date.getMonth() + 1}-#{comment.date.getFullYear()} #{comment.date.getHours()}:#{comment.date.getMinutes() < 10? "0" + comment.date.getMinutes() : comment.date.getMinutes()}
-                                hr
+                                if(!comment.isDeleted)
+                                    div
+                                        h6 By:
+                                            a(href="/user/" + comment.username)  #{comment.username}
+                                        p #{comment.content}
+                                        h6 Posted on: #{comment.date.getDate()}-#{comment.date.getMonth() + 1 < 10? "0" + (comment.date.getMonth() + 1): comment.date.getMonth() + 1}-#{comment.date.getFullYear()} #{comment.date.getHours()}:#{comment.date.getMinutes() < 10? "0" + comment.date.getMinutes() : comment.date.getMinutes()}
+                                        if(user.username === comment.username)
+                                            form(action="/tasks/" + _id + "/delete-comment" method="post")
+                                                input.btn.btn-danger(type="submit" value="Delete")
+                                                input(type='hidden', name='commentId', value=comment._id)
+                                                input(type='hidden', name='_csrf', value=_csrf)
+                                    hr
                     else
                         p No comments yet!
                     if(status !== "Closed" && status !== "Duplicate" && status !== "Resolved")
@@ -109,6 +114,7 @@ block main
                             .form-group
                                 textarea#tb-content.form-control(placeholder='Enter your comment', type='text', name="content" rows="3")
                                 input(type='hidden', name='_csrf', value=_csrf)
+
                             input#add-comment-btn.btn.btn-success(type="submit" value="Add comment")
                     else
                        h6 You can not add comments on a #{status} task.
