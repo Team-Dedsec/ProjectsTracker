@@ -83,8 +83,8 @@ UserSchema.query.byName = function (name) {
     return this.find(query);
 };
 
-UserSchema.methods.comparePassword = function (password1) {
-    return this.password === passHasher.getHash(password1, this.salt);
+UserSchema.methods.comparePassword = function (password) {
+    return this.password === passHasher.getHash(password, this.salt);
 };
 
 // TODO: Better way/spot to validate
