@@ -1,4 +1,5 @@
 extends index
+include mixins
 
 block main
     #banner.container
@@ -74,14 +75,14 @@ block main
                 p #{reporter}
             .col-lg-5
                 | Created: 
-                p #{createdDate.getDate()}-#{createdDate.getMonth() + 1 < 10? "0" + (createdDate.getMonth() + 1): createdDate.getMonth() + 1}-#{createdDate.getFullYear()} #{createdDate.getHours()}:#{createdDate.getMinutes() < 10? "0" + createdDate.getMinutes() : createdDate.getMinutes()}
+                +formatDate(createdDate)
         .row
             .col-lg-5
                 | Assignee: 
                 p #{assignee}    
             .col-lg-5
                 | Last updated:
-                p #{updatedDate.getDate()}-#{updatedDate.getMonth() + 1 < 10? "0" + (updatedDate.getMonth() + 1) : updatedDate.getMonth() + 1}-#{updatedDate.getFullYear()} #{updatedDate.getHours()}:#{updatedDate.getMinutes() < 10? "0" + updatedDate.getMinutes() : updatedDate.getMinutes()}
+                +formatDate(createdDate)
                 .row
         .row
             .col-lg-10
@@ -99,7 +100,8 @@ block main
                                         h6 By:
                                             a(href="/user/" + comment.username)  #{comment.username}
                                         p #{comment.content}
-                                        h6 Posted on: #{comment.date.getDate()}-#{comment.date.getMonth() + 1 < 10? "0" + (comment.date.getMonth() + 1): comment.date.getMonth() + 1}-#{comment.date.getFullYear()} #{comment.date.getHours()}:#{comment.date.getMinutes() < 10? "0" + comment.date.getMinutes() : comment.date.getMinutes()}
+                                        h6 Posted on:
+                                            +formatDate(comment.date)
                                         if(user.username === comment.username)
                                             form(action="/tasks/" + _id + "/delete-comment" method="post")
                                                 input.btn.btn-danger(type="submit" value="Delete")
