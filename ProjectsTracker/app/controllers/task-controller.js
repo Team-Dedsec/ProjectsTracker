@@ -74,6 +74,7 @@ module.exports = function (data) {
                 let user = req.user.username;
                 data.addCommentToTask(req.params.id, content, user)
                     .then(() => {
+                        req.flash("success_msg", "Comment added successfully!");
                         res.redirect(`/tasks/${req.params.id}`);
                     })
                     .catch(err => {
