@@ -1,11 +1,7 @@
 /* globals require module */
-module.exports = function(server, controller) {
-    // let router = server.Router();
-
-    server.get("/projects", controller.viewAllProjects);    
-    server.get("/projects/create", controller.getRegister);
-    server.post("/projects/create", controller.postProject);
-    server.get("/project/:name");
-    server.get("/projects/:id", controller.getProjectById);    
-        // server.get("/project/:name", controller.loadProject);
+module.exports = function(server, controller, isAuthenticated) {
+    server.get("/projects", controller.viewAllProjects);
+    server.get("/projects/create", isAuthenticated, controller.getRegister);
+    server.post("/projects/create", isAuthenticated, controller.postProject);
+    server.get("/projects/:id", isAuthenticated, controller.getProjectById);
 };

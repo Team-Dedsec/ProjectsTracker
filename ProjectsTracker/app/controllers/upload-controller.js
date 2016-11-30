@@ -12,19 +12,13 @@ module.exports = function (server, data) {
             });
 
             res.redirect("/profile");
-
         },
         multipleUpload(req, res, next) {
             console.log(req.file);
             res.redirect("/");
         },
         showUploadForm(req, res) {
-            if (req.isAuthenticated()) {
-                res.render("../views/fileUpload.pug", { req });
-            } else {
-                req.flash("error_msg", "You must be logged in to do that!");
-                res.redirect("/login");
-            }
+            res.render("../views/fileUpload.pug", { req });
         }
     };
 };

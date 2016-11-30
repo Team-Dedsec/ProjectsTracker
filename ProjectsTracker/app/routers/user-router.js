@@ -2,12 +2,12 @@
 "use strict";
 const user = require("../config/roles");
 
-module.exports = function (server, userController) {
+module.exports = (server, userController, isAuthenticated) => {
     server.get("/users", userController.viewAllUsers);
     server.get("/user/:name", userController.viewUserByName);
     server.get("/register", userController.registerPage);
     server.post("/register", userController.createUser);
-    server.get("/profile", userController.getProfile);
+    server.get("/profile", isAuthenticated, userController.getProfile);
 
     server.post("/login", userController.loginLocal);
 

@@ -6,9 +6,6 @@ module.exports = function (data) {
         },
 
         getCreate(req, res) {
-            if (!req.isAuthenticated()) {
-                res.redirect("/login");
-            }
             res.render("../views/create-task.pug");
         },
 
@@ -27,8 +24,7 @@ module.exports = function (data) {
         },
 
         getTaskById(req, res) {
-            if (req.isAuthenticated()) {
-                data.getTaskById(req.params.id)
+            data.getTaskById(req.params.id)
                     .then((task) => {
                         res.render("../views/task-details.pug", task);
                     })
@@ -36,10 +32,6 @@ module.exports = function (data) {
                         req.flash("error_msg", err.message);
                         res.redirect("/");
                     });
-            } else {
-                req.flash("error_msg", "You must be logged in to do that!");
-                res.redirect("/login");
-            }
         },
 
         resolveTask(req, res) {
@@ -79,10 +71,9 @@ module.exports = function (data) {
         },
 
         addCommentToTask(req, res) {
-            if (req.isAuthenticated()) {
-                let content = req.body.content;
-                let user = req.user.username;
-                data.addCommentToTask(req.params.id, content, user)
+            let content = req.body.content;
+            let user = req.user.username;
+            data.addCommentToTask(req.params.id, content, user)
                     .then(() => {
                         req.flash("success_msg", "Comment added successfully!");
                         res.redirect(`/tasks/${req.params.id}`);
@@ -91,17 +82,10 @@ module.exports = function (data) {
                         req.flash("error_msg", err.message);
                         res.redirect("/");
                     });
-            } else {
-                req.flash("error_msg", "You must be logged in to do that!");
-                res.redirect("/login");
-            }
         },
 
         deleteCommentFromTask(req, res) {
-            if (req.isAuthenticated()) {
-                let commentId = req.body.commentId;
-                let taskId = req.params.id;
-                data.deleteComment(commentId, taskId)
+            data.deleteComment(commentId, taskId)
                     .then(() => {
                         req.flash("success_msg", "Comment removed successfully!");
                         res.redirect(`/tasks/${taskId}`);
@@ -111,10 +95,6 @@ module.exports = function (data) {
                         res.redirect("/");
                     });
 
-            } else {
-                req.flash("error_msg", "You must be logged in to do that!");
-                res.redirect("/login");
-            }
         }
     };
 };
