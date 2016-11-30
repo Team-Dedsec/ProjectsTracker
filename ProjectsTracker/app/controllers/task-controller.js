@@ -33,49 +33,37 @@ module.exports = function (data) {
 
         resolveTask(req, res) {
             data.resolveTask(req.params.id).then(() => {
-                data.getTaskById(req.params.id).then((task) => {
-                    res.redirect(`/tasks/${task._id}`);
-                });
+                res.redirect(`/tasks/${req.params.id}`);
             });
         },
 
         closeTask(req, res) {
             data.closeTask(req.params.id).then(() => {
-                data.getTaskById(req.params.id).then((task) => {
-                    res.redirect(`/tasks/${task._id}`);
-                });
+                res.redirect(`/tasks/${req.params.id}`);
             });
         },
 
         reopenTask(req, res) {
             data.reopenTask(req.params.id).then(() => {
-                data.getTaskById(req.params.id).then((task) => {
-                    res.redirect(`/tasks/${task._id}`);
-                });
+                res.redirect(`/tasks/${req.params.id}`);
             });
         },
 
         waitingForTask(req, res) {
             data.waitingForTask(req.params.id).then(() => {
-                data.getTaskById(req.params.id).then((task) => {
-                    res.redirect(`/tasks/${task._id}`);
-                });
+                res.redirect(`/tasks/${req.params.id}`);
             });
         },
 
         duplicateTask(req, res) {
             data.duplicateTask(req.params.id).then(() => {
-                data.getTaskById(req.params.id).then((task) => {
-                    res.redirect(`/tasks/${task._id}`);
-                });
+                res.redirect(`/tasks/${req.params.id}`);
             });
         },
 
         needMoreInfoTask(req, res) {
             data.needMoreInfoTask(req.params.id).then(() => {
-                data.getTaskById(req.params.id).then((task) => {
-                    res.redirect(`/tasks/${task._id}`);
-                });
+                res.redirect(`/tasks/${req.params.id}`);
             });
         }
     };
