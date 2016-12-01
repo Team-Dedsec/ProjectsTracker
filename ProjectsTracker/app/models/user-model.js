@@ -2,6 +2,7 @@
 "use strict";
 
 const mongoose = require("mongoose");
+const mongoosePaginate = require("mongoose-paginate");
 const Schema = mongoose.Schema;
 const constants = require("../constants/constants");
 const passHasher = require("../utils/salt-hash-password");
@@ -116,6 +117,8 @@ UserSchema.statics.findOrCreate = function findOrCreate(profile, cb) {
         }
     });
 };
+
+UserSchema.plugin(mongoosePaginate);
 
 let User;
 mongoose.model("User", UserSchema);
