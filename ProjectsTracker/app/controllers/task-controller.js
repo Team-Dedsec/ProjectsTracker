@@ -15,7 +15,7 @@ module.exports = function (data) {
                 // assignee = req.body.assignee;
                 project = req.user.projectWorkingOnId,
                 comments = [];
-            data.createTask(title, description, priority, status, user, project, comments).then((task) => {
+            data.createTask(title, description, priority, user, project, comments).then((task) => {
                 res.redirect(`/tasks/${task._id}`);
             });
         },
