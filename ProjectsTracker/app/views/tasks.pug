@@ -26,8 +26,8 @@ include index
                     span.label.label-warning #{task.priority}
                   else
                     span.label.label-primary #{task.priority}
-                td #{task.assignee}
-                td #{task.reporter}
+                td #{task.assignee.username}
+                td #{task.reporter.username}
                 td 
                   if (task.status === "Open")
                     span.label.label-default #{task.status}

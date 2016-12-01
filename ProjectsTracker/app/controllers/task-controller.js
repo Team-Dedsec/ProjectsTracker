@@ -8,15 +8,15 @@ module.exports = function (data) {
             res.render("../views/create-task.pug");
         },
         postTask(req, res) {
-            let title = req.body.title;
-            let description = req.body.description;
-            let priority = req.body.priority;
-            let reporter = req.user._id;
-            let assignee = req.body.assignee;
-            let project = req.user.projectWorkingOnId;
-            let status = "Open";
-            let comments = [];
-            data.createTask(title, description, priority, status, reporter, assignee, project, comments).then((task) => {
+            let title = req.body.title,
+                description = req.body.description,
+                priority = req.body.priority,
+                user = req.user,
+                // assignee = req.body.assignee;
+                project = req.user.projectWorkingOnId,
+                status = "Open",
+                comments = [];
+            data.createTask(title, description, priority, status, user, project, comments).then((task) => {
                 res.redirect(`/tasks/${task._id}`);
             });
         },

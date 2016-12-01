@@ -60,7 +60,7 @@ block main
                     else if (status === "Duplicate")
                         span.label.label-danger #{status}
                     else if (status === "Need More Info")
-                        span.label.label-danger #{status}
+                        span.label.label-warning #{status}
             .col-lg-2
                 p Priority: 
                     if (priority <=3)
@@ -72,14 +72,14 @@ block main
         .row
             .col-lg-5
                 | Reporter: 
-                p #{reporter}
+                p #{reporter.username}
             .col-lg-5
                 | Created: 
                 +formatDate(createdDate)
         .row
             .col-lg-5
                 | Assignee: 
-                p #{assignee}    
+                p #{assignee.username}    
             .col-lg-5
                 | Last updated:
                 +formatDate(createdDate)
