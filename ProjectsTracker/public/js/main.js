@@ -4,7 +4,9 @@ $(".ajax-user").autocomplete({
     dataType: "json",
     paramName: "username",
     preventBadQueries: false,
-    minChars: 3,
+    minChars: 2,
+    showNoSuggestionNotice: true,
+    noSuggestionNotice: "User not found! Try again.",
     transformResult: function(response) {
         let users = $.map(response, function(user) {
             return { value: user.username, data: user._id };
