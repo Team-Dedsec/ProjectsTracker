@@ -19,7 +19,7 @@ module.exports = function (data) {
             let title = req.body.name;
             let description = req.body.description;
             let projectType = req.body.type;
-            let leadUser = req.user;                       
+            let leadUser = req.user;                                   
             data.createProject(title, description, leadUser, projectType).then((project) => {                 
                 res.redirect(`/projects/${project._id}`);
             });
