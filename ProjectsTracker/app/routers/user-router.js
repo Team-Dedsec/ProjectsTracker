@@ -5,6 +5,9 @@ const user = require("../config/roles");
 module.exports = (server, userController, isAuthenticated) => {
     server.get("/users", userController.viewAllUsers);
     server.get("/user/:name", userController.viewUserByName);
+
+    server.get("/user", userController.searchUsersAjax);
+
     server.get("/register", userController.registerPage);
     server.post("/register", userController.createUser);
     server.get("/profile", isAuthenticated, userController.getProfile);

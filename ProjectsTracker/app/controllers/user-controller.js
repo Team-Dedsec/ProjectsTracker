@@ -95,6 +95,22 @@ module.exports = function (data) {
                     req.flash("error_msg", err.message);
                     res.redirect("/");
                 });
+        },
+        searchUsersAjax(req, res) {
+            let username = req.query.username;
+            data.searchUsers(username)
+                .then(users => {
+                    let sentUsers = users
+                        .slice(0, 10)
+                        .map(user => {
+                            return {
+                                username: user.username,
+                                 _id: user._id
+                            };
+                        });
+
+                    res.json(sentUsers);
+                });
         }
     };
 };
