@@ -36,3 +36,6 @@ img.profile-pic{
   width: 225px;
   /*height: 275px;*/
 }
+.full-width {
+  width: 100%;
+}

@@ -9,7 +9,8 @@ let express = require("express"),
     //multer = require("multer"),
     logger = require("morgan"),
     flash = require("connect-flash-plus"),
-    roles = require("./roles");
+    roles = require("./roles"),
+    paginate = require("express-paginate");
 
 let path = require("path");
 
@@ -53,6 +54,17 @@ module.exports = function (app, config) {
         res.locals._csrf = token;
         // res.locals._csrf = req.csrfToken();
         next();
+    });
+
+    // Paginate configuration
+    app.use(paginate.middleware(10, 50));
+
+    app.all(function(req, res, next) {
+      // set default or minimum is 10 (as it was prior to v0.2.0)
+      if (req.query.limit <= 10){
+        req.query.limit = 10;
+      }
+      next();
     });
 
     const User = require("../models/user-model");

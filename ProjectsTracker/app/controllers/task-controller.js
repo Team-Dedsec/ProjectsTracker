@@ -14,7 +14,6 @@ module.exports = function (data) {
                 user = req.user,
                 // assignee = req.body.assignee;
                 project = req.user.projectWorkingOnId,
-                status = "Open",
                 comments = [];
             data.createTask(title, description, priority, status, user, project, comments).then((task) => {
                 res.redirect(`/tasks/${task._id}`);
@@ -30,37 +29,21 @@ module.exports = function (data) {
                         res.redirect("/");
                     });
         },
-        resolveTask(req, res) {
-            data.resolveTask(req.params.id).then(() => {
-                res.redirect(`/tasks/${req.params.id}`);
-            });
-        },
-        closeTask(req, res) {
-            data.closeTask(req.params.id).then(() => {
-                res.redirect(`/tasks/${req.params.id}`);
-            });
-        },
-        reopenTask(req, res) {
-            data.reopenTask(req.params.id).then(() => {
-                res.redirect(`/tasks/${req.params.id}`);
-            });
-        },
-        waitingForTask(req, res) {
-            data.waitingForTask(req.params.id).then(() => {
-                res.redirect(`/tasks/${req.params.id}`);
-            });
-        },
-        duplicateTask(req, res) {
-            data.duplicateTask(req.params.id).then(() => {
-                res.redirect(`/tasks/${req.params.id}`);
-            });
-        },
-        needMoreInfoTask(req, res) {
-            data.needMoreInfoTask(req.params.id).then(() => {
-                res.redirect(`/tasks/${req.params.id}`);
-            });
+        changeTaskStatus(req, res) {
+            // TODO: check if user can change status
+            let status = req.body.status;
+            let taskId = req.params.id;
+            data.changeTaskStatus(req.params.id, status)
+                .then(() => {
+                    res.redirect(`/tasks/${taskId}`);
+                })
+                .catch(() => {
+                    req.flash("error_msg", "Invalid task status!");
+                    res.redirect(`/tasks/${taskId}`);
+                });
         },
         addCommentToTask(req, res) {
+            // TODO: check if user can add comment
             let content = req.body.content;
             let user = req.user.username;
             data.addCommentToTask(req.params.id, content, user)
