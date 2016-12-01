@@ -7,6 +7,7 @@ module.exports = function (models) {
     return {
         createProject(title, description, leadUser, type) {
             let isPrivate = false;
+            let tasks = [];
             let users = [];
             if (type === "private") {
                 isPrivate = true;
@@ -17,6 +18,7 @@ module.exports = function (models) {
                 description,
                 leadUser,
                 isPrivate,
+                tasks,
                 users
             });
 
@@ -83,7 +85,12 @@ module.exports = function (models) {
             this.getProjectById(projectId).then(project => {
                 project.users.push(userId);
             });
-        }
+        },
+        addTaskToProject(projectId, task) {
+            this.getProjectById(projectId).then(project => {
+                project.tasks.push(task);
+            });
+        }    
     };
 };
 

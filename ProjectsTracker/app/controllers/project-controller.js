@@ -44,6 +44,11 @@ module.exports = function (data) {
             console.log("Body");
             console.log(req.body);
             res.render("../views/home-page.pug");
+        }, 
+        createTaskToProject(req, res){
+            console.log("createTask");
+            console.log(req.params.id);                        
+            res.render("../views/create-task.pug");
         }
     };
 };
