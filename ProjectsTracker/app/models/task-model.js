@@ -47,7 +47,7 @@ const TaskSchema = new Schema({
         type: SimpleUserSchema,
         ref: "User"
     },
-    status: { type: String, required: true, enum: Statuses },
+    status: { type: String, enum: Statuses, default: "Open" },
     projectId: { type: Schema.Types.ObjectId, ref: "Project" },
     comments: [CommentSchema]
 });
