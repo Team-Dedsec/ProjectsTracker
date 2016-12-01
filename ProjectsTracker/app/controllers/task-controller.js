@@ -10,45 +10,19 @@ module.exports = function (data) {
         },
         postTask(req, res) {
             data.getProjectById(req.params.id).then(project => {
-				let title = req.body.title,
-				                description = req.body.description,
-				                priority = req.body.priority,
-				                user = req.user,
-				                // assignee = req.body.assignee;
-				                project = req.user.projectWorkingOnId,
-				                comments = [];data.createTask(title, description, priority, user, project, comments).then((task) => {
+			    let title = req.body.title,
+				    description = req.body.description,
+				    priority = req.body.priority,
+				    user = req.user,
+				    // assignee = req.body.assignee;
+				    projectId = project,
+				    comments = [];
+                data.createTask(title, description, priority, user, projectId, comments).then((task) => {
                     project.tasks.push(task); 
                     project.save();     
-                    res.redirect(`/tasks/${task._id}`);                                        });
-            })<<<<<<< .mine
-                let reporter = req.user._id;
-                let assignee = req.body.assignee;
-                let projectId = project;
-                let status = "Open";
-                let comments = [];                 
-
-                data.createTask(title, description, priority, status, reporter, assignee, projectId, comments).then((task) => {
-                    project.tasks.push(task); 
-                    project.save();     
-                    res.redirect(`/tasks/${task._id}`);                                       
+                    res.redirect(`/tasks/${task._id}`);
                 });
-            })
-            
-=======
-                project = req.user.projectWorkingOnId,
-                comments = [];
-            data.createTask(title, description, priority, user, project, comments).then((task) => {
-                res.redirect(`/tasks/${task._id}`);
-            });
-
-
-
-
-
-
-
-
->>>>>>> .theirs
+            });  
         },
         getTaskById(req, res) {
             data.getTaskById(req.params.id)
