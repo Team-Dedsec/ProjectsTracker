@@ -1,6 +1,4 @@
 "use strict";
-
-const passport = require("passport");
 const smtpTransport = require("../utils/smtpTransport");
 
 module.exports = function (data) {
@@ -18,9 +16,6 @@ module.exports = function (data) {
         registerPage(req, res) {
             res.render("../views/register.pug");
         },
-        // register(req, res) {
-        //     res.render("../views/register.pug");
-        // },
         login(req, res) {
             res.render("../views/login.pug");
         },
@@ -38,8 +33,8 @@ module.exports = function (data) {
                     return res.redirect(`/user/${user.username}`);
                 })
                 .catch(err => {
-                    res.status(400)
-                        .send(err);
+                    req.flash("error_msg", err.message);
+                    res.redirect("/register");
                 });
         },
         logout(req, res) {
@@ -47,21 +42,12 @@ module.exports = function (data) {
             res.redirect("/");
         },
         getProfile(req, res) {
-            if (!req.isAuthenticated()) {
-                req.flash("error_msg", "You must be logged in to do that!");
-                res.status(401).redirect("/login");
-            } else {
-                const user = req.user;
-                // res.status(200).send(`Welcome, ${user}! Go to <a href="/">Home</a>`);
-                req.flash("success_msg", "You have logged in successfully!");
-                res.render("../views/profile", {
-                    user,
-                    success_msg: req.flash("success_msg")
-                });
-            }
-        },
-        get404(req, res) {
-            res.send("Unauthorized access");
+            const user = req.user;
+            req.flash("success_msg", "You have logged in successfully!");
+            res.render("../views/profile", {
+                user,
+                success_msg: req.flash("success_msg")
+            });
         },
         admin(req, res) {
             res.render("admin");

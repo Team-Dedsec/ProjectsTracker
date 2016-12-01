@@ -1,7 +1,8 @@
 extends index
+include mixins
 
 block main
-    #banner.page-header
+    #banner.container
         .row
             .col-lg-5                
                     h1 #{title}
@@ -11,15 +12,12 @@ block main
                     span.glyphicon.glyphicon-edit
                     |  Edit
             .col-sm-1
-                a.btn.btn-default(href='#')
-                    span.glyphicon.glyphicon-comment
-                    |  Comment
             .col-sm-1
             .col-sm-1
                 a.btn.btn-default(href='#')
                     |  Reassign
             .col-sm-1                    
-            if (status == "Open" || status == "Reopened" || status == "Waiting For")
+            if (status == "Open" || status == "Reopened" || status == "Waiting For" || status == "Need More Info")
                 .col-sm-4
                     .btn-group
                         a.btn.btn-default(href="/tasks/resolveTask/" + _id) Resolve
@@ -52,7 +50,7 @@ block main
                     if (status === "Open")
                         span.label.label-default #{status}
                     else if (status === "Closed")
-                        span.label.label-danger #{status}                    
+                        span.label.label-danger #{status}
                     else if (status === "Resolved")
                         span.label.label-success #{status}
                     else if (status === "Reopened")
@@ -61,8 +59,8 @@ block main
                         span.label.label-warning #{status}
                     else if (status === "Duplicate")
                         span.label.label-danger #{status}
-                    else if (task.status === "Need More Info")
-                        span.label.label-danger #{task.status}
+                    else if (status === "Need More Info")
+                        span.label.label-danger #{status}
             .col-lg-2
                 p Priority: 
                     if (priority <=3)
@@ -77,33 +75,48 @@ block main
                 p #{reporter}
             .col-lg-5
                 | Created: 
-                p #{createdDate.getDate()}-#{createdDate.getMonth() + 1 < 10? "0" + (createdDate.getMonth() + 1): createdDate.getMonth() + 1}-#{createdDate.getFullYear()} #{createdDate.getHours()}:#{createdDate.getMinutes() < 10? "0" + createdDate.getMinutes() : createdDate.getMinutes()}
+                +formatDate(createdDate)
         .row
             .col-lg-5
                 | Assignee: 
                 p #{assignee}    
             .col-lg-5
                 | Last updated:
-                p #{updatedDate.getDate()}-#{updatedDate.getMonth() + 1 < 10? "0" + (updatedDate.getMonth() + 1) : updatedDate.getMonth() + 1}-#{updatedDate.getFullYear()} #{updatedDate.getHours()}:#{updatedDate.getMinutes() < 10? "0" + updatedDate.getMinutes() : updatedDate.getMinutes()}
+                +formatDate(createdDate)
                 .row
         .row
             .col-lg-10
                 | Description:
                 p #{description}
-        hr
-        .col-lg-6
-            h3 Comments
-            p
-                h6 By:
-                    a(href="/users/Pesho")  Pesho
-                div Dont do that!
-            if(status === "Open" || status === "Reopened")
-                form(action="/tasks/" + _id + "/add-comment" method="post")
-                    legend Add a comment
-                    .form-group
-                        label.col-lg-2.control-label(for='tb-content') Content
-                        input#tb-content.form-control(placeholder='Enter your comment', type='text', name="content")
-                        input#add-comment-btn.btn.btn-success(type="submit" value="Add comment")
-                        input(type='hidden', name='_csrf', value=_csrf)
-            else
-               h6 You can not add comments on a #{status} task.
+            aside.col-lg-6
+                a.btn.btn-default(data-toggle="collapse" data-target="#view-comments")
+                    span.glyphicon.glyphicon-comment
+                    |  Toggle Comments
+                .div#view-comments.collapse.well
+                    if(comments.length > 0)
+                            each comment in comments
+                                if(!comment.isDeleted)
+                                    div
+                                        h6 By:
+                                            a(href="/user/" + comment.username)  #{comment.username}
+                                        p #{comment.content}
+                                        h6 Posted on:
+                                            +formatDate(comment.date)
+                                        if(user.username === comment.username)
+                                            form(action="/tasks/" + _id + "/delete-comment" method="post")
+                                                input.btn.btn-danger(type="submit" value="Delete")
+                                                input(type='hidden', name='commentId', value=comment._id)
+                                                input(type='hidden', name='_csrf', value=_csrf)
+                                    hr
+                    else
+                        p No comments yet!
+                    if(status !== "Closed" && status !== "Duplicate" && status !== "Resolved")
+                        form(action="/tasks/" + _id + "/add-comment" method="post")
+                            legend Add a comment
+                            .form-group
+                                textarea#tb-content.form-control(placeholder='Enter your comment', type='text', name="content" rows="3")
+                                input(type='hidden', name='_csrf', value=_csrf)
+
+                            input#add-comment-btn.btn.btn-success(type="submit" value="Add comment")
+                    else
+                       h6 You can not add comments on a #{status} task.

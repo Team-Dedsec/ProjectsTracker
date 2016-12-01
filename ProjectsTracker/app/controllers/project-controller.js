@@ -2,25 +2,21 @@
 "use strict";
 module.exports = function (data) {
     return {
-        viewAllProjects(req, res) {            
-                data.getAllProjects().then((projects) => {                    
-                        res.render("../views/projects.pug", { projects });                    
-                });
-        },       
+        viewAllProjects(req, res) {
+            data.getAllProjects().then((projects) => {
+                res.render("../views/projects.pug", { projects });
+            });
+        },
         getRegister(req, res) {
-            if (!req.isAuthenticated()) {
-                res.redirect("/login");
-            }
             res.render("../views/create-project.pug", {});
-            // data.createProject(req.title, req.leadUser, req.descripion).then(project => res.render("../views/create-project.pug", { project }));
         },
         postProject(req, res) {
             // console.log(req.user);
             let title = req.body.name;
             let description = req.body.description;
             let projectType = req.body.type;
-            let leadUser = req.user;                                   
-            data.createProject(title, description, leadUser, projectType).then((project) => {                 
+            let leadUser = req.user;
+            data.createProject(title, description, leadUser, projectType).then((project) => {
                 res.redirect(`/projects/${project._id}`);
             });
         },
@@ -31,8 +27,7 @@ module.exports = function (data) {
         getProjectById(req, res) {
             if (!req.isAuthenticated()) {
                 data.getProjectById(req.params.id).then((project) => {
-                   
-                    if (project.isPrivate == true) {
+                    if (project.isPrivate === true) {
                         res.redirect("/login");
                     }
                     res.render("../views/project.pug", project);
@@ -49,6 +44,6 @@ module.exports = function (data) {
             console.log("Body");
             console.log(req.body);
             res.render("../views/home-page.pug");
-        }       
-    }
+        }
+    };
 };
