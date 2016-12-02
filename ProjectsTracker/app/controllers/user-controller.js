@@ -16,9 +16,6 @@ module.exports = function (data) {
         registerPage(req, res) {
             res.render("../views/register.pug");
         },
-        login(req, res) {
-            res.render("../views/login.pug");
-        },
         createUser(req, res) {
             let {
                 firstName,
@@ -37,17 +34,9 @@ module.exports = function (data) {
                     res.redirect("/register");
                 });
         },
-        logout(req, res) {
-            req.logout();
-            res.redirect("/");
-        },
         getProfile(req, res) {
             const user = req.user;
-            req.flash("success_msg", "You have logged in successfully!");
-            res.render("../views/profile", {
-                user,
-                success_msg: req.flash("success_msg")
-            });
+            res.render("../views/profile", { user });
         },
         admin(req, res) {
             res.render("admin");

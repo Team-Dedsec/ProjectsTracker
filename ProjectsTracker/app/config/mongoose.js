@@ -2,10 +2,8 @@
 "use strict";
 let mongoose = require("mongoose");
 
-// config for server.js
 module.exports = function(config) {
     mongoose.Promise = global.Promise;
-    // mongoose.connect("mongodb://localhost/Projects");
     mongoose.connect(config.db.local);
 
     let db = mongoose.connection;
@@ -21,5 +19,4 @@ module.exports = function(config) {
     db.on("error", (err) => {
         console.log(`Database error: ${err}`);
     });
-
 };

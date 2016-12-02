@@ -127,13 +127,10 @@ module.exports = function (models) {
                         reject(new Error("Your token has expired or is invalid, please request another one!"));
                     }
 
-                    let passInfo = User.generateHash(password);
-                    let passHash = passInfo.passwordHash;
-                    let salt = passInfo.salt;
-
                     user.resetPasswordExpires = Date.now();
-                    user.password = passHash;
-                    user.salt = salt;
+                    let passInfo = User.generateHash(password);
+                    user.password = passInfo.passwordHash;
+                    user.salt = passInfo.salt;
 
                     user.save((error) => {
                         if (error) {

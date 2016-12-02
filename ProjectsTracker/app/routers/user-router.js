@@ -12,11 +12,6 @@ module.exports = (server, userController, isAuthenticated) => {
     server.post("/register", userController.createUser);
     server.get("/profile", isAuthenticated, userController.getProfile);
 
-    server.post("/login", userController.loginLocal);
-
-    server.get("/login", userController.login);
-    server.get("/logout", userController.logout);
-
     server.get("/admin", user.can("access admin page"), userController.admin);
     server.get("/forgot", userController.forgot);
     server.post("/forgot", userController.handleForgottenPassword);

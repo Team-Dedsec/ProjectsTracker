@@ -5,7 +5,7 @@ module.exports = function (models) {
     let { Task } = models;
 
     return {
-        createTask(title, description, priority, user, projectId, comments) {
+        createTask(title, description, priority, user, assigneeFull, projectId, comments) {
             function addDays(date, days) {
                 let result = new Date(date);
                 result.setDate(result.getDate() + days);
@@ -16,7 +16,7 @@ module.exports = function (models) {
                 updatedDate = Date.now(),
                 dueDate = addDays(Date.now(), 14),
                 reporter = { username: user.fullName, role: user.role },
-                assignee = { username: user.fullName, role: user.role };
+                assignee = { username: assigneeFull.fullName, role: assigneeFull.role };
 
             let task = new Task({
                 title,

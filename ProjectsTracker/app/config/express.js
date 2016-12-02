@@ -6,21 +6,29 @@ let express = require("express"),
     cookieParser = require("cookie-parser"),
     csrf = require("csurf"),
     helmet = require("helmet"),
-    //multer = require("multer"),
     logger = require("morgan"),
     flash = require("connect-flash-plus"),
     roles = require("./roles"),
-    paginate = require("express-paginate");
+    paginate = require("express-paginate"),
+    MongoDBStore = require("connect-mongodb-session")(session);
 
 let path = require("path");
 
-module.exports = function (app, config) {
+module.exports = (app, config) => {
 
     app.use(bodyParser.json());
     app.use(bodyParser.urlencoded({ extended: true }));
     app.use(cookieParser());
+
+    let sessionStorage = new MongoDBStore(
+        {
+            uri: config.db.local,
+            collection: "userSessions"
+        });
+
     app.use(session({
         secret: "secret",
+        store: sessionStorage,
         resave: true,
         saveUninitialized: true
     }));
@@ -59,12 +67,12 @@ module.exports = function (app, config) {
     // Paginate configuration
     app.use(paginate.middleware(10, 50));
 
-    app.all(function(req, res, next) {
+    app.all((req, res, next) => {
       // set default or minimum is 10 (as it was prior to v0.2.0)
-      if (req.query.limit <= 10){
-        req.query.limit = 10;
-      }
-      next();
+        if (req.query.limit <= 10) {
+            req.query.limit = 10;
+        }
+        next();
     });
 
     const User = require("../models/user-model");
@@ -99,8 +107,7 @@ module.exports = function (app, config) {
         res.locals.message = err.message;
         if (req.app.get("env") === "development") {
             res.locals.error = err;
-        }
-        else {
+        } else {
             res.locals.error = {};
         }
         // render the error page

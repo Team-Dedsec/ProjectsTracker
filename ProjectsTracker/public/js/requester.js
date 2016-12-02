@@ -70,3 +70,7 @@ let requester = {
         };
     }
 };
+
+if (typeof module !== "undefined") {
+    module.exports = requester.getInstance;
+}
