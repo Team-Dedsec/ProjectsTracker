@@ -1,0 +1,38 @@
+DB 
+
+Projects 
+	- Name
+	- Description
+	- Users(List)
+	- LeadUser_ID(root)
+	- ListOfBugs(created by LeadUser)?
+	
+Bugs
+	- Name
+	- Description
+	- Priority
+	- Created On Date
+	- Till date
+	- creator_ID
+	- Updated Date
+	- Status
+	- Project
+	- users working on_ID
+	
+Users 
+	- Name
+	- Username
+	- Password
+	- Role
+	- Project working on - virtual
+	- bug working on - virtual
+	
+	Idea - Bugs - type and Users - skill(ui backend frontend)
+	
+	
+	Relationships - Projects - Users - one to many
+				- Projects - Bugs - one to many
+				- Users - Bugs - one to many
+				
+	
+	

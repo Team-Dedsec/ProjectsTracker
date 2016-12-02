@@ -1,0 +1,121 @@
+extends index
+include mixins
+
+block main
+    #banner.container
+        .row
+            .col-lg-5                
+                    h1 #{title}
+        .row
+            .col-sm-1
+                a.btn.btn-default(href='#')
+                    span.glyphicon.glyphicon-edit
+                    |  Edit
+            .col-sm-1
+            .col-sm-1
+            .col-sm-1
+                a.btn.btn-default(href='#')
+                    |  Reassign
+            .col-sm-1
+                .col-sm-6
+                    form(action="/tasks/" + _id + "/change-status" method="post")
+                        input(type='hidden', name='_csrf', value=_csrf)
+                        .btn-group
+                            .btn.btn-default.dropdown-toggle(data-toggle='dropdown', aria-expanded='false') Change status
+                                span.caret
+                            if (status == "Open" || status == "Reopened" || status == "Waiting For" || status == "Need More Info")
+                                        ul.dropdown-menu
+                                                li
+                                                    input.btn.btn-default.full-width(type="submit", name="status", value="Resolved")
+                                                li
+                                                    input.btn.btn-default.full-width(type="submit", name="status", value="Waiting For")
+                                                li
+                                                    input.btn.btn-default.full-width(type="submit", name="status", value="Duplicate")
+                                                li
+                                                    input.btn.btn-default.full-width(type="submit", name="status", value="Need More Info")
+                            if (status == "Resolved" || status == "Duplicate" || status == "Closed")
+                                        ul.dropdown-menu
+                                                li
+                                                    input.btn.btn-default.full-width(type="submit", name="status", value="Closed")
+                                                li
+                                                    input.btn.btn-default.full-width(type="submit", name="status", value="Reopened")
+
+
+        .row
+            br
+            .col-lg-4
+                p Status: 
+                    if (status === "Open")
+                        span.label.label-default #{status}
+                    else if (status === "Closed")
+                        span.label.label-danger #{status}
+                    else if (status === "Resolved")
+                        span.label.label-success #{status}
+                    else if (status === "Reopened")
+                        span.label.label-default #{status}
+                    else if (status === "Waiting For")
+                        span.label.label-warning #{status}
+                    else if (status === "Duplicate")
+                        span.label.label-danger #{status}
+                    else if (status === "Need More Info")
+                        span.label.label-warning #{status}
+            .col-lg-2
+                p Priority: 
+                    if (priority <=3)
+                        span.label.label-danger #{priority}
+                    else if (priority <= 7)
+                        span.label.label-warning #{priority}
+                    else
+                        span.label.label-primary #{priority}
+        .row
+            .col-lg-5
+                | Reporter: 
+                p #{reporter.username}
+            .col-lg-5
+                | Created: 
+                +formatDate(createdDate)
+        .row
+            .col-lg-5
+                | Assignee: 
+                p #{assignee.username}    
+            .col-lg-5
+                | Last updated:
+                +formatDate(createdDate)
+                .row
+        .row
+            .col-lg-10
+                | Description:
+                p #{description}
+            aside.col-lg-6
+                a.btn.btn-default(data-toggle="collapse" data-target="#view-comments")
+                    span.glyphicon.glyphicon-comment
+                    |  Toggle Comments
+                    span.caret
+                .div#view-comments.collapse.well
+                    if(comments.length > 0)
+                            each comment in comments
+                                if(!comment.isDeleted)
+                                    div
+                                        h6 By:
+                                            a(href="/user/" + comment.username)  #{comment.username}
+                                        p #{comment.content}
+                                        h6 Posted on:
+                                            +formatDate(comment.date)
+                                        if(user.username === comment.username)
+                                            form(action="/tasks/" + _id + "/delete-comment" method="post")
+                                                input.btn.btn-danger(type="submit" value="Delete")
+                                                input(type='hidden', name='commentId', value=comment._id)
+                                                input(type='hidden', name='_csrf', value=_csrf)
+                                    hr
+                    else
+                        p No comments yet!
+                    if(status !== "Closed" && status !== "Duplicate" && status !== "Resolved")
+                        form(action="/tasks/" + _id + "/add-comment" method="post")
+                            legend Add a comment
+                            .form-group
+                                textarea#tb-content.form-control(placeholder='Enter your comment', type='text', name="content" rows="3")
+                                input(type='hidden', name='_csrf', value=_csrf)
+
+                            input#add-comment-btn.btn.btn-success(type="submit" value="Add comment")
+                    else
+                       h6 You can not add comments on a #{status} task.

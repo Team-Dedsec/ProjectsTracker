@@ -1,0 +1,71 @@
+extend index
+block main
+    #banner.container
+        .row
+            .col-lg-5
+                .page-header
+                    h1 Create Your Project
+        .row
+            .col-lg-10
+                form.form-horizontal(method="post")
+                    input(type='hidden', name='_csrf', value=_csrf)
+                    fieldset
+                        legend Project Form
+                        |     
+                        .form-group
+                            label.col-lg-2.control-label(for='title') Name
+                            |       
+                            .col-lg-10
+                                input#inputProjectName.form-control(placeholder='Name', type='text', name="name")
+                            |    
+                            |     
+                        .form-group
+                            label.col-lg-2.control-label(for='description') Description
+                            |       
+                            .col-lg-10
+                                textarea#textArea.form-control(rows='3', name="description")
+                                |         
+                                span.help-block Tell us something about your project.
+                            |     
+                        .form-group
+                            label.col-lg-2.control-label Project Type
+                            |       
+                            .col-lg-10
+                                .radio
+                                label
+                                    input#optionsRadios1(name='type', value='private', checked='', type='radio')
+                                    |             Private
+                                |         
+                                .radio
+                                label
+                                    input#optionsRadios2(name='type', value='public', type='radio')
+                                    |             Public
+                            |     
+                        .form-group
+                            label.col-lg-2.control-label(for='select') Select team members
+                            |       
+                            .col-lg-10
+                                select#select.form-control(name="numberOfTeam")
+                                    option 1
+                                    |           
+                                    option 2
+                                    |           
+                                    option 3
+                                    |           
+                                    option 4
+                                    |           
+                                    option 5
+                                    |           
+                                    option 6
+                                    |           
+                                    option 7
+                                    |           
+                                    option 8
+                                    |         
+                                    br
+                            |     
+                        .form-group
+                            .col-lg-10.col-lg-offset-2
+                                button.btn.btn-default(type='reset') Cancel
+                                |         
+                                button.btn.btn-primary(type='submit') Submit

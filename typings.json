@@ -1,0 +1,13 @@
+{
+  "dependencies": {
+    "debug": "registry:npm/debug#2.0.0+20160723033700"
+  },
+  "globalDependencies": {
+    "chai": "registry:dt/chai#3.4.0+20160601211834",
+    "jquery": "registry:dt/jquery#1.10.0+20160929162922",
+    "mocha": "registry:dt/mocha#2.2.5+20161028141524",
+    "mongodb": "registry:dt/mongodb#2.1.0+20161110150902",
+    "mongoose": "registry:dt/mongoose#4.5.9+20161010180758",
+    "node": "registry:dt/node#6.0.0+20161110151007"
+  }
+}
