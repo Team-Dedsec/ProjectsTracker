@@ -13,11 +13,12 @@ block main
                             |  #{project.description}
                         | LeadUser: 
                         .well.well-lg                                        
-                            | #{project.leadUser.username}                
-                if(req.user.id == project.leadUser.id)
+                            | #{project.leadUser.username}                                         
+                if(req.user.id == project.leadUser._id)                    
                     - var id = project.id;                
                     a.btn.btn-default(href='/projects/' + id + '/addUser') AddUser                        
-                    a.btn.btn-default(href='/projects/' + id + '/createTask') AddTask          
+                    a.btn.btn-default(href='/projects/' + id + '/createTask') AddTask  
+                        
                     
         
   

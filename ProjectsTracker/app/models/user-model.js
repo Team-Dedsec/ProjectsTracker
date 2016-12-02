@@ -7,6 +7,8 @@ const Schema = mongoose.Schema;
 const constants = require("../constants/constants");
 const passHasher = require("../utils/salt-hash-password");
 const roles = ["admin", "user"];
+const SimpleProjectSchema = require("./partial/simple-project-schema");
+const SimpleTaskSchema = require("./partial/task-schema");
 
 let UserSchema = new Schema({
     facebookId:{
@@ -58,12 +60,9 @@ let UserSchema = new Schema({
         enum: roles,
         default: "user"
     },
-    projectWorkingOnId: {
-        type: Schema.Types.ObjectId, ref: "Project"
-    },
-    bugWorkingOnId: {
-        type: Schema.Types.ObjectId
-    },
+    projectWorkingOnId:[SimpleProjectSchema],     
+    
+    bugWorkingOnId: [SimpleTaskSchema],
     resetPasswordToken: String,
     resetPasswordExpires: Date,
     imagePath: {

@@ -141,6 +141,6 @@ module.exports = function (models) {
                     });
                 });
             });
-        }
+        }       
     };
 };

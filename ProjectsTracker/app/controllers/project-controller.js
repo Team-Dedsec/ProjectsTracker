@@ -24,7 +24,7 @@ module.exports = function (data) {
             console.log(req.params.name);
             res.send("<h1>Pesho</h1>");
         },
-        getProjectById(req, res) {
+        getProjectById(req, res) {            
             if (!req.isAuthenticated()) {
                 data.getProjectById(req.params.id).then((project) => {
                     if (project.isPrivate === true) {
@@ -34,24 +34,21 @@ module.exports = function (data) {
                 });
             }
             data.getProjectById(req.params.id).then((project) => {
+                req.user.projectWorkingOnId = project;
+                console.log(req.user);
                 console.log(project);
                 res.render("../views/project.pug", { project, req });
             });
-        },
-        addUserToProject(req, res) {
-            console.log("Params");
-            console.log(req.params);
-            console.log("Body");
-            console.log(req.body);
-            res.render("../views/home-page.pug");
-        }, 
+        },        
         createTaskToProject(req, res){
             console.log("createTask");
             console.log(req.params.id);                        
             res.render("../views/create-task.pug");
         },
         listUsersToAdd(req, res){
-            res.render("../views/userToAdd.pug");
+            data.getAllUsers().then((users) => {
+                res.render("../views/userToAdd.pug", { users });
+            });            
         }
     };
 };
