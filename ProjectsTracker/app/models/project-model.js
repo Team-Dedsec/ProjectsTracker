@@ -3,7 +3,8 @@
 
 const mongoose = require("mongoose"),
     Schema = mongoose.Schema,
-    SimpleUserSchema = require("./partial/simple-user-schema");
+    SimpleUserSchema = require("./partial/simple-user-schema"),
+    SimpleTaskSchema = require("./partial/task-schema");
 
 let ProjectSchema = new Schema({
     title: {
@@ -28,7 +29,7 @@ let ProjectSchema = new Schema({
         required: true
     },   
     userContributetTo: [{ type: Schema.Types.ObjectId, ref: "User" }],
-    tasks: [{ type: Schema.Types.ObjectId, ref: "Task" }]
+    tasks: [SimpleTaskSchema],
 },
     {
         timestamps: true

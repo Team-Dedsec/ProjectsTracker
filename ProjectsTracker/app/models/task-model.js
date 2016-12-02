@@ -5,6 +5,7 @@ const Schema = mongoose.Schema;
 
 const Statuses = ["Open", "Closed", "Resolved", "Reopened", "Waiting For", "Duplicate", "Need More Info"];
 const SimpleUserSchema = require("./partial/simple-user-schema");
+const SimpleProjectSchema = require("./partial/simple-project-schema");
 const CommentSchema = require("./partial/comment-schema");
 
 const TaskSchema = new Schema({
@@ -48,7 +49,7 @@ const TaskSchema = new Schema({
         ref: "User"
     },
     status: { type: String, enum: Statuses, default: "Open" },
-    projectId: { type: Schema.Types.ObjectId, ref: "Project" },
+    projectId: { type: SimpleProjectSchema, ref: "Project" },
     comments: [CommentSchema]
 });
 

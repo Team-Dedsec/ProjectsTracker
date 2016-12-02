@@ -49,6 +49,9 @@ module.exports = function (data) {
             console.log("createTask");
             console.log(req.params.id);                        
             res.render("../views/create-task.pug");
+        },
+        listUsersToAdd(req, res){
+            res.render("../views/userToAdd.pug");
         }
     };
 };
