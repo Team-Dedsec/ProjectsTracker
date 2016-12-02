@@ -1,1 +1,1 @@
-web: node ./ProjectsTracker/server.js
+web: node server.js
