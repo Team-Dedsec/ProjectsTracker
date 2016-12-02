@@ -28,7 +28,7 @@ module.exports = (app, config) => {
 
     app.use(session({
         secret: "secret",
-        sessionStorage,
+        store: sessionStorage,
         resave: true,
         saveUninitialized: true
     }));
