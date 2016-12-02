@@ -96,7 +96,8 @@ block content
                                     a(href="/logout")
                                         span.glyphicon.glyphicon-log-out
                                         | Log Out
-                            include admin
+                            if(user.is("admin"))
+                                include admin
     .container
         if (success_msg.length > 0)
             .row
