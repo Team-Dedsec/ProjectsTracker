@@ -43,11 +43,7 @@ module.exports = function (data) {
         },
         getProfile(req, res) {
             const user = req.user;
-            req.flash("success_msg", "You have logged in successfully!");
-            res.render("../views/profile", {
-                user,
-                success_msg: req.flash("success_msg")
-            });
+            res.render("../views/profile", { user });
         },
         admin(req, res) {
             res.render("admin");
