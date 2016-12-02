@@ -2,12 +2,12 @@
 
 let passport = require("passport");
 
-module.exports = function (data) {
+module.exports = function () {
     return {
         loginLocal(req, res, next) {
-            const auth = passport.authenticate("local", (error, user) => {
-                if (error) {
-                    next(error);
+            const auth = passport.authenticate("local", (err, user) => {
+                if (err) {
+                    next(err);
                     return;
                 }
 
@@ -29,6 +29,18 @@ module.exports = function (data) {
             });
 
             auth(req, res, next);
+        },
+        externalLoginSuccess(req, res) {
+            // Successful authentication, redirect home.
+            req.flash("success_msg", "You have logged in successfully!");
+            res.redirect("/profile");
+        },
+        logout(req, res) {
+            req.logout();
+            res.redirect("/");
+        },
+        login(req, res) {
+            res.render("../views/login.pug");
         }
-    }
+    };
 };

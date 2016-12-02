@@ -16,9 +16,6 @@ module.exports = function (data) {
         registerPage(req, res) {
             res.render("../views/register.pug");
         },
-        login(req, res) {
-            res.render("../views/login.pug");
-        },
         createUser(req, res) {
             let {
                 firstName,
@@ -36,10 +33,6 @@ module.exports = function (data) {
                     req.flash("error_msg", err.message);
                     res.redirect("/register");
                 });
-        },
-        logout(req, res) {
-            req.logout();
-            res.redirect("/");
         },
         getProfile(req, res) {
             const user = req.user;
