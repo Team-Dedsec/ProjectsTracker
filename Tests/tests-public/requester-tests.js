@@ -1,8 +1,10 @@
-/* globals chai describe it requester expect */
-
+/* globals require describe it*/
+// Note: ignore EINVAL error if running on node 7.1.0 - see https://github.com/nodejs/node/issues/9542
+"use strict";
+const chai = require("chai");
 const expect = chai.expect;
 
-describe("ProjectsTracker/public/js/requester.js tests", () => {
+describe("Requester tests", () => {
     const mockedJquery = (function () {
         let lastRequest = {};
 
@@ -12,9 +14,7 @@ describe("ProjectsTracker/public/js/requester.js tests", () => {
         }
 
         function getLastRequest() {
-            let temp = lastRequest;
-            lastRequest = {};
-            return temp;
+            return lastRequest;
         }
 
         return {
@@ -23,7 +23,7 @@ describe("ProjectsTracker/public/js/requester.js tests", () => {
         };
     }());
 
-    const requesterInstance = requester.getInstance(mockedJquery),
+    const requester = require("../../ProjectsTracker/public/js/requester")(mockedJquery),
         defaultExpectedUrl = "./api/auth",
         typeOfFunction = "function",
         typeOfPromise = "Promise",
@@ -35,12 +35,12 @@ describe("ProjectsTracker/public/js/requester.js tests", () => {
 
     describe("get tests", () => {
         it("Expect get to exist and be a function.", () => {
-            expect(requesterInstance.get).to.exist;
-            expect(requesterInstance.get).to.be.a(typeOfFunction);
+            expect(requester.get).to.exist;
+            expect(requester.get).to.be.a(typeOfFunction);
         });
 
         it("Expect get to call ajax method with correct parameters.", (done) => {
-            requesterInstance.get(defaultExpectedUrl)
+            requester.get(defaultExpectedUrl)
                 .then(() => {
                     let result = mockedJquery.getLastRequest();
 
@@ -51,20 +51,21 @@ describe("ProjectsTracker/public/js/requester.js tests", () => {
         });
 
         it("Expect get to return a promise.", () => {
-            let result = requesterInstance.get({ url: defaultExpectedUrl });
+            let result = requester.get({ url: defaultExpectedUrl });
 
             expect(result).to.be.a(typeOfPromise);
         });
     });
 
+
     describe("putJSON tests", () => {
         it("Expect putJSON to exist and be a function.", () => {
-            expect(requesterInstance.putJSON).to.exist;
-            expect(requesterInstance.putJSON).to.be.a(typeOfFunction);
+            expect(requester.putJSON).to.exist;
+            expect(requester.putJSON).to.be.a(typeOfFunction);
         });
 
         it("Expect putJSON to call ajax method with correct parameters.", (done) => {
-            requesterInstance.putJSON(defaultExpectedUrl, defaultExpectedData, defaultExpectedHeaders)
+            requester.putJSON(defaultExpectedUrl, defaultExpectedData, defaultExpectedHeaders)
                 .then(() => {
                     let requestResult = mockedJquery.getLastRequest();
 
@@ -77,7 +78,7 @@ describe("ProjectsTracker/public/js/requester.js tests", () => {
         });
 
         it("Expect putJSON to return a promise.", () => {
-            let result = requesterInstance.putJSON(defaultExpectedUrl);
+            let result = requester.putJSON(defaultExpectedUrl);
 
             expect(result).to.be.an(typeOfPromise);
         });
@@ -85,12 +86,12 @@ describe("ProjectsTracker/public/js/requester.js tests", () => {
 
     describe("postJSON tests", () => {
         it("Expect postJSON to exist and be a function.", () => {
-            expect(requesterInstance.postJSON).to.exist;
-            expect(requesterInstance.postJSON).to.be.a(typeOfFunction);
+            expect(requester.postJSON).to.exist;
+            expect(requester.postJSON).to.be.a(typeOfFunction);
         });
 
         it("Expect postJSON to call ajax method with correct parameters.", (done) => {
-            requesterInstance.postJSON(defaultExpectedUrl, defaultExpectedData, defaultExpectedHeaders)
+            requester.postJSON(defaultExpectedUrl, defaultExpectedData, defaultExpectedHeaders)
                 .then(() => {
                     let requestResult = mockedJquery.getLastRequest();
 
@@ -103,7 +104,7 @@ describe("ProjectsTracker/public/js/requester.js tests", () => {
         });
 
         it("Expect postJSON to return a promise.", () => {
-            let result = requesterInstance.postJSON(defaultExpectedUrl);
+            let result = requester.postJSON(defaultExpectedUrl);
 
             expect(result).to.be.a(typeOfPromise);
         });
@@ -111,12 +112,12 @@ describe("ProjectsTracker/public/js/requester.js tests", () => {
 
     describe("getJSON tests", () => {
         it("Expect getJSON to exist and be a function.", () => {
-            expect(requesterInstance.getJSON).to.exist;
-            expect(requesterInstance.getJSON).to.be.a(typeOfFunction);
+            expect(requester.getJSON).to.exist;
+            expect(requester.getJSON).to.be.a(typeOfFunction);
         });
 
         it("Expect getJSON to call ajax method with correct parameters.", (done) => {
-            requesterInstance.getJSON(defaultExpectedUrl, defaultExpectedHeaders)
+            requester.getJSON(defaultExpectedUrl, defaultExpectedHeaders)
                 .then(() => {
                     let requestResult = mockedJquery.getLastRequest();
 
@@ -128,7 +129,7 @@ describe("ProjectsTracker/public/js/requester.js tests", () => {
         });
 
         it("Expect getJSON to return a promise.", () => {
-            let result = requesterInstance.getJSON(defaultExpectedUrl);
+            let result = requester.getJSON(defaultExpectedUrl);
 
             expect(result).to.be.a(typeOfPromise);
         });
