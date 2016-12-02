@@ -4,7 +4,7 @@
   "description": "Tests for ProjectTracker",
   "main": "test.js",
   "scripts": {
-    "test": "start ./public/tests.html"
+    "test": "mocha \"tests-*/**/*.js\""
   },
   "author": "Team Dedsec - Telerik Academy",
   "license": "MIT",
