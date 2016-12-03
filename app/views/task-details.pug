@@ -38,10 +38,16 @@ block main
                                                 li
                                                     input.btn.btn-default.full-width(type="submit", name="status", value="Reopened")
 
-
         .row
             br
             .col-lg-4
+                if projectId == null
+                    | No project
+                else
+                    p Project: #{projectId.title}
+        .row
+            br
+            .col-lg-5
                 p Status:
                     if (status === "Open")
                         span.label.label-default #{status}
@@ -57,7 +63,7 @@ block main
                         span.label.label-danger #{status}
                     else if (status === "Need More Info")
                         span.label.label-warning #{status}
-            .col-lg-2
+            .col-lg-5
                 p Priority:
                     if (priority <=3)
                         span.label.label-danger #{priority}
@@ -66,6 +72,7 @@ block main
                     else
                         span.label.label-primary #{priority}
         .row
+            br
             .col-lg-5
                 | Reporter:
                 span  #{reporter.username}
@@ -73,6 +80,7 @@ block main
                 | Created:
                 +formatDate(createdDate)
         .row
+            br
             .col-lg-5
                 | Assignee:
                 span  #{assignee.username}
@@ -81,6 +89,7 @@ block main
                 +formatDate(createdDate)
                 //.row
         .row
+            br
             .col-lg-10
                 span Description:
                 p  #{description}

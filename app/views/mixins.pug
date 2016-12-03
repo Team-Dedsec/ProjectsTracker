@@ -9,6 +9,7 @@ mixin tasks-table(tasks)
         table.table.responsive.table-hover
             thead
                 tr
+                    th Project
                     th Title
                     th Priority
                     th Assignee
@@ -17,6 +18,11 @@ mixin tasks-table(tasks)
             tbody
                 each task in tasks
                     tr
+                        td
+                            if task.projectId == null
+                                span No project
+                            else
+                                a(href="/tasks/project/" + task.projectId.id) #{task.projectId.title}                        
                         td
                             a(href="/tasks/" + task.id) #{task.title}
                         td
