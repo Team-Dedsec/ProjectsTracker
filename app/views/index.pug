@@ -83,7 +83,7 @@ block content
                                     a(href="/logout")
                                         span.glyphicon.glyphicon-log-out
                                         | Log Out
-                            if(user.is("admin"))
+                            if(user && user.is && user.is("admin"))
                                 include admin
     .container
         if (success_msg.length > 0)
