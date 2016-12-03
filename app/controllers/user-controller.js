@@ -9,9 +9,9 @@ module.exports = function (data) {
         viewUserByName(req, res) {
             data.findUserByUsername(req.params.name)
                 .then(foundUsers => {
-                    let userInfo = foundUsers[0];
+                    let user = foundUsers[0];
                     let projects = foundUsers[0].projects;                    
-                    res.render("../views/user-details.pug", { userInfo, projects });
+                    res.render("../views/user-details.pug", { user, projects });
                 });
         },
         registerPage(req, res) {
