@@ -108,12 +108,31 @@ module.exports = function (data) {
             let taskId = req.params.id;
             return data.editTask(taskId, req.body)
                 .then(() => {
+                    req.flash("success_msg", "Task edited successfully!");
                     res.redirect(`/tasks/${taskId}`);
                 })
                 .catch(() => {
                     req.flash("error_msg", "Invalid task parameters!");
                     res.redirect(`/tasks/${taskId}`);
                 });
+        },
+        getReassign(req, res) {
+            return data.getTaskById(req.params.id).then((task) => {
+                res.render("../views/reassignTask.pug", task);
+            });
+        },
+        postReassign(req, res) {
+            let taskId = req.params.id;
+            return data.findUserByUsername(req.body.assignee).then(assignee => {
+                data.reassign(taskId, assignee[0]).then(() => {
+                    req.flash("success_msg", "Assignee changed successfully!");
+                    res.redirect(`/tasks/${taskId}`);
+                })
+                .catch(() => {
+                    req.flash("error_msg", "Invalid assignee!");
+                    res.redirect(`/tasks/${taskId}`);
+                });
+            });
         }
     };
 };

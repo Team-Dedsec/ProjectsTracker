@@ -58,3 +58,11 @@ Only Users with Role: admin can edit or delete data in this application in Setti
 ## FAQ
 
 ##### How can I re-ask for forgotten password?
+
+## Test
+
+Tests cover JSONrequester.js and task-data.js
+
+#### Run Tests
+    $ npm install --only=dev
+    $ npm test

@@ -55,3 +55,10 @@ mixin tasks-table(tasks)
                             else if (task.status === "Need More Info")
                                 span.label.label-warning
                                     a(href="/tasks/status/" + task.status) #{task.status}
+
+mixin assigneeAutocomplete()
+    .form-group
+        label.col-lg-2.control-label(for='assignee') Assignee
+        |       
+        .col-lg-10
+            input#inputAssigneeName.form-control.ajax-user(placeholder='Assignee', type='text', name="assignee")         

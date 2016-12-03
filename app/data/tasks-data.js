@@ -217,6 +217,25 @@ module.exports = function (models) {
                     }
                 );
             });
+        },
+        reassign(taskId, assignee) {
+            return new Promise((resolve, reject) => {
+                let newAssignee = {
+                    username: assignee.username,
+                    role: assignee.role
+                };
+
+                Task.update({ _id: taskId }, { $set: { assignee: newAssignee } },
+                    { safe: true, upsert: true, runValidators: true })
+                    .exec((err) => {
+                        if (err) {
+                            return reject(err);
+                        }
+
+                        return resolve();
+                    }
+                );
+            });
         }
     };
 };

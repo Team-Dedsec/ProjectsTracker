@@ -1,6 +1,6 @@
 /* globals require */
 module.exports = (server, controller, isAuthenticated) => {
-    server.get("/tasks", controller.viewAllTasks);
+    server.get("/tasks", isAuthenticated, controller.viewAllTasks);
     server.get("/tasks/asignee/:username", isAuthenticated, controller.findTasksByAsignee);
     server.get("/tasks/reporter/:username", isAuthenticated, controller.findTasksByReporter);
     server.get("/tasks/priority/:priority", isAuthenticated, controller.findTasksByPriority);
@@ -13,4 +13,6 @@ module.exports = (server, controller, isAuthenticated) => {
     server.post("/tasks/:id/add-comment", isAuthenticated, controller.addCommentToTask);
     server.post("/tasks/:id/delete-comment", isAuthenticated, controller.deleteCommentFromTask);
     server.post("/tasks/:id/change-status", isAuthenticated, controller.changeTaskStatus);
+    server.get("/tasks/:id/reassign", isAuthenticated, controller.getReassign);
+    server.post("/tasks/:id/reassign", isAuthenticated, controller.postReassign);
 };

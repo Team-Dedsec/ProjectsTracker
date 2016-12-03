@@ -12,7 +12,7 @@ block main
                     span.glyphicon.glyphicon-edit
                     |  Edit
             .col-sm-4
-                a.btn.btn-default(href='#')
+                a.btn.btn-default(href="/tasks/" + id + "/reassign")
                     |  Reassign
             .col-sm-1
                 .col-lg-6
@@ -75,7 +75,7 @@ block main
         .row
             .col-lg-5
                 | Assignee:
-                span #{assignee.username}
+                span  #{assignee.username}
             .col-lg-5
                 | Last updated:
                 +formatDate(createdDate)

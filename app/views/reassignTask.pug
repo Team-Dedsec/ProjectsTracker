@@ -1,0 +1,20 @@
+include index
+include mixins
+
+block main
+    #banner.container
+        form.form-horizontal(method="post")
+            input(type='hidden', name='_csrf', value=_csrf)
+            fieldset
+                legend New assignee
+                |     
+                +assigneeAutocomplete()
+                .form-group
+                    .col-lg-10.col-lg-offset-2
+                        button.btn.btn-default(type='reset') Cancel
+                        |         
+                        button.btn.btn-primary(type='submit') Submit
+
+block scripts
+    script(src='/public/bower_components/devbridge-autocomplete/dist/jquery.autocomplete.min.js')
+    script(src='/public/js/main.js')  
