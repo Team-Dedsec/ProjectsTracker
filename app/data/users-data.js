@@ -41,6 +41,17 @@ module.exports = function (models) {
                 });
             });
         },
+        deleteUser(id){
+          return new Promise((resolve, reject) => {
+            User.findOneAndRemove({_id: id}, (err)=>{
+              if (err) {
+                return reject(err);
+              }
+
+              return resolve();
+            })
+          });
+        },
         findUserByUsername(username) {
             return new Promise((resolve, reject) => {
                 User.findOne()
@@ -141,6 +152,6 @@ module.exports = function (models) {
                     });
                 });
             });
-        }       
+        }
     };
 };
