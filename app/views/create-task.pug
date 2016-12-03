@@ -1,5 +1,7 @@
 include index
+include mixins
 
+block main
     #banner.container
         .row
             .col-lg-5
@@ -53,16 +55,13 @@ include index
                                     |         
                                     br
                             |     
-                        .form-group
-                            label.col-lg-2.control-label(for='assignee') Assignee
-                            |       
-                            .col-lg-10
-                                input#inputAssigneeName.form-control.ajax-user(placeholder='Assignee', type='text', name="assignee")
+                        +assigneeAutocomplete()
                         .form-group
                             .col-lg-10.col-lg-offset-2
                                 button.btn.btn-default(type='reset') Cancel
                                 |         
                                 button.btn.btn-primary(type='submit') Submit
+                                
 block scripts
     script(src='/public/bower_components/devbridge-autocomplete/dist/jquery.autocomplete.min.js')
-    script(src='/public/js/main.js')
+    script(src='/public/js/main.js')  
