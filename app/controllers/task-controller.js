@@ -22,6 +22,7 @@ module.exports = function (data) {
                     data.createTask(title, description, priority, user, assignee[0], projectId, comments).then(task => {
                         project.tasks.push(task);
                         project.save();
+                        req.flash("success_msg", "Added task with id: " + task._id);
                         res.redirect(`/tasks/${task._id}`);
                     });
                 });

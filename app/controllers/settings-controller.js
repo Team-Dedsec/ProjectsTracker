@@ -5,8 +5,12 @@ const User = require("../models/user-model"),
       Project = require("../models/project-model"),
       paginate = require("express-paginate");
 
+
 module.exports = function(data) {
   return {
+    deleteUserById(req, res){
+      data.deleteUser(req.params.id).then(()=> res.redirect("../views/settings-all-users.pug"));
+    },
     viewSettingsAllProjects(req, res) {
       Project.paginate({}, {
         page: req.query.page,
