@@ -8,7 +8,7 @@ $(".ajax-user").autocomplete({
     showNoSuggestionNotice: true,
     noSuggestionNotice: "User not found! Try again.",
     transformResult: function(response) {
-        let users = $.map(response, function(user) {
+        var users = $.map(response, function(user) {
             return { value: user.username, data: user._id };
         });
         return { suggestions: users };
