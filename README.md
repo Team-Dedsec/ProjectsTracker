@@ -12,7 +12,7 @@
 |Александър Несторов |__Alexander.N__	        |
 |Иван Първанов |__ivan.parvanov.1__	        |
 |Калоян Костов |__RightWing__ |	
-|Юлиан Теофилов|__Julian_Teofilov__       	|	
+|Юлиан Теофилов|__Yulian_Teofilov__       	|	
 
 # ProjectsTracker
 
