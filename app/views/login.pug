@@ -1,15 +1,18 @@
-extends index
+include index
 
 block main
-    .col-lg-4.col-md-4.col-sm-2
-        h1 Login here:
-        form(action="/login" method="post")
-            .form-group
+    .row
+        .col-lg-5.col-md-4.col-sm-2
+            h1 Login here:
+            form(action="/login" method="post")
+                .form-group
                     input.form-control(type="text" name="username" placeholder="Enter Username" required)
                     input.form-control(type="password" name="password" placeholder="Enter Password" required)
                     input(type='hidden', name='_csrf', value=_csrf)
                     a(href="/forgot") Forgot your password?
 
-            input.btn.btn-success(type="submit" value="Login")
-
-
+                    input.btn.btn-success(type="submit" value="Login")
+            form(action="/auth/facebook" method="get")
+                input.btn.btn-facebook(type="submit" value="Login with Facebook")
+            form(action="/auth/github" method="get")
+                input.btn.btn-github(type="submit" value="Login with GitHub")

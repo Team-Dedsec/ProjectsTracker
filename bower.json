@@ -18,6 +18,7 @@
   "dependencies": {
     "bootstrap": "3.3.7",
     "cookieconsent": "cookieconsent2#^3.0.3",
-    "devbridge-autocomplete": "^1.2.27"
+    "devbridge-autocomplete": "^1.2.27",
+    "bootstrap-social": "5.1.1"
   }
 }
