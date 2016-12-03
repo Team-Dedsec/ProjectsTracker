@@ -11,7 +11,7 @@ module.exports = function(passport, data) {
   passport.use(new GitHubStrategy({
       clientID: GITHUB_APP_ID,
       clientSecret: GITHUB_APP_SECRET,
-      callbackURL: "http://localhost:3001/auth/github/callback"
+      callbackURL: "https://dedsec.herokuapp.com/auth/github/callback"
     },
     function(accessToken, refreshToken, profile, done) {
       console.log(typeof profile.id);
