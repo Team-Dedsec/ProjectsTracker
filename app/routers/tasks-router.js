@@ -1,6 +1,6 @@
 /* globals require */
 module.exports = (server, controller, isAuthenticated) => {
-    server.get("/tasks", controller.viewAllTasks);
+    server.get("/tasks", isAuthenticated, controller.viewAllTasks);
     server.get("/tasks/asignee/:username", isAuthenticated, controller.findTasksByAsignee);
     server.get("/tasks/reporter/:username", isAuthenticated, controller.findTasksByReporter);
     server.get("/tasks/priority/:priority", isAuthenticated, controller.findTasksByPriority);
