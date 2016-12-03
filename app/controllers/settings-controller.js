@@ -9,7 +9,7 @@ const User = require("../models/user-model"),
 module.exports = function(data) {
   return {
     deleteUserById(req, res){
-      data.deleteUser(req.params.id).then(()=> res.redirect("../views/settings-all-users.pug"));
+      data.deleteUser(req.params.id).then(()=> res.redirect("/settings/users"));
     },
     viewSettingsAllProjects(req, res) {
       Project.paginate({}, {
