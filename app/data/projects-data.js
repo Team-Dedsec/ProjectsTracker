@@ -44,6 +44,19 @@ module.exports = function (models) {
                 });
             });
         },
+        getAllPublicProjects() {
+            let query = { "isPrivate": false };
+            return new Promise((resolve, reject) => {
+                Project.find(query)
+                    .exec((err, projects) => {
+                        if (err) {
+                            return reject(err);
+                        }
+
+                        return resolve(projects);
+                    });
+            });
+        },
         getProjectByTitle(title) {
             return new Promise((resolve, reject) => {
                 Project.find()
@@ -104,16 +117,15 @@ module.exports = function (models) {
                     });
             });
         },
-        deleteProject(id){
-          return new Promise((resolve, reject) => {
-            Project.findOneAndRemove({_id: id}, (err)=>{
-              if (err) {
-                return reject(err);
-              }
-
-              return resolve();
-            })
-          });
+        deleteProject(id) {
+            return new Promise((resolve, reject) => {
+                Project.findOneAndRemove({ _id: id }, (err) => {
+                    if (err) {
+                        return reject(err);
+                    }
+                    return resolve();
+                });
+            });
         }
     };
 };
