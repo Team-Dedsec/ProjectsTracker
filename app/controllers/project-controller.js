@@ -18,6 +18,7 @@ module.exports = function (data) {
             let leadUser = req.user;
             data.createProject(title, description, leadUser, projectType)
                 .then((project) => {
+                    leadUser.projectWorkingOnId.push(project);
                     res.redirect(`/projects/${project._id}`);
                 })
                 .catch(err => {
