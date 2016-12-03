@@ -1,5 +1,16 @@
-include index
+extends index
+block main
+    .row
+        .list-group.col-lg-8.center-block
+            each user in users
+             - var id = user.id
+                a.list-group-item(href='user/' + id)
+                        h4.list-group-item-heading 
+                        | Username: #{user.username}
+                        p
+                        | Name: #{user.firstName}
+                        a.btn.btn-primary.btn-xs.(href='#') Add
+        
 
-    each user in users
-        h1 
-            | #{user.username}
+
+    
