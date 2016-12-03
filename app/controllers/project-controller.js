@@ -29,7 +29,7 @@ module.exports = function (data) {
                 })
                 .catch(err => {
                     req.flash("error_msg", err.message);
-                    res.redirect("/");
+                    res.redirect("/projects/create");
                 });
         },
         getProjectById(req, res) {

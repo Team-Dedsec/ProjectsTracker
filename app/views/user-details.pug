@@ -21,3 +21,13 @@ block main
                     p
                         | E-MAIL:
                         a(href="#{user.email}") | #{user.email}
+        .row        
+          each project in projects             
+              .col-lg-6.col-md-7
+                .panel.panel-primary
+                  - var url = project.id;
+                        .panel-heading
+                          h3.panel-title
+                            a(href="/projects/" + url) #{project.title}
+                        .panel-body
+                          p #{project.description}
