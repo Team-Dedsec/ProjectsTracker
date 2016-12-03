@@ -1,6 +1,7 @@
 "use strict";
 
 const mongoose = require("mongoose");
+let mongoosePaginate = require("mongoose-paginate");
 const Schema = mongoose.Schema;
 
 const Statuses = ["Open", "Closed", "Resolved", "Reopened", "Waiting For", "Duplicate", "Need More Info"];
@@ -52,6 +53,8 @@ const TaskSchema = new Schema({
     projectId: { type: SimpleProjectSchema, ref: "Project" },
     comments: [CommentSchema]
 });
+
+TaskSchema.plugin(mongoosePaginate);
 
 let Task;
 mongoose.model("Task", TaskSchema);
