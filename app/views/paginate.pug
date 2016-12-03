@@ -8,7 +8,7 @@ if paginate.hasPreviousPages || paginate.hasNextPages(pageCount)
             |  Previous
       if pages
         each page in pages
-          a.btn.btn-default(href=page.url)= page.number
+          a.btn.pagination-lg.pagination-sm(href=page.url)= page.number
       if paginate.hasNextPages(pageCount)
         li.next
           a(href=paginate.href()).next
