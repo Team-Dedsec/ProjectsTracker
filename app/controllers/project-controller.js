@@ -60,6 +60,17 @@ module.exports = function (data) {
             data.getAllUsers().then((users) => {
                 res.render("../views/userToAdd.pug", { users });
             });
+        },
+        displayCurrentUserProjects(req, res) {
+            let userId = req.user._id;
+            data.getProjectsForUser(userId)
+                .then(projects => {
+                    res.render("projects", { projects });
+                })
+                .catch(err => {
+                    req.flash("error_msg", err.message);
+                    res.redirect("/");
+                });
         }
     };
 };
