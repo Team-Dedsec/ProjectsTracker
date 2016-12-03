@@ -1,4 +1,5 @@
-/* globals chai describe it requester expect */
+/* globals describe it beforeEach afterEach*/
+/* eslint-disable no-unused-expressions */
 // Note: ignore EINVAL error if running on node 7.1.0 - see https://github.com/nodejs/node/issues/9542
 "use strict";
 const chai = require("chai");
@@ -11,14 +12,10 @@ const req = {
         commentId: "2",
         status: "some status"
     },
-    params: {
-        id: "2"
-    },
-    user: {
-        username: "Pesho123"
-    }
+    params: { id: "2" },
+    user: { username: "Pesho123" }
 };
-const controller = require("../../ProjectsTracker/app/controllers/task-controller")(data);
+const controller = require("../../app/controllers/task-controller")(data);
 
 describe("ProjectsTracker/app/controllers/task-controller.js tests", () => {
     describe("addCommentToTask tests", () => {

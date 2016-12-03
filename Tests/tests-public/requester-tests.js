@@ -1,38 +1,40 @@
-/* globals require describe it*/
+/* globals require describe it */
+/* eslint-disable no-unused-expressions */
 // Note: ignore EINVAL error if running on node 7.1.0 - see https://github.com/nodejs/node/issues/9542
 "use strict";
 const chai = require("chai");
 const expect = chai.expect;
+const mockedJquery = (function () {
+    let lastRequest = {};
 
-describe("Requester tests", () => {
-    const mockedJquery = (function () {
-        let lastRequest = {};
+    function ajax(request) {
+        lastRequest = request;
+        request.success();
+    }
 
-        function ajax(request) {
-            lastRequest = request;
-            request.success();
-        }
+    function getLastRequest() {
+        let temp = lastRequest;
+        lastRequest = {};
+        return temp;
+    }
 
-        function getLastRequest() {
-            return lastRequest;
-        }
+    return {
+        ajax,
+        getLastRequest
+    };
+}());
 
-        return {
-            ajax,
-            getLastRequest
-        };
-    }());
+const requester = require("../../public/js/requester")(mockedJquery),
+    defaultExpectedUrl = "./api/auth",
+    typeOfFunction = "function",
+    typeOfPromise = "Promise",
+    defaultExpectedHeaders = { "x-auth-token": "OOO" },
+    defaultExpectedData = { "name": "Pesho" },
+    expectedPostMethod = "POST",
+    expectedGetMethod = "GET",
+    expectedPutmethod = "PUT";
 
-    const requester = require("../../ProjectsTracker/public/js/requester")(mockedJquery),
-        defaultExpectedUrl = "./api/auth",
-        typeOfFunction = "function",
-        typeOfPromise = "Promise",
-        defaultExpectedHeaders = { "x-auth-token": "OOO" },
-        defaultExpectedData = { "name": "Pesho" },
-        expectedPostMethod = "POST",
-        expectedGetMethod = "GET",
-        expectedPutmethod = "PUT";
-
+describe("ProjectsTracker/public/js/requester.js tests", () => {
     describe("get tests", () => {
         it("Expect get to exist and be a function.", () => {
             expect(requester.get).to.exist;
@@ -56,7 +58,6 @@ describe("Requester tests", () => {
             expect(result).to.be.a(typeOfPromise);
         });
     });
-
 
     describe("putJSON tests", () => {
         it("Expect putJSON to exist and be a function.", () => {

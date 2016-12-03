@@ -39,7 +39,7 @@ module.exports = function (data) {
             // TODO: check if user can change status
             let status = req.body.status;
             let taskId = req.params.id;
-            return data.changeTaskStatus(req.params.id, status)
+            return data.changeTaskStatus(taskId, status)
                 .then(() => {
                     res.redirect(`/tasks/${taskId}`);
                 })
@@ -52,10 +52,11 @@ module.exports = function (data) {
             // TODO: check if user can add comment
             let content = req.body.content;
             let user = req.user.username;
-            return data.addCommentToTask(req.params.id, content, user)
+            let taskId = req.params.id;
+            return data.addCommentToTask(taskId, content, user)
                 .then(() => {
                     req.flash("success_msg", "Comment added successfully!");
-                    res.redirect(`/tasks/${req.params.id}`);
+                    res.redirect(`/tasks/${taskId}`);
                 })
                 .catch(err => {
                     req.flash("error_msg", err.message);

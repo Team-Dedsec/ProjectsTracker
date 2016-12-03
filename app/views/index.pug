@@ -1,4 +1,4 @@
-include layout
+extends layout
 
 block content
     nav.navbar.navbar-inverse.navbar-fixed-top.navbar-default
@@ -94,18 +94,18 @@ block content
                 div.alert.alert-danger #{error_msg}
         block main
 
-block footer
-    script(type='text/javascript').
-        window.cookieconsent_options = {
-            "message": "This website uses cookies to ensure you get the best experience on our website",
-            "dismiss": "Got it!",
-            "learnMore": "More info",
-            "link": null,
-            "theme": "light-bottom"
-        };
-    script(type='text/javascript', src='//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/1.0.10/cookieconsent.min.js')
-    footer.footer
-        .container
-            p.text-muted Made by Team Dedsec for Telerik Academy's Node.js Apps Course.
-                a(href="https://github.com/Team-Dedsec/ProjectsTracker") View source
-block scripts
+    block footer
+            script(type='text/javascript').
+                window.cookieconsent_options = {
+                    "message": "This website uses cookies to ensure you get the best experience on our website",
+                    "dismiss": "Got it!",
+                    "learnMore": "More info",
+                    "link": null,
+                    "theme": "light-bottom"
+                };
+            script(type='text/javascript', src='//cdnjs.cloudflare.com/ajax/libs/cookieconsent2/1.0.10/cookieconsent.min.js')
+            footer.footer
+                .container
+                    p.text-muted Made by Team Dedsec for Telerik Academy's Node.js Apps Course.
+                        a(href="https://github.com/Team-Dedsec/ProjectsTracker") View source
+    block scripts
