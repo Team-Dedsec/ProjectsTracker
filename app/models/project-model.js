@@ -10,7 +10,7 @@ let mongoosePaginate = require("mongoose-paginate");
 let ProjectSchema = new Schema({
     title: {
         type: String,
-        minLength: 10,
+        minLength: 2,
         maxLength: 120,
         required: true
     },

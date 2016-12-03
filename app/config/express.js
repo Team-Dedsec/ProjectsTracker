@@ -11,7 +11,8 @@ let express = require("express"),
     roles = require("./roles"),
     paginate = require("express-paginate"),
     MongoDBStore = require("connect-mongodb-session")(session),
-    path = require("path");
+    path = require("path"),
+    filter = require("content-filter");
 
 module.exports = (app, config) => {
 
@@ -42,6 +43,7 @@ module.exports = (app, config) => {
     require("../config/passport/")(app);
 
     app.use(helmet());
+    app.use(filter());
     app.use(roles.middleware());
     // Connect Flash
     app.use(flash());

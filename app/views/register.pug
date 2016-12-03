@@ -3,20 +3,28 @@ extends index
 block main
     .col-lg-4.col-md-6
         h1 Register here:
-            form(action="/register" method="post")
+            form(action="/register" method="post" name="registerForm")
                 input(type='hidden', name='_csrf', value=_csrf)
-                label(for="tb-firstname") First Name
-                input.form-control(type="text" id="tb-firstname" name="firstName" placeholder="Enter First Name" required)
-                label(for="tb-lastname") Last Name
-                input.form-control(type="text" id="tb-lastname" name="lastName" placeholder="Enter Last Name" required)
-                label(for="tb-email") Email
-                input.form-control(type="email" id="tb-email" name="email" placeholder="Enter Email" required)
-                label(for="tb-username") Username
-                input.form-control(type="text" id="tb-username" name="username" placeholder="Enter Username" required)
-                label(for="tb-password") Password
-                input.form-control(type="password" id="tb-password" name="password" placeholder="Enter Password" required)
-                label(for="tb-confirm") Confirm Password
-                input.form-control(type="password" id="tb-confirm" placeholder="Confirm your Password" required)
+                .form-group
+                    label(for="tb-firstname") First Name
+                    input.form-control(type="text" id="tb-firstname" name="firstName" placeholder="Enter First Name")
+                .form-group
+                    label(for="tb-lastname") Last Name
+                    input.form-control(type="text" id="tb-lastname" name="lastName" placeholder="Enter Last Name" required)
+                .form-group
+                    label(for="tb-email") Email
+                    input.form-control(type="email" id="tb-email" name="email" placeholder="Enter Email" required)
+                .form-group
+                    label(for="tb-username") Username
+                    input.form-control(type="text" id="tb-username" name="username" placeholder="Enter Username" required)
+                .form-group
+                    label(for="tb-password") Password
+                    input.form-control(type="password" id="tb-password" name="password" placeholder="Enter Password" required)
+                .form-group
+                    label(for="tb-confirm") Confirm Password
+                    input.form-control(type="password" id="tb-confirm" placeholder="Confirm your Password" required name="confirm")
                 input.btn.btn-danger(type="submit" value="Register")
 
-    script(src="public/js/confirm-password.js")
+block scripts
+    script(src="/public/bower_components/jquery-validation/dist/jquery.validate.min.js")
+    script(src='/public/js/form-validation.js')

@@ -14,7 +14,7 @@ module.exports = function (data) {
             case "Users":
                 data.searchUsers(searchTerm)
                     .then(users => {
-                        res.render("user-list", { users });
+                        res.render("users", { users });
                     })
                     .catch(err => {
                         res.status(500);

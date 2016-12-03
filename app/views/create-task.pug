@@ -9,7 +9,7 @@ block main
                     h1 Create New Task
         .row
             .col-lg-10
-                form.form-horizontal(method="post")
+                form.form-horizontal(method="post" name="createTask")
                     input(type='hidden', name='_csrf', value=_csrf)
                     fieldset
                         legend Task Form
@@ -64,4 +64,6 @@ block main
                                 
 block scripts
     script(src='/public/bower_components/devbridge-autocomplete/dist/jquery.autocomplete.min.js')
-    script(src='/public/js/main.js')  
+    script(src="/public/bower_components/jquery-validation/dist/jquery.validate.min.js")
+    script(src='/public/js/main.js')
+    script(src='/public/js/form-validation.js')

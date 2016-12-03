@@ -7,7 +7,7 @@ block main
                     h1 Create Your Project
         .row
             .col-lg-10
-                form.form-horizontal(method="post")
+                form.form-horizontal(method="post" name="createProject")
                     input(type='hidden', name='_csrf', value=_csrf)
                     fieldset
                         legend Project Form
@@ -69,3 +69,7 @@ block main
                                 button.btn.btn-default(type='reset') Cancel
                                 |         
                                 button.btn.btn-primary(type='submit') Submit
+
+block scripts
+    script(src="/public/bower_components/jquery-validation/dist/jquery.validate.min.js")
+    script(src='/public/js/form-validation.js')
