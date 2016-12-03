@@ -2,14 +2,38 @@
 
 const User = require("../models/user-model"),
       Task = require("../models/task-model"),
+      Project = require("../models/project-model"),
       paginate = require("express-paginate");
 
 module.exports = function(data) {
   return {
     viewSettingsAllProjects(req, res) {
-      data.getAllProjects().then(projects => res.render("../views/settings-all-projects.pug", {
-        projects
-      }));
+      Project.paginate({}, {
+        page: req.query.page,
+        limit: req.query.limit
+      }, function(err, projects) {
+        if (err) {
+          return next(err);
+        }
+        res.format({
+          html: function() {
+            res.render("../views/settings-all-projects.pug", {
+              projects: projects.docs,
+              pageCount: projects.pages,
+              itemCount: projects.total,
+              pages: res.locals.paginate.getArrayPages(3, projects.pages, req.query.page)
+            });
+          },
+          json: function() {
+            res.json({
+              object: "list",
+              has_more: res.locals.paginate.hasNextPages(projects.pages),
+              data: projects.docs
+            });
+          }
+        });
+
+      });
     },
     viewSettingsAllTasks(req, res) {
       Task.paginate({}, {
