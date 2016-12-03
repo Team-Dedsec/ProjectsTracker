@@ -119,7 +119,7 @@ module.exports = function (models) {
                     .exec((err, tasks) => {
                         if (err) {
                             return reject(err);
-                        }   
+                        }
 
                         return resolve(tasks);
                     });
@@ -183,6 +183,28 @@ module.exports = function (models) {
 
                         return resolve(tasks);
                     });
+            });
+        },
+        editTask(taskId, params) {
+            return new Promise((resolve, reject) => {
+                Task.update(
+                    { _id: taskId },
+                    {
+                        $set: {
+                            title: params.title,
+                            description: params.description,
+                            priority: params.priority
+                        }
+                    },
+                    { safe: true, upsert: true, runValidators: true })
+                    .exec((err) => {
+                        if (err) {
+                            return reject(err);
+                        }
+
+                        return resolve();
+                    }
+                );
             });
         }
     };

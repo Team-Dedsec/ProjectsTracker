@@ -8,12 +8,10 @@ block main
                     h1 #{title}
         .row
             .col-sm-1
-                a.btn.btn-default(href='#')
+                a.btn.btn-default(href='/tasks/edit/' + id)
                     span.glyphicon.glyphicon-edit
                     |  Edit
-            .col-sm-1
-            .col-sm-1
-            .col-sm-1
+            .col-sm-4
                 a.btn.btn-default(href='#')
                     |  Reassign
             .col-sm-1

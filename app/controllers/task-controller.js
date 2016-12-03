@@ -98,6 +98,22 @@ module.exports = function (data) {
                     req.flash("error_msg", err.message);
                     res.redirect("/");
                 });
+        },
+        getEditTask(req, res) {
+            return data.getTaskById(req.params.id).then((task) => {
+                res.render("../views/edit-task.pug", task);
+            });
+        },
+        postEditTask(req, res) {
+            let taskId = req.params.id;
+            return data.editTask(taskId, req.body)
+                .then(() => {
+                    res.redirect(`/tasks/${taskId}`);
+                })
+                .catch(() => {
+                    req.flash("error_msg", "Invalid task parameters!");
+                    res.redirect(`/tasks/${taskId}`);
+                });
         }
     };
 };

@@ -1,0 +1,60 @@
+include index
+
+    #banner.container
+        .row
+            .col-lg-5
+                .page-header
+                    h1 Edit Task
+        .row
+            .col-lg-10
+                form.form-horizontal(method="post")
+                    input(type='hidden', name='_csrf', value=_csrf)
+                    fieldset
+                        legend Task Form
+                        |     
+                        .form-group
+                            label.col-lg-2.control-label(for='title') Title
+                            |       
+                            .col-lg-10
+                                input#inputTaskName.form-control(type='text', name="title", value= title)
+                            |    
+                        .form-group
+                            label.col-lg-2.control-label(for='description') Description
+                            |       
+                            .col-lg-10
+                                textarea#textArea.form-control(rows='3', name="description") #{description}
+                                |         
+                                span.help-block Describe the task with as much details as possible.
+                            |     
+                        .form-group
+                            label.col-lg-2.control-label(for='priority') Priority
+                            |       
+                            .col-lg-10
+                                select#select.form-control(name="priority")
+                                    option 1
+                                    |           
+                                    option 2
+                                    |           
+                                    option 3
+                                    |           
+                                    option 4
+                                    |           
+                                    option 5
+                                    |           
+                                    option 6
+                                    |           
+                                    option 7
+                                    |           
+                                    option 8
+                                    |         
+                                    option 9
+                                    |           
+                                    option 10
+                                    |         
+                                    br
+                            |     
+                        .form-group
+                            .col-lg-10.col-lg-offset-2
+                                button.btn.btn-default(type='reset') Cancel
+                                |         
+                                button.btn.btn-primary(type='submit') Submit
