@@ -18,7 +18,7 @@ module.exports = function (data) {
             let leadUser = req.user;
             data.createProject(title, description, leadUser, projectType)
                 .then((project) => {
-                    leadUser.projectWorkingOnId.push(project);
+                    leadUser.projects.push(project);
                     res.redirect(`/projects/${project._id}`);
                 })
                 .catch(err => {
@@ -59,8 +59,22 @@ module.exports = function (data) {
         },
         listUsersToAdd(req, res) {
             data.getAllUsers().then((users) => {
-                res.render("../views/userToAdd.pug", { users });
+                let projectId = req.params.id;
+                res.render("../views/userToAdd.pug", { users, projectId });
             });
+        },
+        addUserToProject(req, res){
+            data.getProjectById(req.params.id).then((project) => {
+                data.findUserById(req.params.userId).then((user) => {
+                    user.projectWorkingOnId.push(project);
+                    project.userContributetTo.push(user);
+                    console.log(user.projectWorkingOnId[0]);
+                    res.redirect(`/projects/${req.params.id}/addUser`);
+                });               
+            });
+            console.log("params");
+            console.log(req.params);
+            console.log(req.body);
         },
         displayCurrentUserProjects(req, res) {
             let userId = req.user._id;

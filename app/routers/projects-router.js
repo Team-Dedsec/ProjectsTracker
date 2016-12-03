@@ -7,4 +7,5 @@ module.exports = function(server, controller, isAuthenticated) {
     .get("/projects/:id/createTask", controller.createTaskToProject);
     server.post("/projects/:id/createTask", controller.postTask);
     server.get("/projects/:id/addUser", controller.listUsersToAdd);
+    server.post("/projects/:id/addUser/:userId", controller.addUserToProject);
 };

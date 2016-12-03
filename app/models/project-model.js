@@ -29,7 +29,7 @@ let ProjectSchema = new Schema({
         type: Boolean,
         required: true
     },
-    userContributetTo: [{ type: Schema.Types.ObjectId, ref: "User" }],
+    users: [{ type: Schema.Types.ObjectId, ref: "User" }],
     tasks: [SimpleTaskSchema],
 },
     {
