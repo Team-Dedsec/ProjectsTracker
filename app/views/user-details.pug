@@ -1,8 +1,23 @@
 extends index
 
 block main
-  ul
-      li #{user.firstName}
-      li #{user.lastName}
-      li #{user.username}
-      li #{user.fullName}
+    #banner.container
+        .col-lg-5
+            .page-header
+                h1
+                    | #{user.fullName}
+                a(href='/profile/uploadfile')
+                    img.profile-pic(src=user.imagePath)
+        .row
+            .col-lg-6
+                .panel-heading
+                    p.panel-title
+                        | USERNAME: #{user.username}
+                .panel-heading
+                    p
+                        | FIRST NAME: #{user.firstName}
+                    p
+                        | LAST NAME: #{user.lastName}
+                    p
+                        | E-MAIL:
+                        a(href="#{user.email}") | #{user.email}
