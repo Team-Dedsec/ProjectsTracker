@@ -42,6 +42,17 @@ module.exports = function (models) {
                 });
             });
         },
+        deleteTask(id){
+            return new Promise((resolve, reject) => {
+              Task.findOneAndRemove({_id: id}, (err)=>{
+                if (err) {
+                  return reject(err);
+                }
+
+                return resolve();
+              })
+            });
+        },
         getAllTasks() {
             return new Promise((resolve, reject) => {
                 Task.find((err, tasks) => {
@@ -119,7 +130,7 @@ module.exports = function (models) {
                     .exec((err, tasks) => {
                         if (err) {
                             return reject(err);
-                        }   
+                        }
 
                         return resolve(tasks);
                     });

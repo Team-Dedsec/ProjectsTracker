@@ -11,6 +11,12 @@ module.exports = function(data) {
     deleteUserById(req, res){
       data.deleteUser(req.params.id).then(()=> res.redirect("/settings/users"));
     },
+    deleteProjectById(req, res){
+      data.deleteProject(req.params.id).then(()=> res.redirect("/settings/projects"));
+    },
+    deleteTaskById(req, res){
+      data.deleteTask(req.params.id).then(()=> res.redirect("/settings/tasks"));
+    },
     viewSettingsAllProjects(req, res) {
       Project.paginate({}, {
         page: req.query.page,

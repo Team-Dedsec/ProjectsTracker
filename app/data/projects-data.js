@@ -103,6 +103,17 @@ module.exports = function (models) {
                         return resolve(projects);
                     });
             });
+        },
+        deleteProject(id){
+          return new Promise((resolve, reject) => {
+            Project.findOneAndRemove({_id: id}, (err)=>{
+              if (err) {
+                return reject(err);
+              }
+
+              return resolve();
+            })
+          });
         }
     };
 };
