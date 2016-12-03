@@ -36,7 +36,7 @@ mixin tasks-table(tasks)
                         td
                             if (task.status === "Open")
                                 span.label.label-default
-                                    a(href="/tasks/status/" + task.status) #{task.status}
+                                    a(href="/tasks/status/" + task.status class="open") #{task.status}
                             else if (task.status === "Closed")
                                 span.label.label-danger
                                     a(href="/tasks/status/" + task.status) #{task.status}                                
@@ -45,7 +45,7 @@ mixin tasks-table(tasks)
                                     a(href="/tasks/status/" + task.status) #{task.status}                                
                             else if (task.status === "Reopened")
                                 span.label.label-default
-                                    a(href="/tasks/status/" + task.status) #{task.status}                                
+                                    a(href="/tasks/status/" + task.status class="open") #{task.status}                                
                             else if (task.status === "Waiting For")
                                 span.label.label-warning
                                     a(href="/tasks/status/" + task.status) #{task.status}                                
