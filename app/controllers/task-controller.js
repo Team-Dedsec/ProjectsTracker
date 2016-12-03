@@ -17,14 +17,17 @@ module.exports = function (data) {
                         user = req.user,
                         projectId = project,
                         comments = [];
-                        console.log("Task User");
-                        console.log(user);
-                    data.createTask(title, description, priority, user, assignee[0], projectId, comments).then(task => {
-                        project.tasks.push(task);
-                        project.save();
-                        req.flash("success_msg", "Added task with id: " + task._id);
-                        res.redirect(`/tasks/${task._id}`);
-                    });
+                    data.createTask(title, description, priority, user, assignee[0], projectId, comments)
+                        .then(task => {
+                            project.tasks.push(task);
+                            project.save();
+                            req.flash("success_msg", "Added task with id: " + task._id);
+                            res.redirect(`/tasks/${task._id}`);
+                        })
+                        .catch(err => {
+                            req.flash("error_msg", err.message);
+                            res.redirect("/");
+                        });
                 });
             });
         },
