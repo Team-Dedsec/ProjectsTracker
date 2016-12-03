@@ -1,5 +1,5 @@
 extends index
-
+include mixins
 block main
     #banner.page-header
         .row
@@ -18,7 +18,9 @@ block main
                     - var id = project.id;                
                     a.btn.btn-default(href='/projects/' + id + '/addUser') AddUser                        
                     a.btn.btn-default(href='/projects/' + id + '/createTask') AddTask  
-                        
+    if(tasks && tasks.length > 0)
+        .container
+            +tasks-table(tasks)
                     
         
   

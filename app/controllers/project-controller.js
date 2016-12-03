@@ -16,39 +16,49 @@ module.exports = function (data) {
             let description = req.body.description;
             let projectType = req.body.type;
             let leadUser = req.user;
-            data.createProject(title, description, leadUser, projectType).then((project) => {
-                res.redirect(`/projects/${project._id}`);
-            });
-        },
-        loadProject(req, res) {
-            console.log(req.params.name);
-            res.send("<h1>Pesho</h1>");
-        },
-        getProjectById(req, res) {            
-            if (!req.isAuthenticated()) {
-                data.getProjectById(req.params.id).then((project) => {
-                    if (project.isPrivate === true) {
-                        res.redirect("/login");
-                    }
-                    res.render("../views/project.pug", project);
+            data.createProject(title, description, leadUser, projectType)
+                .then((project) => {
+                    res.redirect(`/projects/${project._id}`);
+                })
+                .catch(err => {
+                    req.flash("error_msg", err.message);
+                    res.redirect("/");
                 });
-            }
-            data.getProjectById(req.params.id).then((project) => {
-                req.user.projectWorkingOnId = project;
-                console.log(req.user);
-                console.log(project);
-                res.render("../views/project.pug", { project, req });
-            });
-        },        
-        createTaskToProject(req, res){
+        },
+        getProjectById(req, res) {
+            let tasks;
+            let projectId = req.params.id;
+
+            return data.getTasksForProject(projectId)
+                .then(projectTasks => {
+                    tasks = projectTasks;
+                })
+                .then(() => {
+                    return data.getProjectById(projectId);
+                })
+                .then(project => {
+                    if (project.isPrivate === true && !req.isAuthenticated()) {
+                        req.flash("error_msg", "You must be logged in to see a private project!");
+                        res.redirect("/login");
+                        return;
+                    }
+                    req.user.projectWorkingOnId = project;
+                    res.render("project", { project, req, tasks });
+                })
+                .catch(err => {
+                    req.flash("error_msg", err.message);
+                    res.redirect("/");
+                });
+        },
+        createTaskToProject(req, res) {
             console.log("createTask");
-            console.log(req.params.id);                        
+            console.log(req.params.id);
             res.render("../views/create-task.pug");
         },
-        listUsersToAdd(req, res){
+        listUsersToAdd(req, res) {
             data.getAllUsers().then((users) => {
                 res.render("../views/userToAdd.pug", { users });
-            });            
+            });
         }
     };
 };

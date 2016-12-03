@@ -123,6 +123,19 @@ module.exports = function (models) {
                     }
                 );
             });
+        },
+        getTasksForProject(projectId) {
+            let query = { "projectId._id": projectId };
+            return new Promise((resolve, reject) => {
+                Task.find(query)
+                    .exec((err, tasks) => {
+                        if (err) {
+                            return reject(err);
+                        }
+
+                        return resolve(tasks);
+                    });
+            });
         }
     };
 };
