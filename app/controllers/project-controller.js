@@ -3,9 +3,15 @@
 module.exports = function (data) {
     return {
         viewAllProjects(req, res) {
-            data.getAllProjects().then((projects) => {
-                res.render("../views/projects.pug", { projects });
-            });
+            if (req.isAuthenticated() === false) {
+                data.getAllPublicProjects().then((projects) => {
+                    res.render("../views/projects.pug", { projects });
+                });
+            } else {
+                data.getAllProjects().then((projects) => {
+                    res.render("../views/projects.pug", { projects });
+                });
+            }
         },
         getRegister(req, res) {
             res.render("../views/create-project.pug", {});
