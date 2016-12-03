@@ -11,14 +11,12 @@ const ProjectSchema = new Schema({
     },
     description: {
         type: String,
-        //TODO: Change
         minLength: 10,
         maxLength: 100000
     },
     leadUser: {
         type: SimpleUserSchema,
-        ref: "User"
-        //required: true
+        ref: "User"        
     },
     isPrivate: {
         type: Boolean,

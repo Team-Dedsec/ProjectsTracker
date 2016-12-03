@@ -41,16 +41,16 @@ module.exports = function (models) {
                 });
             });
         },
-        deleteUser(id){
-          return new Promise((resolve, reject) => {
-            User.findOneAndRemove({_id: id}, (err)=>{
-              if (err) {
-                return reject(err);
-              }
+        deleteUser(id) {
+            return new Promise((resolve, reject) => {
+                User.findOneAndRemove({ _id: id }, (err) => {
+                    if (err) {
+                        return reject(err);
+                    }
 
-              return resolve();
-            })
-          });
+                    return resolve();
+                });
+            });
         },
         findUserByUsername(username) {
             return new Promise((resolve, reject) => {

@@ -42,15 +42,15 @@ module.exports = function (models) {
                 });
             });
         },
-        deleteTask(id){
+        deleteTask(id) {
             return new Promise((resolve, reject) => {
-              Task.findOneAndRemove({_id: id}, (err)=>{
-                if (err) {
-                  return reject(err);
-                }
+                Task.findOneAndRemove({ _id: id }, (err) => {
+                    if (err) {
+                        return reject(err);
+                    }
 
-                return resolve();
-              })
+                    return resolve();
+                });
             });
         },
         getAllTasks() {

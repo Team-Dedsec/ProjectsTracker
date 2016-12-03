@@ -10,7 +10,8 @@ module.exports = function (data) {
             data.findUserByUsername(req.params.name)
                 .then(foundUsers => {
                     let userInfo = foundUsers[0];
-                    res.render("../views/user-details.pug", { userInfo });
+                    let projects = foundUsers[0].projects;                    
+                    res.render("../views/user-details.pug", { userInfo, projects });
                 });
         },
         registerPage(req, res) {
@@ -94,7 +95,7 @@ module.exports = function (data) {
                         .map(user => {
                             return {
                                 username: user.username,
-                                 _id: user._id
+                                _id: user._id
                             };
                         });
 

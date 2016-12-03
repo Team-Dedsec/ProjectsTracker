@@ -10,9 +10,8 @@ let express = require("express"),
     flash = require("connect-flash-plus"),
     roles = require("./roles"),
     paginate = require("express-paginate"),
-    MongoDBStore = require("connect-mongodb-session")(session);
-
-let path = require("path");
+    MongoDBStore = require("connect-mongodb-session")(session),
+    path = require("path");
 
 module.exports = (app, config) => {
 
@@ -102,7 +101,7 @@ module.exports = (app, config) => {
     });
 
     // error handler
-    app.use((err, req, res, next) => {
+    app.use((err, req, res) => {
         // set locals, only providing error in development
         res.locals.message = err.message;
         if (req.app.get("env") === "development") {

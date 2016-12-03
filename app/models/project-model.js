@@ -16,14 +16,12 @@ let ProjectSchema = new Schema({
     },
     description: {
         type: String,
-        //TODO: Change
         minLength: 10,
         maxLength: 100000
     },
     leadUser: {
         type: SimpleUserSchema,
-        ref: "User"
-        //required: true
+        ref: "User"        
     },
     isPrivate: {
         type: Boolean,
@@ -32,15 +30,11 @@ let ProjectSchema = new Schema({
     users: [{ type: Schema.Types.ObjectId, ref: "User" }],
     tasks: [SimpleTaskSchema],
 },
-    {
-        timestamps: true
-    }
+    { timestamps: true }
 );
 
 ProjectSchema.query.byTitle = function(name) {
-    return this.find({
-        title: name
-    });
+    return this.find({ title: name });
 };
 
 ProjectSchema.plugin(mongoosePaginate);
