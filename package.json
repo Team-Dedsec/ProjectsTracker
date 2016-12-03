@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "start": "SET DEBUG=projectstracker:* & node server.js",
-    "postinstall": "bower install"
+    "postinstall": "bower install",
+    "test": "mocha \"Tests/tests-*/**/*.js\""
   },
   "dependencies": {
     "body-parser": "~1.15.2",
@@ -40,6 +41,9 @@
     "eslint": "3.10.2",
     "eslint-config-standard": "^6.2.1",
     "eslint-plugin-promise": "^3.4.0",
-    "eslint-plugin-standard": "^2.0.1"
+    "eslint-plugin-standard": "^2.0.1",
+    "chai": "^3.5.0",
+    "mocha": "^3.1.2",
+    "sinon": "^1.17.6"
   }
 }
