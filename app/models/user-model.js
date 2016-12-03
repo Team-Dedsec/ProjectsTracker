@@ -60,9 +60,9 @@ let UserSchema = new Schema({
         enum: roles,
         default: "user"
     },
-    projectWorkingOnId:[SimpleProjectSchema],
+    projects: [SimpleProjectSchema],
 
-    bugWorkingOnId: [SimpleTaskSchema],
+    tasks: [SimpleTaskSchema],
     resetPasswordToken: String,
     resetPasswordExpires: Date,
     imagePath: {

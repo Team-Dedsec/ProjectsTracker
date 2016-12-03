@@ -1,16 +1,19 @@
 extends index
-block main
-    .row
+block main    
         .list-group.col-lg-8.center-block
+         - var idProject = projectId
             each user in users
              - var id = user.id
-                a.list-group-item(href='user/' + id)
-                        h4.list-group-item-heading 
-                        | Username: #{user.username}
-                        p
-                        | Name: #{user.firstName}
-                        a.btn.btn-primary.btn-xs.(href='#') Add
-        
+                .row
+                    li.list-group-item.col-lg-6
+                            h4.list-group-item-heading 
+                                | Username: #{user.username}
+                            p
+                                | Name: #{user.firstName}
+                            form(action='/projects/' + idProject + '/addUser/' + id method="post")
+                                    input.btn.btn-primary.btn-xs.col-lg-2(type="submit" value="Add")                                    
+                                    input(type='hidden', name='_csrf', value=_csrf)
 
-
-    
+                                    
+                            a.btn.btn-primary.btn-xs.col-lg-2(href='/user/' + id) Info
+                            

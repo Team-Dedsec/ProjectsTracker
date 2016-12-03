@@ -8,5 +8,7 @@ module.exports = function (server, controller) {
     server.get("/settings/users", user.can("access admin page"), controller.viewSettingsAllUsers);
     server.get("/settings/projects", user.can("access admin page"), controller.viewSettingsAllProjects);
     server.get("/settings/tasks", user.can("access admin page"), controller.viewSettingsAllTasks);
-    server.post("/settings/users/delete/:id", controller.deleteUserById);
+    server.get("/settings/users/delete/:id", controller.deleteUserById);
+    server.get("/settings/projects/delete/:id", controller.deleteProjectById);
+    server.get("/settings/tasks/delete/:id", controller.deleteTaskById);
 };

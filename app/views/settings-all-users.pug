@@ -28,6 +28,10 @@ block main
                             td  #{user.fullName}
                             td  #{user.role}
                             td
-                                a(href="#") | Edit
-                                a(href="#") | Delete
+                                form(action="/settings/users/user._id" method="put")
+                                    input.btn.btn-primary.btn-xs(type='submit' value="Edit")
+                                    input(type='hidden', name='_csrf', value=_csrf)
+                                form(action="/settings/users/delete/"+ user._id method="delete")
+                                    input.btn.btn-primary.btn-xs(type='submit' value="Delete")
+                                    input(type='hidden', name='_csrf', value=_csrf)
 include paginate

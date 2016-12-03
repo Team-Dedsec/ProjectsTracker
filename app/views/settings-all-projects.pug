@@ -28,9 +28,14 @@ block main
                             td  #{project.updatedAt}
                             td
                                 each task in project.tasks
-                                    | Title: #{task.title} 
+                                    | Title: #{task.title}
                             td  #{project.userContributetTo}
                             td
-                                a(href="#") | Edit
-                                a(href="#") | Delete
+                                form(action="/settings/projects/project._id" method="put")
+                                    input.btn.btn-primary.btn-xs(type='submit' value="Edit")
+                                    input(type='hidden', name='_csrf', value=_csrf)
+                                form(action="/settings/projects/delete/"+ project._id method="delete")
+                                    input.btn.btn-primary.btn-xs(type='submit' value="Delete")
+                                    input(type='hidden', name='_csrf', value=_csrf)
+
 include paginate
