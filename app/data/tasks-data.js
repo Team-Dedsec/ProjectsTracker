@@ -15,8 +15,8 @@ module.exports = function (models) {
             let createdDate = Date.now(),
                 updatedDate = Date.now(),
                 dueDate = addDays(Date.now(), 14),
-                reporter = { username: user.fullName, role: user.role },
-                assignee = { username: assigneeFull.fullName, role: assigneeFull.role };
+                reporter = { username: user.username, role: user.role },
+                assignee = { username: assigneeFull.username, role: assigneeFull.role };
 
             let task = new Task({
                 title,
