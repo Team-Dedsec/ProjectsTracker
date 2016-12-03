@@ -5,6 +5,7 @@ const mongoose = require("mongoose"),
     Schema = mongoose.Schema,
     SimpleUserSchema = require("./partial/simple-user-schema"),
     SimpleTaskSchema = require("./partial/task-schema");
+let mongoosePaginate = require("mongoose-paginate");
 
 let ProjectSchema = new Schema({
     title: {
@@ -27,7 +28,7 @@ let ProjectSchema = new Schema({
     isPrivate: {
         type: Boolean,
         required: true
-    },   
+    },
     userContributetTo: [{ type: Schema.Types.ObjectId, ref: "User" }],
     tasks: [SimpleTaskSchema],
 },
@@ -41,6 +42,8 @@ ProjectSchema.query.byTitle = function(name) {
         title: name
     });
 };
+
+ProjectSchema.plugin(mongoosePaginate);
 
 let Project;
 mongoose.model("Project", ProjectSchema);
