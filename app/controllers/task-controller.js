@@ -58,6 +58,11 @@ module.exports = function (data) {
                 res.render("../views/tasks.pug", { tasks });
             });
         },
+        findTasksByProject(req, res) {
+            return data.findTasksByProject(req.params.projectId).then((tasks) => {
+                res.render("../views/tasks.pug", { tasks });
+            });
+        },
         changeTaskStatus(req, res) {
             // TODO: check if user can change status
             let status = req.body.status;

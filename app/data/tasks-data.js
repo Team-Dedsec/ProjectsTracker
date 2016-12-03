@@ -124,6 +124,18 @@ module.exports = function (models) {
                     });
             });
         },
+        findTasksByProject(projectId) {
+            return new Promise((resolve, reject) => {
+                Task.find({ "projectId": { "_id": projectId } })
+                    .exec((err, tasks) => {
+                        if (err) {
+                            return reject(err);
+                        }
+
+                        return resolve(tasks);
+                    });
+            });
+        },
         findTasksByStatus(status) {
             return new Promise((resolve, reject) => {
                 Task.find({ "status": status })

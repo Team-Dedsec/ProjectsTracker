@@ -5,6 +5,7 @@ module.exports = (server, controller, isAuthenticated) => {
     server.get("/tasks/reporter/:username", isAuthenticated, controller.findTasksByReporter);
     server.get("/tasks/priority/:priority", isAuthenticated, controller.findTasksByPriority);
     server.get("/tasks/status/:status", isAuthenticated, controller.findTasksByStatus);
+    server.get("/tasks/project/:projectId", isAuthenticated, controller.findTasksByProject);
     server.get("/tasks/create", isAuthenticated, controller.getCreate);
     server.post("/tasks/create", isAuthenticated, controller.postTask);
     server.get("/tasks/edit/:id", isAuthenticated, controller.getEditTask);
