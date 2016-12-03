@@ -26,7 +26,9 @@ block main
                             td  #{project.isPrivate}
                             td  #{project.createdAt}
                             td  #{project.updatedAt}
-                            td  #{project.tasks}
+                            td
+                                each task in project.tasks
+                                    | Title: #{task.title} 
                             td  #{project.userContributetTo}
                             td
                                 a(href="#") | Edit

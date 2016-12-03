@@ -21,8 +21,13 @@ block main
                   tr
                     td  #{task.title}
                     td  #{task.priority}
-                    td  #{task.assignee}
-                    td  #{task.reporter}
+                    td
+                        | Username: #{task.assignee.username}
+                        | Role: #{task.assignee.role}
+                    td
+                        | Username: #{task.reporter.username}
+                        | Role: #{task.reporter.role}
+
                     td  #{task.status}
                     td
                         a(href="#") | Edit
