@@ -23,8 +23,9 @@ module.exports = function () {
                     }
 
                     req.flash("success_msg", "You have logged in successfully!");
-                    res.redirect("/profile");
-
+                    res.redirect(req.session.returnTo || "/profile");
+                    req.session.returnTo = null;
+                    // res.redirect("/profile");
                 });
             });
 

@@ -13,9 +13,9 @@ block main
                   - var url = project.id;
                         .panel-heading
                           h3.panel-title
-                            a(href="projects/" + url) #{project.title}
+                            a(href="/projects/" + url) #{project.title}
                         .panel-body
                           p #{project.description}
-                          a(href="/projects/modal").btn.btn-primary Read More
+                          a(href="/projects/" + url).btn.btn-primary Read More
         
 

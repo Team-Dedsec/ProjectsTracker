@@ -1,4 +1,7 @@
 /* globals $*/
+/* eslint-disable no-underscore-dangle*/
+/* eslint-disable prefer-arrow-callback */
+/* eslint-disable no-var */
 $(".ajax-user").autocomplete({
     serviceUrl: "/user",
     dataType: "json",
@@ -8,13 +11,9 @@ $(".ajax-user").autocomplete({
     showNoSuggestionNotice: true,
     noSuggestionNotice: "User not found! Try again.",
     transformResult: function(response) {
-        let users = $.map(response, function(user) {
+        var users = $.map(response, function(user) {
             return { value: user.username, data: user._id };
         });
         return { suggestions: users };
-    },
-    onSelect: function (suggestion) {
-        // TODO: add user data to form or delete the function entirely
-        console.log(suggestion);
     }
 });

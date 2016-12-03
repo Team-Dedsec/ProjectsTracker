@@ -11,6 +11,7 @@ module.exports = (server, userController, isAuthenticated) => {
     server.get("/register", userController.registerPage);
     server.post("/register", userController.createUser);
     server.get("/profile", isAuthenticated, userController.getProfile);
+    server.get("/profile/projects", isAuthenticated, userController.displayCurrentUserProjects);
 
     server.get("/admin", user.can("access admin page"), userController.admin);
     server.get("/forgot", userController.forgot);

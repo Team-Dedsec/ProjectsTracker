@@ -90,28 +90,19 @@ module.exports = function (models) {
             this.getProjectById(projectId).then(project => {
                 project.tasks.push(task);
             });
-        }    
+        },
+        getProjectsForUser(userId) {
+            let query = { "leadUser._id": userId };
+            return new Promise((resolve, reject) => {
+                Project.find(query)
+                    .exec((err, projects) => {
+                        if (err) {
+                            return reject(err);
+                        }
+
+                        return resolve(projects);
+                    });
+            });
+        }
     };
 };
-
-
-//  TODO:   createProject(title, description, leadUser, users, bugs) {
-//             let project = new Project({
-//                 title,
-//                 description,
-//                 leadUser,
-//                 users,
-//                 bugs
-//             });
-
-//             return new Promise((resolve, reject) => {
-//                 project.save((err) => {
-//                     if (err) {
-//                         console.log(err);
-//                         return reject(err);
-//                     }
-
-//                     return resolve(project);
-//                 });
-//             });
-//         }
