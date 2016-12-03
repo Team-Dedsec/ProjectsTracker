@@ -21,25 +21,37 @@ mixin tasks-table(tasks)
                             a(href="/tasks/" + task.id) #{task.title}
                         td
                             if (task.priority <= 3)
-                                span.label.label-danger #{task.priority}
+                                span.label.label-danger
+                                    a(href="/tasks/priority/" + task.priority) #{task.priority}
                             else if (task.priority <= 7)
-                                span.label.label-warning #{task.priority}
+                                span.label.label-warning
+                                    a(href="/tasks/priority/" + task.priority) #{task.priority}                                
                             else
-                                span.label.label-primary #{task.priority}
-                        td #{task.assignee.username}
-                        td #{task.reporter.username}
+                                span.label.label-primary
+                                    a(href="/tasks/priority/" + task.priority) #{task.priority}                                
+                        td
+                            a(href="/tasks/asignee/" + task.assignee.username) #{task.assignee.username}
+                        td 
+                            a(href="/tasks/reporter/" + task.reporter.username) #{task.reporter.username}
                         td
                             if (task.status === "Open")
-                                span.label.label-default #{task.status}
+                                span.label.label-default
+                                    a(href="/tasks/status/" + task.status) #{task.status}
                             else if (task.status === "Closed")
-                                span.label.label-danger #{task.status}
+                                span.label.label-danger
+                                    a(href="/tasks/status/" + task.status) #{task.status}                                
                             else if (task.status === "Resolved")
-                                span.label.label-success #{task.status}
+                                span.label.label-success
+                                    a(href="/tasks/status/" + task.status) #{task.status}                                
                             else if (task.status === "Reopened")
-                                span.label.label-default #{task.status}
+                                span.label.label-default
+                                    a(href="/tasks/status/" + task.status) #{task.status}                                
                             else if (task.status === "Waiting For")
-                                span.label.label-warning #{task.status}
+                                span.label.label-warning
+                                    a(href="/tasks/status/" + task.status) #{task.status}                                
                             else if (task.status === "Duplicate")
-                                span.label.label-danger #{task.status}
+                                span.label.label-danger
+                                    a(href="/tasks/status/" + task.status) #{task.status}                                
                             else if (task.status === "Need More Info")
-                                span.label.label-warning #{task.status}
+                                span.label.label-warning
+                                    a(href="/tasks/status/" + task.status) #{task.status}

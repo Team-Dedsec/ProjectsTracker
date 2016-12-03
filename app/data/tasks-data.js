@@ -77,6 +77,54 @@ module.exports = function (models) {
                     });
             });
         },
+        findTasksByAsignee(username) {
+            return new Promise((resolve, reject) => {
+                Task.find({ "assignee.username": username })
+                    .exec((err, tasks) => {
+                        if (err) {
+                            return reject(err);
+                        }
+
+                        return resolve(tasks);
+                    });
+            });
+        },
+        findTasksByReporter(username) {
+            return new Promise((resolve, reject) => {
+                Task.find({ "reporter.username": username })
+                    .exec((err, tasks) => {
+                        if (err) {
+                            return reject(err);
+                        }
+
+                        return resolve(tasks);
+                    });
+            });
+        },
+        findTasksByPriority(priority) {
+            return new Promise((resolve, reject) => {
+                Task.find({ "priority": priority })
+                    .exec((err, tasks) => {
+                        if (err) {
+                            return reject(err);
+                        }
+
+                        return resolve(tasks);
+                    });
+            });
+        },
+        findTasksByStatus(status) {
+            return new Promise((resolve, reject) => {
+                Task.find({ "status": status })
+                    .exec((err, tasks) => {
+                        if (err) {
+                            return reject(err);
+                        }   
+
+                        return resolve(tasks);
+                    });
+            });
+        },
         changeTaskStatus(taskId, status) {
             return new Promise((resolve, reject) => {
                 Task.update(

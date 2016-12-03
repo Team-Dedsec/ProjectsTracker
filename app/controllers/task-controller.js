@@ -35,6 +35,26 @@ module.exports = function (data) {
                     res.redirect("/");
                 });
         },
+        findTasksByAsignee(req, res) {
+            return data.findTasksByAsignee(req.params.username).then((tasks) => {
+                res.render("../views/tasks.pug", { tasks });
+            });
+        },
+        findTasksByReporter(req, res) {
+            return data.findTasksByReporter(req.params.username).then((tasks) => {
+                res.render("../views/tasks.pug", { tasks });
+            });
+        },
+        findTasksByPriority(req, res) {
+            return data.findTasksByPriority(req.params.priority).then((tasks) => {
+                res.render("../views/tasks.pug", { tasks });
+            });
+        },
+        findTasksByStatus(req, res) {
+            return data.findTasksByStatus(req.params.status).then((tasks) => {
+                res.render("../views/tasks.pug", { tasks });
+            });
+        },
         changeTaskStatus(req, res) {
             // TODO: check if user can change status
             let status = req.body.status;
