@@ -2,7 +2,7 @@
 const path = require("path");
 module.exports = function (server, data) {
     return {
-        singleUpload(req, res, next) {
+        singleUpload(req, res) {
             // let id = req.user._id;
             req.user.imagePath = path.join("../public/uploads", req.file.filename);
             let imageUser = req.user.imagePath;
@@ -13,7 +13,7 @@ module.exports = function (server, data) {
 
             res.redirect("/profile");
         },
-        multipleUpload(req, res, next) {
+        multipleUpload(req, res) {
             console.log(req.file);
             res.redirect("/");
         },

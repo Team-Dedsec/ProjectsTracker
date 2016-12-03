@@ -17,8 +17,8 @@ module.exports = function (data) {
                         user = req.user,
                         projectId = project,
                         comments = [];
-                        console.log("Task User");
-                        console.log(user);
+                    console.log("Task User");
+                    console.log(user);
                     data.createTask(title, description, priority, user, assignee[0], projectId, comments).then(task => {
                         project.tasks.push(task);
                         project.save();

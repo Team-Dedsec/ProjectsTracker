@@ -94,7 +94,7 @@ module.exports = function (data) {
                         .map(user => {
                             return {
                                 username: user.username,
-                                 _id: user._id
+                                _id: user._id
                             };
                         });
 

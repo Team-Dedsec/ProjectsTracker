@@ -1,7 +1,7 @@
 /* globals require module */
 const Schema = require("mongoose").Schema;
 
-const TaskSchema = new Schema({    
+const TaskSchema = new Schema({
     title: {
         type: String,
         required: true,

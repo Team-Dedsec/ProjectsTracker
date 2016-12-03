@@ -11,16 +11,9 @@ const SimpleProjectSchema = require("./partial/simple-project-schema");
 const SimpleTaskSchema = require("./partial/task-schema");
 
 let UserSchema = new Schema({
-    facebookId:{
-      type: String
-    },
-    githubId:{
-      type: String
-    },
-    firstName: {
-        type: String,
-        required: true
-    },
+    facebookId: { type: String },
+    githubId: { type: String },
+    firstName: { type: String, required: true },
     lastName: {
         type: String,
         required: true
@@ -66,8 +59,8 @@ let UserSchema = new Schema({
     resetPasswordToken: String,
     resetPasswordExpires: Date,
     imagePath: {
-      type: String,
-      default: "../public/uploads/default.png"
+        type: String,
+        default: "../public/uploads/default.png"
     }
 });
 
@@ -94,25 +87,22 @@ UserSchema.statics.validatePassword = function (password) {
     }
 };
 
-UserSchema.statics.generateHash = function (password) {
+UserSchema.statics.generateHash = function(password) {
     return passHasher.saltThenHash(password);
 };
 
-UserSchema.statics.generateCryptoString = function (length) {
+UserSchema.statics.generateCryptoString = function(length) {
     return passHasher.randomCryptoString(length);
 };
 
-UserSchema.statics.findOrCreate = function findOrCreate(profile, cb) {
-    var userObj = new this();
-    this.findOne({
-        id: profile.id
-    }, function (err, result) {
-        if (!result) {
-            userObj.username = profile.displayName;
-            //....
-            userObj.save(cb);
-        } else {
+UserSchema.statics.findOrCreate = function(profile, cb) {
+    let userObj = new this();
+    this.findOne({ id: profile.id }, (err, result) => {
+        if (result) {
             cb(err, result);
+        } else {
+            userObj.username = profile.displayName;
+            userObj.save(cb);            
         }
     });
 };
