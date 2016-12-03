@@ -1,7 +1,7 @@
 extends profile
 
 block main
-      .col-lg-4.col-md-4.col-sm-2
+      .col-lg-4.col-md-4
         h1 Upload file here(.png, jpeg ):
           form(action="/profile/uploadfile?_csrf=" + _csrf  enctype="multipart/form-data" method="post")
             input.form-control.btn.btn-success(type="file" name="photo" placeholder="Choose from file" accept="image/*" required)

@@ -17,7 +17,7 @@ block main
                 a.btn.btn-default(href='#')
                     |  Reassign
             .col-sm-1
-                .col-sm-6
+                .col-lg-6
                     form(action="/tasks/" + _id + "/change-status" method="post")
                         input(type='hidden', name='_csrf', value=_csrf)
                         .btn-group
