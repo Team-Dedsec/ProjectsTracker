@@ -148,11 +148,17 @@ module.exports = function (models) {
                     });
             });
         },
-        changeTaskStatus(taskId, status) {
+        changeTaskStatus(taskId, newStatus) {
             return new Promise((resolve, reject) => {
+                let newDate = Date.now();
                 Task.update(
                     { _id: taskId },
-                    { $set: { status } },
+                    {
+                        $set: {
+                            status: newStatus,
+                            updatedDate: newDate
+                        }
+                    },
                     { safe: true, upsert: true, runValidators: true })
                     .exec((err) => {
                         if (err) {
@@ -210,13 +216,15 @@ module.exports = function (models) {
         },
         editTask(taskId, params) {
             return new Promise((resolve, reject) => {
+                let newDate = Date.now();
                 Task.update(
                     { _id: taskId },
                     {
                         $set: {
                             title: params.title,
                             description: params.description,
-                            priority: params.priority
+                            priority: params.priority,
+                            updatedDate: newDate
                         }
                     },
                     { safe: true, upsert: true, runValidators: true })
@@ -232,12 +240,20 @@ module.exports = function (models) {
         },
         reassign(taskId, assignee) {
             return new Promise((resolve, reject) => {
+                let newDate = Date.now();
                 let newAssignee = {
                     username: assignee.username,
                     role: assignee.role
                 };
 
-                Task.update({ _id: taskId }, { $set: { assignee: newAssignee } },
+                Task.update(
+                    { _id: taskId },
+                    {
+                        $set: {
+                            assignee: newAssignee,
+                            updatedDate: newDate
+                        }
+                    },
                     { safe: true, upsert: true, runValidators: true })
                     .exec((err) => {
                         if (err) {
