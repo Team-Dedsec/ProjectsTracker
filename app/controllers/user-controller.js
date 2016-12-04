@@ -64,8 +64,8 @@ module.exports = function (data) {
                     req.flash("successMessage", `An e-mail has been sent to ${options.to} with further instructions.`);
                     res.redirect("/");
                 })
-                .catch((err) => {
-                    res.render("error", err);
+                .catch((error) => {
+                    res.render("error", { error, message: error.message });
                 });
         },
         showResetPassword(req, res) {

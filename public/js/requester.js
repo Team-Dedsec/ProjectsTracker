@@ -1,4 +1,4 @@
-/* globals $ Promise */
+/* globals JSON */
 "use strict";
 let requester = {
     getInstance: function($) {

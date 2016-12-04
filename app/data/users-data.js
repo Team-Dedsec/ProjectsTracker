@@ -112,6 +112,12 @@ module.exports = function (models) {
                         console.log(err);
                         reject(err);
                     }
+
+                    if (!user) {
+                        reject(new Error("Invalid email address!"));
+                        return;
+                    }
+
                     user.resetPasswordToken = token;
                     let futureTime = constants.passwordResetExpirationInHours * 1000 * 60 * 60;
                     user.resetPasswordExpires = Date.now() + futureTime;

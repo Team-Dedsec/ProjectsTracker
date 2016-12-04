@@ -28,7 +28,7 @@ The application is hosted in the following domains:
     $ npm install
     
 ## Local Start
-    $ node server
+    $ npm start
 
 ## Usage
 
@@ -61,7 +61,7 @@ Only Users with Role: admin can edit or delete data in this application in Setti
 
 ## Test
 
-Tests cover JSONrequester.js and task-data.js
+Tests cover requester.js and task-controller.js
 
 #### Run Tests
     $ npm install --only=dev
