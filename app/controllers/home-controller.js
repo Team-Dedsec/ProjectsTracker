@@ -41,10 +41,10 @@ module.exports = function (data) {
                 data.searchProjects(searchTerm)
                     .then(dbProjects => {
                         let projects;
-                        if (!req.isAuthenticated()) {
-                            projects = dbProjects.filter(pr => !pr.isPrivate);
-                        } else {
+                        if (req.isAuthenticated()) {
                             projects = dbProjects;
+                        } else {
+                            projects = dbProjects.filter(pr => !pr.isPrivate);
                         }
                         res.render("projects", { projects });
                     })

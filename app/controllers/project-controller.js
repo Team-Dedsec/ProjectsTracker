@@ -73,7 +73,7 @@ module.exports = function (data) {
                 res.render("../views/userToAdd.pug", { users, projectId });
             });
         },
-        addUserToProject(req, res){
+        addUserToProject(req, res) {
             data.getProjectById(req.params.id).then((project) => {
                 data.findUserById(req.params.userId).then((user) => {
                     user.projectWorkingOnId.push(project);
