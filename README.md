@@ -23,6 +23,7 @@ This is a simple project managment system that allows you to have a better view 
 The application is hosted in the following domains:
 - <a href="https://dedsec.herokuapp.com/">Heroku Link 1</a>
 - <a href="https://project-tracker-team-dedsec.herokuapp.com/">Heroku Link 2</a>
+- <a href="https://www.youtube.com/watch?v=h4Ky2AGr1nU">Simple demo</a>
 
 ## Local Install
     $ npm install
