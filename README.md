@@ -32,32 +32,67 @@ The application is hosted in the following domains:
 
 ## Usage
 
+#### Register
+
+Before using ProjectsTracker, you must register in the application.
+In the navigation bar follow up SignUp registration form.
+
+#### Login
+
+If you have not already register, you can log with your Facebook or GitHub account.
+Follow up the Login page to see available options.
+
+- Local login
+- Login with Facebook account
+- Login with GitHub account
+
 #### Create Project
 
-Before using ProjectsTracker, you must register in the application. 
-If you have not already done so, you can log with your Facebook or GitHub account.
+ Every user in this app can create project and automatically sets him as Lead user for the project.
+ In every project Lead User can:
+ 
+ - add tasks to other members of the current project
+ - add users to current project
 
 #### Create Task
 
 You can create tasks in your application and add other users to your project.
 For each task you can set priority and additional information to the encountered problem.
 
-#### AddComments to Tasks
+Lead User can:
 
-You can add comment for every task.
+- change users contributed to current task
+
+#### Add Comments to Task
+
+Users can:
+- add comment for every task.
+- delete comment
 
 ## Application public part
 
-Everyone can see information about current projects in this app, but can not create projects and tasks until it's not logged in the app.
+Everyone can see information about current projects which are set to be public in this app and also basic information for all users.
+Visitors cannot create projects and tasks until it's not logged in the app.
 
 ## Application private part
 
 Only LeadUser can add tasks.
 Only Users with Role: admin can edit or delete data in this application in Settings menu.
+Admin can delete:
+
+- projects
+- tasks
+- users
+
+## Database
+
+We are using mongoDb with mongoose.
 
 ## FAQ
 
 ##### How can I re-ask for forgotten password?
+
+In login page click the forgot password link, enter your e-mail we will send automatically information to change your password.
 
 ## Test
 
