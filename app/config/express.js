@@ -103,7 +103,8 @@ module.exports = (app, config) => {
     });
 
     // error handler
-    app.use((err, req, res) => {
+    // noinspection Eslint - next parameter is required
+    app.use((err, req, res, next) => {
         // set locals, only providing error in development
         res.locals.message = err.message;
         if (req.app.get("env") === "development") {
