@@ -72,10 +72,10 @@ block content
                                 li
                                     a(href="/tasks/reporter/" + user.username)
                                         | My Tasks
-                        li
-                            a(href="/logout")
-                                span.glyphicon.glyphicon-log-out
-                                |  Log Out
+                                li
+                                    a(href="/logout")
+                                        span.glyphicon.glyphicon-log-out
+                                        |  Log Out
                             if(user && user.is && user.is("admin"))
                                 include admin
     .container
