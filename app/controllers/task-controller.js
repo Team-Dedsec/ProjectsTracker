@@ -62,7 +62,7 @@ module.exports = function (data) {
             });
         },
         findTasksByProject(req, res) {
-            return data.findTasksByProject(req.params.projectId).then((tasks) => {
+            return data.getTasksForProject(req.params.projectId).then((tasks) => {
                 res.render("../views/tasks.pug", { tasks });
             });
         },
