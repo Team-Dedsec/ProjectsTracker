@@ -21,11 +21,11 @@ module.exports = function (data) {
                         .then(task => {
                             project.tasks.push(task);
                             project.save();
-                            req.flash("success_msg", `Added task with id: ${task._id}`);
+                            req.flash("successMessage", `Added task with id: ${task._id}`);
                             res.redirect(`/tasks/${task._id}`);
                         })
                         .catch(err => {
-                            req.flash("error_msg", err.message);
+                            req.flash("errorMessage", err.message);
                             res.redirect("/");
                         });
                 });
@@ -37,7 +37,7 @@ module.exports = function (data) {
                     res.render("task-details", task);
                 })
                 .catch(err => {
-                    req.flash("error_msg", err.message);
+                    req.flash("errorMessage", err.message);
                     res.redirect("/");
                 });
         },
@@ -74,7 +74,7 @@ module.exports = function (data) {
                     res.redirect(`/tasks/${taskId}`);
                 })
                 .catch(() => {
-                    req.flash("error_msg", "Invalid task status!");
+                    req.flash("errorMessage", "Invalid task status!");
                     res.redirect(`/tasks/${taskId}`);
                 });
         },
@@ -84,11 +84,11 @@ module.exports = function (data) {
             let taskId = req.params.id;
             return data.addCommentToTask(taskId, content, user)
                 .then(() => {
-                    req.flash("success_msg", "Comment added successfully!");
+                    req.flash("successMessage", "Comment added successfully!");
                     res.redirect(`/tasks/${taskId}`);
                 })
                 .catch(err => {
-                    req.flash("error_msg", err.message);
+                    req.flash("errorMessage", err.message);
                     res.redirect("/");
                 });
         },
@@ -97,11 +97,11 @@ module.exports = function (data) {
             let taskId = req.params.id;
             return data.deleteComment(commentId, taskId)
                 .then(() => {
-                    req.flash("success_msg", "Comment removed successfully!");
+                    req.flash("successMessage", "Comment removed successfully!");
                     res.redirect(`/tasks/${taskId}`);
                 })
                 .catch(err => {
-                    req.flash("error_msg", err.message);
+                    req.flash("errorMessage", err.message);
                     res.redirect("/");
                 });
         },
@@ -114,11 +114,11 @@ module.exports = function (data) {
             let taskId = req.params.id;
             return data.editTask(taskId, req.body)
                 .then(() => {
-                    req.flash("success_msg", "Task edited successfully!");
+                    req.flash("successMessage", "Task edited successfully!");
                     res.redirect(`/tasks/${taskId}`);
                 })
                 .catch(() => {
-                    req.flash("error_msg", "Invalid task parameters!");
+                    req.flash("errorMessage", "Invalid task parameters!");
                     res.redirect(`/tasks/${taskId}`);
                 });
         },
@@ -134,11 +134,11 @@ module.exports = function (data) {
                         return data.reassign(taskId, assignee[0]);
                     })
                     .then(() => {
-                        req.flash("success_msg", "Assignee changed successfully!");
+                        req.flash("successMessage", "Assignee changed successfully!");
                         res.redirect(`/tasks/${taskId}`);
                     })
                     .catch(() => {
-                        req.flash("error_msg", "Invalid assignee!");
+                        req.flash("errorMessage", "Invalid assignee!");
                         res.redirect(`/tasks/${taskId}`);
                     });
         }

@@ -12,7 +12,7 @@ module.exports = function () {
                 }
 
                 if (!user) {
-                    req.flash("error_msg", "Invalid username or password!");
+                    req.flash("errorMessage", "Invalid username or password!");
                     res.redirect("/login");
                 }
 
@@ -22,7 +22,7 @@ module.exports = function () {
                         return;
                     }
 
-                    req.flash("success_msg", "You have logged in successfully!");
+                    req.flash("successMessage", "You have logged in successfully!");
                     res.redirect(req.session.returnTo || "/profile");
                     req.session.returnTo = null;
                     // res.redirect("/profile");
@@ -33,7 +33,7 @@ module.exports = function () {
         },
         externalLoginSuccess(req, res) {
             // Successful authentication, redirect home.
-            req.flash("success_msg", "You have logged in successfully!");
+            req.flash("successMessage", "You have logged in successfully!");
             res.redirect("/profile");
         },
         logout(req, res) {

@@ -31,7 +31,7 @@ module.exports = function (data) {
                     return res.redirect(`/user/${user.username}`);
                 })
                 .catch(err => {
-                    req.flash("error_msg", err.message);
+                    req.flash("errorMessage", err.message);
                     res.redirect("/register");
                 });
         },
@@ -61,7 +61,7 @@ module.exports = function (data) {
                     return smtpTransport.sendMail(mailOptions);
                 })
                 .then((options) => {
-                    req.flash("success_msg", `An e-mail has been sent to ${options.to} with further instructions.`);
+                    req.flash("successMessage", `An e-mail has been sent to ${options.to} with further instructions.`);
                     res.redirect("/");
                 })
                 .catch((err) => {
@@ -78,11 +78,11 @@ module.exports = function (data) {
 
             data.changeUserPassword(password, token)
                 .then(() => {
-                    req.flash("success_msg", "Your password has been successfully changed!");
+                    req.flash("successMessage", "Your password has been successfully changed!");
                     res.redirect("/login");
                 })
                 .catch(err => {
-                    req.flash("error_msg", err.message);
+                    req.flash("errorMessage", err.message);
                     res.redirect("/");
                 });
         },

@@ -38,8 +38,9 @@ block content
                         select.form-control#select(name="searchType")
                             option
                                 | Projects
-                            option
-                                | Tasks
+                            if(isAuthenticated())
+                                option
+                                    | Tasks
                             option
                                 | Users
                     button.btn.btn-danger.btn-sm(type='submit')
@@ -78,12 +79,12 @@ block content
                             if(user && user.is && user.is("admin"))
                                 include admin
     .container
-        if (success_msg.length > 0)
+        if (successMessage.length > 0)
             .row
-                div.alert.alert-success #{success_msg}
-        else if (error_msg.length > 0)
+                div.alert.alert-success #{successMessage}
+        else if (errorMessage.length > 0)
             .row
-                div.alert.alert-danger #{error_msg}
+                div.alert.alert-danger #{errorMessage}
         block main
 
     block footer

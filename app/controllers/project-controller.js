@@ -28,7 +28,7 @@ module.exports = function (data) {
                     res.redirect(`/projects/${project._id}`);
                 })
                 .catch(err => {
-                    req.flash("error_msg", err.message);
+                    req.flash("errorMessage", err.message);
                     res.redirect("/projects/create");
                 });
         },
@@ -45,7 +45,7 @@ module.exports = function (data) {
                 })
                 .then(project => {
                     if (project.isPrivate === true && !req.isAuthenticated()) {
-                        req.flash("error_msg", "You must be logged in to see a private project!");
+                        req.flash("errorMessage", "You must be logged in to see a private project!");
                         req.session.returnTo = req.path;
                         res.redirect("/login");
                         return;
@@ -58,7 +58,7 @@ module.exports = function (data) {
                     res.render("project", { project, req, tasks });
                 })
                 .catch(err => {
-                    req.flash("error_msg", err.message);
+                    req.flash("errorMessage", err.message);
                     res.redirect("/");
                 });
         },
@@ -93,7 +93,7 @@ module.exports = function (data) {
                     res.render("projects", { projects });
                 })
                 .catch(err => {
-                    req.flash("error_msg", err.message);
+                    req.flash("errorMessage", err.message);
                     res.redirect("/");
                 });
         }

@@ -4,7 +4,7 @@
 module.exports = function (data) {
     return {
         homePage(req, res) {
-            let options = { success_msg: req.flash("success_msg"), error_msg: req.flash("error_msg") };
+            let options = { successMessage: req.flash("successMessage"), errorMessage: req.flash("errorMessage") };
             res.render("home-page", { options });
         },
         search(req, res, next) {
@@ -22,6 +22,12 @@ module.exports = function (data) {
                     });
                 break;
             case "Tasks":
+                if (!req.isAuthenticated()) {
+                    req.flash("errorMessage", "You must be logged in to do that!");
+                    res.status(401).redirect("/login");
+                    return;
+                }
+
                 data.searchTasks(searchTerm)
                     .then(tasks => {
                         res.render("tasks", { tasks });
@@ -33,7 +39,13 @@ module.exports = function (data) {
                 break;
             case "Projects":
                 data.searchProjects(searchTerm)
-                    .then(projects => {
+                    .then(dbProjects => {
+                        let projects;
+                        if (!req.isAuthenticated()) {
+                            projects = dbProjects.filter(pr => !pr.isPrivate);
+                        } else {
+                            projects = dbProjects;
+                        }
                         res.render("projects", { projects });
                     })
                     .catch((err) => {
@@ -43,7 +55,7 @@ module.exports = function (data) {
                 break;
             default:
                 res.status(502);
-                throw new Error("Not implemented!");
+                throw new Error("Invalid search type!");
             }
         }
     };

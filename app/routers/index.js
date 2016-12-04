@@ -7,7 +7,7 @@ function isAuthenticated (req, res, next) {
         return next();
     }
 
-    req.flash("error_msg", "You must be logged in to do that!");
+    req.flash("errorMessage", "You must be logged in to do that!");
     req.session.returnTo = req.path;
     res.status(401).redirect("/login");
 }

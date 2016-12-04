@@ -1,6 +1,6 @@
-/* globals describe it beforeEach afterEach*/
-/* eslint-disable no-unused-expressions */
 /* eslint-disable max-lines */
+/* eslint-disable no-unused-expressions */
+/* globals describe it beforeEach afterEach*/
 // Note: ignore EINVAL error if running on node 7.1.0 - see https://github.com/nodejs/node/issues/9542
 "use strict";
 const chai = require("chai");
@@ -56,7 +56,7 @@ describe("ProjectsTracker/app/controllers/task-controller.js tests", () => {
         it("Expect addCommentToTask to flash success message and redirect to correct page", (done) => {
             controller.addCommentToTask(req, res)
                 .then(() => {
-                    expect(req.flash.calledWith("success_msg", "Comment added successfully!")).to.be.true;
+                    expect(req.flash.calledWith("successMessage", "Comment added successfully!")).to.be.true;
                     expect(res.redirect.calledWith(`/tasks/${req.params.id}`)).to.be.true;
                 })
                 .then(done, done);
@@ -69,7 +69,7 @@ describe("ProjectsTracker/app/controllers/task-controller.js tests", () => {
 
             controller.addCommentToTask(req, res)
                 .then(() => {
-                    expect(req.flash.calledWith("error_msg", message)).to.be.true;
+                    expect(req.flash.calledWith("errorMessage", message)).to.be.true;
                     expect(res.redirect.calledWith("/")).to.be.true;
                 })
                 .then(done, done);
@@ -104,7 +104,7 @@ describe("ProjectsTracker/app/controllers/task-controller.js tests", () => {
         it("Expect deleteCommentFromTask to flash success message and redirect to correct page", (done) => {
             controller.deleteCommentFromTask(req, res)
                 .then(() => {
-                    expect(req.flash.calledWith("success_msg", "Comment removed successfully!")).to.be.true;
+                    expect(req.flash.calledWith("successMessage", "Comment removed successfully!")).to.be.true;
                     expect(res.redirect.calledWith(`/tasks/${req.params.id}`)).to.be.true;
                 })
                 .then(done, done);
@@ -117,7 +117,7 @@ describe("ProjectsTracker/app/controllers/task-controller.js tests", () => {
 
             controller.deleteCommentFromTask(req, res)
                 .then(() => {
-                    expect(req.flash.calledWith("error_msg", message)).to.be.true;
+                    expect(req.flash.calledWith("errorMessage", message)).to.be.true;
                     expect(res.redirect.calledWith("/")).to.be.true;
                 })
                 .then(done, done);
@@ -164,7 +164,7 @@ describe("ProjectsTracker/app/controllers/task-controller.js tests", () => {
 
             controller.changeTaskStatus(req, res)
                 .then(() => {
-                    expect(req.flash.calledWith("error_msg", message)).to.be.true;
+                    expect(req.flash.calledWith("errorMessage", message)).to.be.true;
                     expect(res.redirect.calledWith(`/tasks/${req.params.id}`)).to.be.true;
                 })
                 .then(done, done);
@@ -215,7 +215,7 @@ describe("ProjectsTracker/app/controllers/task-controller.js tests", () => {
 
             controller.getTaskById(req, res)
                 .then(() => {
-                    expect(req.flash.calledWith("error_msg", message)).to.be.true;
+                    expect(req.flash.calledWith("errorMessage", message)).to.be.true;
                     expect(res.redirect.calledWith("/")).to.be.true;
                 })
                 .then(done, done);
@@ -482,7 +482,7 @@ describe("ProjectsTracker/app/controllers/task-controller.js tests", () => {
         it("Expect postEditTask to redirect to correct page with correct params", (done) => {
             controller.postEditTask(req, res)
                 .then(() => {
-                    expect(req.flash.calledWith("success_msg", "Task edited successfully!")).to.be.true;
+                    expect(req.flash.calledWith("successMessage", "Task edited successfully!")).to.be.true;
                     expect(res.redirect.calledWith(`/tasks/${req.params.id}`)).to.be.true;
                 })
                 .then(done, done);
@@ -495,7 +495,7 @@ describe("ProjectsTracker/app/controllers/task-controller.js tests", () => {
 
             controller.postEditTask(req, res)
                 .then(() => {
-                    expect(req.flash.calledWith("error_msg", message)).to.be.true;
+                    expect(req.flash.calledWith("errorMessage", message)).to.be.true;
                     expect(res.redirect.calledWith(`/tasks/${req.params.id}`)).to.be.true;
                 })
                 .then(done, done);
@@ -579,8 +579,8 @@ describe("ProjectsTracker/app/controllers/task-controller.js tests", () => {
         it("Expect postReassign to redirect to correct page with correct params", (done) => {
             controller.postReassign(req, res)
                 .then(() => {
-                    console.log(req.flash.calledWith("success_msg", "Assignee changed successfully!"));
-                    expect(req.flash.calledWith("success_msg", "Assignee changed successfully!")).to.be.true;
+                    console.log(req.flash.calledWith("successMessage", "Assignee changed successfully!"));
+                    expect(req.flash.calledWith("successMessage", "Assignee changed successfully!")).to.be.true;
                     expect(res.redirect.calledWith(`/tasks/${req.params.id}`)).to.be.true;
                 })
                 .then(done, done);
@@ -593,7 +593,7 @@ describe("ProjectsTracker/app/controllers/task-controller.js tests", () => {
 
             controller.postReassign(req, res)
                 .then(() => {
-                    expect(req.flash.calledWith("error_msg", message)).to.be.true;
+                    expect(req.flash.calledWith("errorMessage", message)).to.be.true;
                     expect(res.redirect.calledWith(`/tasks/${req.params.id}`)).to.be.true;
                 })
                 .then(done, done);
