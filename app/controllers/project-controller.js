@@ -50,7 +50,11 @@ module.exports = function (data) {
                         res.redirect("/login");
                         return;
                     }
-                    req.user.projectWorkingOnId = project;
+
+                    if (req.user) {
+                        req.user.projectWorkingOnId = project;
+                    }
+
                     res.render("project", { project, req, tasks });
                 })
                 .catch(err => {

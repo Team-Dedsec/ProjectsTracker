@@ -1,5 +1,6 @@
 /* globals describe it beforeEach afterEach*/
 /* eslint-disable no-unused-expressions */
+/* eslint-disable max-lines */
 // Note: ignore EINVAL error if running on node 7.1.0 - see https://github.com/nodejs/node/issues/9542
 "use strict";
 const chai = require("chai");
@@ -22,6 +23,7 @@ const req = {
     },
     user: { username: "Pesho123" }
 };
+
 const controller = require("../../app/controllers/task-controller")(data);
 
 describe("ProjectsTracker/app/controllers/task-controller.js tests", () => {
