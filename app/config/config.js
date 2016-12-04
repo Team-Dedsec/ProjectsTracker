@@ -17,7 +17,8 @@ module.exports = {
         port: process.env.PORT || 3001
     },
     mailOptions: {
-        service: "SendGrid",
+        host: "in-v3.mailjet.com",
+        port: 587,
         auth: {
             user: process.env.SENDGRID_USERNAME,
             pass: process.env.SENDGRID_PASSWORD
