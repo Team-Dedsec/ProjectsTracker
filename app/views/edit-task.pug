@@ -7,7 +7,7 @@ include index
                     h1 Edit Task
         .row
             .col-lg-10
-                form.form-horizontal(method="post")
+                form.form-horizontal(method="post" name="editTask")
                     input(type='hidden', name='_csrf', value=_csrf)
                     fieldset
                         legend Task Form
@@ -58,3 +58,7 @@ include index
                                 button.btn.btn-default(type='reset') Cancel
                                 |         
                                 button.btn.btn-primary(type='submit') Submit
+
+block scripts
+    script(src="/public/bower_components/jquery-validation/dist/jquery.validate.min.js")
+    script(src='/public/js/form-validation.js')

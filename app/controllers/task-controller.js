@@ -67,7 +67,6 @@ module.exports = function (data) {
             });
         },
         changeTaskStatus(req, res) {
-            // TODO: check if user can change status
             let status = req.body.status;
             let taskId = req.params.id;
             return data.changeTaskStatus(taskId, status)
@@ -80,7 +79,6 @@ module.exports = function (data) {
                 });
         },
         addCommentToTask(req, res) {
-            // TODO: check if user can add comment
             let content = req.body.content;
             let user = req.user.username;
             let taskId = req.params.id;
@@ -131,16 +129,18 @@ module.exports = function (data) {
         },
         postReassign(req, res) {
             let taskId = req.params.id;
-            return data.findUserByUsername(req.body.assignee).then(assignee => {
-                data.reassign(taskId, assignee[0]).then(() => {
-                    req.flash("success_msg", "Assignee changed successfully!");
-                    res.redirect(`/tasks/${taskId}`);
-                })
-                .catch(() => {
-                    req.flash("error_msg", "Invalid assignee!");
-                    res.redirect(`/tasks/${taskId}`);
-                });
-            });
+            return data.findUserByUsername(req.body.assignee)
+                    .then(assignee => {
+                        return data.reassign(taskId, assignee[0]);
+                    })
+                    .then(() => {
+                        req.flash("success_msg", "Assignee changed successfully!");
+                        res.redirect(`/tasks/${taskId}`);
+                    })
+                    .catch(() => {
+                        req.flash("error_msg", "Invalid assignee!");
+                        res.redirect(`/tasks/${taskId}`);
+                    });
         }
     };
 };

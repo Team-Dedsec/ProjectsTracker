@@ -31,7 +31,7 @@ block main
                                 form(action="/settings/users/user._id" method="put")
                                     input.btn.btn-primary.btn-xs(type='submit' value="Edit")
                                     input(type='hidden', name='_csrf', value=_csrf)
-                                form(action="/settings/users/delete/"+ user._id method="delete")
+                                form(action="/settings/users/delete/"+ user._id method="post")
                                     input.btn.btn-primary.btn-xs(type='submit' value="Delete")
                                     input(type='hidden', name='_csrf', value=_csrf)
 include paginate

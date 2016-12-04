@@ -34,7 +34,7 @@ block main
                                 form(action="/settings/projects/project._id" method="put")
                                     input.btn.btn-primary.btn-xs(type='submit' value="Edit")
                                     input(type='hidden', name='_csrf', value=_csrf)
-                                form(action="/settings/projects/delete/"+ project._id method="delete")
+                                form(action="/settings/projects/delete/"+ project._id method="post")
                                     input.btn.btn-primary.btn-xs(type='submit' value="Delete")
                                     input(type='hidden', name='_csrf', value=_csrf)
 

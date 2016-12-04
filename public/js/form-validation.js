@@ -1,31 +1,8 @@
 /* globals $ jQuery*/
 /* eslint-disable prefer-arrow-callback */
+/* eslint-disable no-var */
 $(function () {
-    jQuery.validator.addMethod("username", function(value) {
-        return (/^[A-Za-z0-9_. ]+$/).test(value);
-    });
-
-    jQuery.validator.addMethod("password", function(value) {
-        return (/^[A-Za-z0-9_.!@#$%^&*(){}:"<>?~|]+$/).test(value);
-    });
-
-    $("form[name='createProject']").validate({
-        rules: {
-            name: {
-                required: true,
-                rangelength: [2, 120]
-            },
-            description: {
-                required: true,
-                rangelength: [10, 10000]
-            }
-        },
-        submitHandler: function (form) {
-            form.submit();
-        }
-    });
-
-    $("form[name='createTask']").validate({
+    var taskOptions = {
         rules: {
             assignee: "required",
             description: {
@@ -52,7 +29,33 @@ $(function () {
         submitHandler: function (form) {
             form.submit();
         }
+    };
+    jQuery.validator.addMethod("username", function(value) {
+        return (/^[A-Za-z0-9_. ]+$/).test(value);
     });
+
+    jQuery.validator.addMethod("password", function(value) {
+        return (/^[A-Za-z0-9_.!@#$%^&*(){}:"<>?~|]+$/).test(value);
+    });
+
+    $("form[name='createProject']").validate({
+        rules: {
+            name: {
+                required: true,
+                rangelength: [2, 120]
+            },
+            description: {
+                required: true,
+                rangelength: [10, 10000]
+            }
+        },
+        submitHandler: function (form) {
+            form.submit();
+        }
+    });
+
+    $("form[name='createTask']").validate(taskOptions);
+    $("form[name='editTask']").validate(taskOptions);
 
     $("form[name='registerForm']").validate({
         rules: {
