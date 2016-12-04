@@ -21,7 +21,7 @@ let ProjectSchema = new Schema({
     },
     leadUser: {
         type: SimpleUserSchema,
-        ref: "User"        
+        ref: "User"
     },
     isPrivate: {
         type: Boolean,

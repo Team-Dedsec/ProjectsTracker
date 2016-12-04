@@ -7,7 +7,7 @@ const User = require("../../models/user-model");
 const FACEBOOK_APP_ID = "689681844527052";
 const FACEBOOK_APP_SECRET = "0cf13c235108aa1c9158d69914339168";
 
-module.exports = function(passport, data) {    
+module.exports = function(passport) {
     passport.use(new FacebookStrategy({
         clientID: FACEBOOK_APP_ID,
         clientSecret: FACEBOOK_APP_SECRET,

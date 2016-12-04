@@ -21,7 +21,7 @@ module.exports = function (data) {
                         .then(task => {
                             project.tasks.push(task);
                             project.save();
-                            req.flash("success_msg", "Added task with id: " + task._id);
+                            req.flash("success_msg", `Added task with id: ${task._id}`);
                             res.redirect(`/tasks/${task._id}`);
                         })
                         .catch(err => {

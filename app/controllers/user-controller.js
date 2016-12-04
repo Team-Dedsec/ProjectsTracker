@@ -10,7 +10,7 @@ module.exports = function (data) {
             data.findUserByUsername(req.params.name)
                 .then(foundUsers => {
                     let user = foundUsers[0];
-                    let projects = foundUsers[0].projects;                    
+                    let projects = foundUsers[0].projects;
                     res.render("../views/user-details.pug", { user, projects });
                 });
         },

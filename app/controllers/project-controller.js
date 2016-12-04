@@ -80,7 +80,7 @@ module.exports = function (data) {
                     project.userContributetTo.push(user);
                     console.log(user.projectWorkingOnId[0]);
                     res.redirect(`/projects/${req.params.id}/addUser`);
-                });               
+                });
             });
             console.log("params");
             console.log(req.params);

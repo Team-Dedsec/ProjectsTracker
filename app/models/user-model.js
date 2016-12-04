@@ -80,30 +80,28 @@ UserSchema.methods.comparePassword = function (password) {
     return this.password === passHasher.getHash(password, this.salt);
 };
 
-// TODO: Better way/spot to validate
 UserSchema.statics.validatePassword = function (password) {
     if (password.length < constants.passwordMinLength || !constants.passwordRegex.test(password)) {
         throw new Error("Password must be at least 6 characters long and can contain only the symbols A-Z, a-z, 0-9 and _.!@#$%^&*(){}:\"<>?~|");
     }
 };
 
-UserSchema.statics.generateHash = function(password) {
+UserSchema.statics.generateHash = function (password) {
     return passHasher.saltThenHash(password);
 };
 
-UserSchema.statics.generateCryptoString = function(length) {
+UserSchema.statics.generateCryptoString = function (length) {
     return passHasher.randomCryptoString(length);
 };
 
-UserSchema.statics.findOrCreate = function(profile, cb) {
+UserSchema.statics.findOrCreate = function (profile, cb) {
     let userObj = new this();
     this.findOne({ id: profile.id }, (err, result) => {
         if (result) {
-            cb(err, result);
-        } else {
-            userObj.username = profile.displayName;
-            userObj.save(cb);            
+            return cb(err, result);
         }
+        userObj.username = profile.displayName;
+        userObj.save(cb);
     });
 };
 

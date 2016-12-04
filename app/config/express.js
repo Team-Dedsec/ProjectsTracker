@@ -61,7 +61,6 @@ module.exports = (app, config) => {
         let token = req.csrfToken();
         res.cookie("XSRF-TOKEN", token);
         res.locals._csrf = token;
-        // res.locals._csrf = req.csrfToken();
         next();
     });
 
@@ -112,7 +111,7 @@ module.exports = (app, config) => {
         } else {
             res.locals.error = {};
         }
-        // render the error page
+
         res.status(err.status || 500);
         res.render("error");
     });

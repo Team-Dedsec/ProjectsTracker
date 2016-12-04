@@ -6,7 +6,7 @@ const GitHubStrategy = require("passport-github").Strategy,
     GITHUB_APP_ID = "55c2edeb759e577c87a5",
     GITHUB_APP_SECRET = "37665b312633363404bc52948ab23668cb4eda27";
 
-module.exports = function(passport, data) {
+module.exports = function(passport) {
     passport.use(new GitHubStrategy({
         clientID: GITHUB_APP_ID,
         clientSecret: GITHUB_APP_SECRET,

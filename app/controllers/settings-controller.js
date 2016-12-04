@@ -18,7 +18,7 @@ module.exports = function(data) {
         deleteTaskById(req, res) {
             data.deleteTask(req.params.id).then(() => res.redirect("/settings/tasks"));
         },
-        viewSettingsAllProjects(req, res) {
+        viewSettingsAllProjects(req, res, next) {
             Project.paginate({}, {
                 page: req.query.page,
                 limit: req.query.limit
@@ -45,7 +45,7 @@ module.exports = function(data) {
                 });
             });
         },
-        viewSettingsAllTasks(req, res) {
+        viewSettingsAllTasks(req, res, next) {
             Task.paginate({}, {
                 page: req.query.page,
                 limit: req.query.limit
