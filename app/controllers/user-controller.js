@@ -65,7 +65,8 @@ module.exports = function (data) {
                     res.redirect("/");
                 })
                 .catch((error) => {
-                    res.render("error", { error, message: error.message });
+                    req.flash("errorMessage", error.message);
+                    res.redirect("/forgot");
                 });
         },
         showResetPassword(req, res) {

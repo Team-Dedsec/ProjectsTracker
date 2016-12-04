@@ -19,8 +19,8 @@ module.exports = {
     mailOptions: {
         service: "SendGrid",
         auth: {
-            user: "TeamDedSec",
-            pass: "Itsareallysecurepasswordwhichshouldcomefromconfig1"
+            user: process.env.SENDGRID_USERNAME,
+            pass: process.env.SENDGRID_PASSWORD
         }
     }
 };
