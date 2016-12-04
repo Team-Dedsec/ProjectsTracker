@@ -229,15 +229,15 @@ describe("ProjectsTracker/app/controllers/task-controller.js tests", () => {
             req.flash = sinon.stub();
             res.redirect = sinon.stub();
             res.render = sinon.stub();
-            data.findTasksByProject = sinon.stub();
-            data.findTasksByProject.returns(Promise.resolve(tasks));
+            data.getTasksForProject = sinon.stub();
+            data.getTasksForProject.returns(Promise.resolve(tasks));
         });
 
         afterEach(() => {
             req.flash = null;
             res.render = null;
             res.redirect = null;
-            data.findTasksByProject = null;
+            data.getTasksForProject = null;
         });
 
         it("Expect findTasksByProject to exist and be a function.", () => {
@@ -245,10 +245,10 @@ describe("ProjectsTracker/app/controllers/task-controller.js tests", () => {
             expect(controller.findTasksByProject).to.be.a("function");
         });
 
-        it("Expect findTasksByProject to call data.findTasksByProject with correct params once.", () => {
+        it("Expect findTasksByProject to call data.getTasksForProject with correct params once.", () => {
             controller.findTasksByProject(req, res);
-            expect(data.findTasksByProject.calledOnce).to.be.true;
-            expect(data.findTasksByProject.calledWith(req.params.projectId)).to.be.true;
+            expect(data.getTasksForProject.calledOnce).to.be.true;
+            expect(data.getTasksForProject.calledWith(req.params.projectId)).to.be.true;
         });
 
         it("Expect findTasksByProject to redirect to correct page with correct params", (done) => {
