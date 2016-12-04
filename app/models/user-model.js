@@ -54,7 +54,6 @@ let UserSchema = new Schema({
         default: "user"
     },
     projects: [SimpleProjectSchema],
-
     tasks: [SimpleTaskSchema],
     resetPasswordToken: String,
     resetPasswordExpires: Date,

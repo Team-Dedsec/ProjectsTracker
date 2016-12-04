@@ -75,10 +75,12 @@ module.exports = function (data) {
         },
         addUserToProject(req, res) {
             data.getProjectById(req.params.id).then((project) => {
-                data.findUserById(req.params.userId).then((user) => {
-                    user.projectWorkingOnId.push(project);
-                    project.userContributetTo.push(user);
-                    console.log(user.projectWorkingOnId[0]);
+                data.findUserById(req.params.userId).then(user => {
+                    user.projects.push(project);
+                    project.users.push(user);
+                    console.log("ProjectWorkingOn");
+                    console.log(user.projects[0]);
+                    user.save();
                     res.redirect(`/projects/${req.params.id}/addUser`);
                 });
             });

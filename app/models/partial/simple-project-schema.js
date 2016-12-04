@@ -25,4 +25,3 @@ const ProjectSchema = new Schema({
 });
 
 module.exports = ProjectSchema;
-

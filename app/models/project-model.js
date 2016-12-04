@@ -27,8 +27,8 @@ let ProjectSchema = new Schema({
         type: Boolean,
         required: true
     },
-    users: [{ type: Schema.Types.ObjectId, ref: "User" }],
-    tasks: [SimpleTaskSchema],
+    users: [SimpleUserSchema],
+    tasks: [SimpleTaskSchema]
 },
     { timestamps: true }
 );

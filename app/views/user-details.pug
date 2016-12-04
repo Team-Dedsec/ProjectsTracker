@@ -20,7 +20,8 @@ block main
                         | LAST NAME: #{user.lastName}
                     p
                         | E-MAIL:
-                        a(href="#{user.email}") | #{user.email}
+                        a(href="#{user.email}") 
+                            | #{user.email}
         .row        
           each project in projects             
               .col-lg-6.col-md-7
