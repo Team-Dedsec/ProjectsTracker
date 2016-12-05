@@ -25,7 +25,6 @@ module.exports = function () {
                     req.flash("successMessage", "You have logged in successfully!");
                     res.redirect(req.session.returnTo || "/profile");
                     req.session.returnTo = null;
-                    // res.redirect("/profile");
                 });
             });
 

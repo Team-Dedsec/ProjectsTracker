@@ -14,6 +14,7 @@ let express = require("express"),
     path = require("path"),
     filter = require("content-filter");
 
+// eslint-disable-next-line
 module.exports = (app, config) => {
 
     app.use(bodyParser.json());
@@ -102,7 +103,7 @@ module.exports = (app, config) => {
     });
 
     // error handler
-    // noinspection Eslint - next parameter is required
+    // eslint-disable-next-line
     app.use((err, req, res, next) => {
         // set locals, only providing error in development
         res.locals.message = err.message;

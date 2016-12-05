@@ -1,11 +1,10 @@
 /* global require */
 "use strict";
 
+/* eslint-disable camelcase */
 const User = require("../models/user-model"),
     Task = require("../models/task-model"),
     Project = require("../models/project-model");
-    // paginate = require("express-paginate");
-
 
 module.exports = function(data) {
     return {

@@ -6,7 +6,7 @@ const user = new ConnectRoles({
         // user fails authorisation
         const accept = req.headers.accept || "";
         res.status(403);
-        if (~accept.indexOf("html")) {
+        if (accept.indexOf("html") >= 0) {
             let message = `You don't have permission to ${action}!`;
             let error = new Error(message);
             error.status = 403;

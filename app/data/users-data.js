@@ -58,11 +58,9 @@ module.exports = function (models) {
                     .byName(username)
                     .exec((err, user) => {
                         if (err) {
-                            console.log(err);
                             return reject(err);
                         }
 
-                        console.log(user);
                         return resolve(user);
                     });
             });
@@ -71,11 +69,9 @@ module.exports = function (models) {
             return new Promise((resolve, reject) => {
                 User.findById(id).exec((err, user) => {
                     if (err) {
-                        console.log(err);
                         return reject(err);
                     }
 
-                    // console.log(user);
                     return resolve(user);
                 });
             });
@@ -109,7 +105,6 @@ module.exports = function (models) {
             return new Promise((resolve, reject) => {
                 User.findOne({ email }, (err, user) => {
                     if (err) {
-                        console.log(err);
                         reject(err);
                     }
 
@@ -123,7 +118,6 @@ module.exports = function (models) {
                     user.resetPasswordExpires = Date.now() + futureTime;
                     user.save((error) => {
                         if (error) {
-                            console.log(error);
                             reject(error);
                         }
 

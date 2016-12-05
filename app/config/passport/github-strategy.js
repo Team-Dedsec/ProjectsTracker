@@ -13,7 +13,6 @@ module.exports = function(passport) {
         callbackURL: "https://dedsec.herokuapp.com/auth/github/callback"
     },
     (accessToken, refreshToken, profile, done) => {
-        console.log(typeof profile.id);
         User.findOne({ "githubId": profile.id },
         (err, user) => {
             if (err) {
@@ -22,18 +21,15 @@ module.exports = function(passport) {
             if (user) {
                 return done(null, user);
             }
-            console.log(profile);
             User.validatePassword(profile.id);
             let passInfo = User.generateHash(profile.id);
-            let passHash = passInfo.passwordHash;
-            let salt = passInfo.salt;
             let newUser = new User({
                 githubId: profile.id,
                 username: profile.username,
                 firstName: profile.displayName,
                 lastName: profile.displayName,
-                password: passHash,
-                salt,
+                password: passInfo.passwordHash,
+                salt: passInfo.salt,
                 email: profile.profileUrl,
                 role: "user"
             });
@@ -41,7 +37,6 @@ module.exports = function(passport) {
                 if (error) {
                     console.log(error.message);
                 }
-                console.log(newUser);
                 return done(null, newUser);
             });
         });

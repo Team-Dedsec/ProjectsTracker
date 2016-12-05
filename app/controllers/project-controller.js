@@ -17,7 +17,6 @@ module.exports = function (data) {
             res.render("../views/create-project.pug", {});
         },
         postProject(req, res) {
-            // console.log(req.user);
             let title = req.body.name;
             let description = req.body.description;
             let projectType = req.body.type;
@@ -63,8 +62,6 @@ module.exports = function (data) {
                 });
         },
         createTaskToProject(req, res) {
-            console.log("createTask");
-            console.log(req.params.id);
             res.render("../views/create-task.pug");
         },
         listUsersToAdd(req, res) {
@@ -78,15 +75,10 @@ module.exports = function (data) {
                 data.findUserById(req.params.userId).then(user => {
                     user.projects.push(project);
                     project.users.push(user);
-                    console.log("ProjectWorkingOn");
-                    console.log(user.projects[0]);
                     user.save();
                     res.redirect(`/projects/${req.params.id}/addUser`);
                 });
             });
-            console.log("params");
-            console.log(req.params);
-            console.log(req.body);
         },
         displayCurrentUserProjects(req, res) {
             let userId = req.user._id;

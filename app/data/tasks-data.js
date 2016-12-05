@@ -34,7 +34,6 @@ module.exports = function (models) {
             return new Promise((resolve, reject) => {
                 task.save((err) => {
                     if (err) {
-                        console.log(err);
                         return reject(err);
                     }
 

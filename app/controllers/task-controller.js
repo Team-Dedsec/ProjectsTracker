@@ -5,7 +5,6 @@ module.exports = function (data) {
             data.getAllTasks().then(tasks => res.render("../views/tasks.pug", { tasks }));
         },
         getCreate(req, res) {
-            console.log(req.body);
             res.render("../views/create-task.pug");
         },
         postTask(req, res) {

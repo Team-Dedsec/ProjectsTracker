@@ -25,7 +25,6 @@ module.exports = function (models) {
             return new Promise((resolve, reject) => {
                 project.save((err) => {
                     if (err) {
-                        console.log(err);
                         return reject(err);
                     }
 

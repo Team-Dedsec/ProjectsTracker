@@ -579,7 +579,6 @@ describe("ProjectsTracker/app/controllers/task-controller.js tests", () => {
         it("Expect postReassign to redirect to correct page with correct params", (done) => {
             controller.postReassign(req, res)
                 .then(() => {
-                    console.log(req.flash.calledWith("successMessage", "Assignee changed successfully!"));
                     expect(req.flash.calledWith("successMessage", "Assignee changed successfully!")).to.be.true;
                     expect(res.redirect.calledWith(`/tasks/${req.params.id}`)).to.be.true;
                 })

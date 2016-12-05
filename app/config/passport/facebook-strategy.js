@@ -41,7 +41,6 @@ module.exports = function(passport) {
                 if (error) {
                     console.log(error.message);
                 }
-                console.log(newUser);
                 return done(null, newUser);
             });
         });
