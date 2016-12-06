@@ -2,7 +2,7 @@
 "use strict";
 
 module.exports = function (models) {
-    let { Project } = models;
+    let {Project} = models;
 
     return {
         createProject(title, description, leadUser, type) {
@@ -44,7 +44,7 @@ module.exports = function (models) {
             });
         },
         getAllPublicProjects() {
-            let query = { "isPrivate": false };
+            let query = {"isPrivate": false};
             return new Promise((resolve, reject) => {
                 Project.find(query)
                     .exec((err, projects) => {
@@ -71,7 +71,7 @@ module.exports = function (models) {
         },
         getProjectById(id) {
             return new Promise((resolve, reject) => {
-                Project.findOne({ _id: id }, (err, project) => {
+                Project.findOne({_id: id}, (err, project) => {
                     if (err) {
                         return reject(err);
                     }
@@ -81,7 +81,7 @@ module.exports = function (models) {
             });
         },
         searchProjects(title) {
-            let query = { "title": new RegExp(`${title}`, "i") };
+            let query = {"title": new RegExp(`${title}`, "i")};
             return new Promise((resolve, reject) => {
                 Project.find(query)
                     .exec((err, projects) => {
@@ -104,7 +104,7 @@ module.exports = function (models) {
             });
         },
         getProjectsForUser(userId) {
-            let query = { "leadUser._id": userId };
+            let query = {"leadUser._id": userId};
             return new Promise((resolve, reject) => {
                 Project.find(query)
                     .exec((err, projects) => {
@@ -118,11 +118,25 @@ module.exports = function (models) {
         },
         deleteProject(id) {
             return new Promise((resolve, reject) => {
-                Project.findOneAndRemove({ _id: id }, (err) => {
+                Project.findOneAndRemove({_id: id}, (err) => {
                     if (err) {
                         return reject(err);
                     }
                     return resolve();
+                });
+            });
+        },
+        paginatedProjects(page, limit) {
+            return new Promise((resolve, reject) => {
+                Project.paginate({}, {
+                    page,
+                    limit
+                }, (err, projects) => {
+                    if (err) {
+                        return reject(err);
+                    }
+
+                    resolve(projects);
                 });
             });
         }

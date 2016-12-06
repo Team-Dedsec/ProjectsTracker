@@ -152,6 +152,19 @@ module.exports = function (models) {
                     });
                 });
             });
+        },
+        paginatedUsers(page, limit) {
+            return new Promise((resolve, reject) => {
+                User.paginate({}, {
+                    page,
+                    limit
+                }, (err, users) => {
+                    if (err) {
+                        return reject(err);
+                    }
+                    resolve(users);
+                });
+            });
         }
     };
 };

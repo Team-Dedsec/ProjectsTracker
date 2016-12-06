@@ -251,6 +251,19 @@ module.exports = function (models) {
                     }
                 );
             });
+        },
+        paginatedTasks(page, limit) {
+            return new Promise((resolve, reject) => {
+                Task.paginate({}, {
+                    page,
+                    limit
+                }, (err, tasks) => {
+                    if (err) {
+                        return reject(err);
+                    }
+                    resolve(tasks);
+                });
+            });
         }
     };
 };
