@@ -7,13 +7,13 @@ module.exports = {
         rootPath,
         db: {
             local: "mongodb://localhost/Projects",
-            cloud: process.env.DB_CONNECTION
+            cloud: "mongodb://pesho:pesho@ds163667.mlab.com:63667/projects-tracker-db"
         },
         port: process.env.PORT || 3001
     },
     production: {
         rootPath,
-        db: { cloud: process.env.DB_CONNECTION },
+        db: { cloud: "mongodb://pesho:pesho@ds163667.mlab.com:63667/projects-tracker-db" },
         port: process.env.PORT || 3001
     },
     mailOptions: {

@@ -67,22 +67,4 @@ mixin assigneeAutocomplete()
         label.col-lg-2.control-label(for='assignee') Assignee
         |       
         .col-lg-10
-            input#inputAssigneeName.form-control.ajax-user(placeholder='Assignee', type='text', name="assignee")
-
-mixin paginate(paginate)
-     if paginate.hasPreviousPages || paginate.hasNextPages(pageCount)
-       .navigation.well-sm#pagination
-         ul.pager
-           if paginate.hasPreviousPages
-             li.previous
-               a(href=paginate.href(true)).prev
-                 i.fa.fa-arrow-circle-left
-                 |  Previous
-           if pages
-             each page in pages
-               a.btn.pagination-lg.pagination-sm(href=page.url)= page.number
-           if paginate.hasNextPages(pageCount)
-             li.next
-               a(href=paginate.href()).next
-                 | Next&nbsp;
-                 i.fa.fa-arrow-circle-right
+            input#inputAssigneeName.form-control.ajax-user(placeholder='Assignee', type='text', name="assignee")         

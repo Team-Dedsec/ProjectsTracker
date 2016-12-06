@@ -2,29 +2,7 @@
 module.exports = function (data) {
     return {
         viewAllTasks(req, res) {
-            data.paginatedTasks() // .then(tasks => res.render("tasks", { tasks }));
-                .then(tasks => {
-                    res.format({
-                        html: () => {
-                            res.render("settings-all-tasks", {
-                                tasks: tasks.docs,
-                                pageCount: tasks.pages,
-                                itemCount: tasks.total,
-                                pages: res.locals.paginate.getArrayPages(3, tasks.pages, req.query.page)
-                            });
-                        },
-                        json: () => {
-                            res.json({
-                                object: "list",
-                                has_more: res.locals.paginate.hasNextPages(tasks.pages),
-                                data: tasks.docs
-                            });
-                        }
-                    });
-                })
-                .catch(err => {
-                    next(err);
-                });
+            data.getAllTasks().then(tasks => res.render("../views/tasks.pug", { tasks }));
         },
         getCreate(req, res) {
             res.render("../views/create-task.pug");
