@@ -23,7 +23,7 @@ module.exports = (app, config) => {
 
     let sessionStorage = new MongoDBStore(
         {
-            uri: config.db.cloud,
+            uri: config.db.local,
             collection: "userSessions"
         });
 

@@ -1,14 +1,25 @@
 "use strict";
 module.exports = function (data) {
     return {
-        viewAllTasks(req, res, next) {
-            data.paginatedTasks(req.query.page, req.query.limit) // .then(tasks => res.render("tasks", { tasks }));
+        viewAllTasks(req, res) {
+            data.paginatedTasks() // .then(tasks => res.render("tasks", { tasks }));
                 .then(tasks => {
-                    res.render("tasks", {
-                        tasks: tasks.docs,
-                        pageCount: tasks.pages,
-                        itemCount: tasks.total,
-                        pages: res.locals.paginate.getArrayPages(3, tasks.pages, req.query.page)
+                    res.format({
+                        html: () => {
+                            res.render("settings-all-tasks", {
+                                tasks: tasks.docs,
+                                pageCount: tasks.pages,
+                                itemCount: tasks.total,
+                                pages: res.locals.paginate.getArrayPages(3, tasks.pages, req.query.page)
+                            });
+                        },
+                        json: () => {
+                            res.json({
+                                object: "list",
+                                has_more: res.locals.paginate.hasNextPages(tasks.pages),
+                                data: tasks.docs
+                            });
+                        }
                     });
                 })
                 .catch(err => {
@@ -53,27 +64,27 @@ module.exports = function (data) {
         },
         findTasksByAsignee(req, res) {
             return data.findTasksByAsignee(req.params.username).then((tasks) => {
-                res.render("../views/tasks.pug", {tasks});
+                res.render("../views/tasks.pug", { tasks });
             });
         },
         findTasksByReporter(req, res) {
             return data.findTasksByReporter(req.params.username).then((tasks) => {
-                res.render("../views/tasks.pug", {tasks});
+                res.render("../views/tasks.pug", { tasks });
             });
         },
         findTasksByPriority(req, res) {
             return data.findTasksByPriority(req.params.priority).then((tasks) => {
-                res.render("../views/tasks.pug", {tasks});
+                res.render("../views/tasks.pug", { tasks });
             });
         },
         findTasksByStatus(req, res) {
             return data.findTasksByStatus(req.params.status).then((tasks) => {
-                res.render("../views/tasks.pug", {tasks});
+                res.render("../views/tasks.pug", { tasks });
             });
         },
         findTasksByProject(req, res) {
             return data.getTasksForProject(req.params.projectId).then((tasks) => {
-                res.render("../views/tasks.pug", {tasks});
+                res.render("../views/tasks.pug", { tasks });
             });
         },
         changeTaskStatus(req, res) {
@@ -140,17 +151,17 @@ module.exports = function (data) {
         postReassign(req, res) {
             let taskId = req.params.id;
             return data.findUserByUsername(req.body.assignee)
-                .then(assignee => {
-                    return data.reassign(taskId, assignee[0]);
-                })
-                .then(() => {
-                    req.flash("successMessage", "Assignee changed successfully!");
-                    res.redirect(`/tasks/${taskId}`);
-                })
-                .catch(() => {
-                    req.flash("errorMessage", "Invalid assignee!");
-                    res.redirect(`/tasks/${taskId}`);
-                });
+                    .then(assignee => {
+                        return data.reassign(taskId, assignee[0]);
+                    })
+                    .then(() => {
+                        req.flash("successMessage", "Assignee changed successfully!");
+                        res.redirect(`/tasks/${taskId}`);
+                    })
+                    .catch(() => {
+                        req.flash("errorMessage", "Invalid assignee!");
+                        res.redirect(`/tasks/${taskId}`);
+                    });
         }
     };
 };
