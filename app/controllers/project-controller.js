@@ -2,16 +2,28 @@
 "use strict";
 module.exports = function (data) {
     return {
-        viewAllProjects(req, res) {
-            if (req.isAuthenticated() === false) {
-                data.getAllPublicProjects().then((projects) => {
-                    res.render("../views/projects.pug", { projects });
+        viewAllProjects(req, res, next) {
+            // if (req.isAuthenticated() === false) {
+            //     data.getAllPublicProjects().then((projects) => {
+            //         res.render("../views/projects.pug", { projects });
+            //     });
+            // } else {
+            //     data.getAllProjects().then((projects) => {
+            //         res.render("../views/projects.pug", { projects });
+            //     });
+            // }
+            data.paginatedProjects(req.query.page, req.query.limit)
+                .then(projects => {
+                    res.render("projects", {
+                        projects: projects.docs,
+                        pageCount: projects.pages,
+                        itemCount: projects.total,
+                        pages: res.locals.paginate.getArrayPages(3, projects.pages, req.query.page)
+                    });
+                })
+                .catch(err => {
+                    next(err);
                 });
-            } else {
-                data.getAllProjects().then((projects) => {
-                    res.render("../views/projects.pug", { projects });
-                });
-            }
         },
         getRegister(req, res) {
             res.render("../views/create-project.pug", {});

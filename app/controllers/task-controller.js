@@ -2,7 +2,7 @@
 module.exports = function (data) {
     return {
         viewAllTasks(req, res, next) {
-            data.paginatedTasks(req.query.page, req.query.limit) // .then(tasks => res.render("tasks", { tasks }));
+            data.paginatedTasks(req.query.page, req.query.limit)
                 .then(tasks => {
                     res.render("tasks", {
                         tasks: tasks.docs,
