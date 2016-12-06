@@ -1,5 +1,5 @@
 extends index
-include mixins
+
 block main
     #banner.container
           .row
@@ -15,6 +15,4 @@ block main
                             h3.panel-title
                               a(href="/projects/" + url) #{project.title}
                           .panel-body
-                            p #{project.description}
-block pagination
-    +paginate(paginate)
+                            p #{project.description}        
